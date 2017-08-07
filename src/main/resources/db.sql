@@ -123,7 +123,7 @@ insert into groups(gname ,pid )
 select * from groups
 
 -----
-insert into power(powername,uid)
+insert into power (powername,uid)
 	values('管理员',1)
 select * from power
 
