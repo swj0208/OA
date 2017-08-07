@@ -9,7 +9,7 @@ public class IndexControllere {
 	
 	@RequestMapping(value="/index.action",method = RequestMethod.GET)
 	public String index(){
-		return "main";
+		return "login";
 	}
 
 }
