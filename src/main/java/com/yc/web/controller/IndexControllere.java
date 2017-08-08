@@ -16,6 +16,11 @@ public class IndexControllere {
 	public String toMain(){
 		return "main";
 	}
+	
+	@RequestMapping(value="/toAddUser.action",method = RequestMethod.GET)
+	public String toAddUser(){
+		return "../addUser";
+	}
 
 	
 }

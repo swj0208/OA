@@ -7,7 +7,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/beans.xml</param-value>
+		<param-value>/WEB-INF/beans*.xml</param-value>
 	</context-param>
 
 	<!-- 将表单中的rest风格的请求方法: put, delete,trace, 转换成标准的 spring 支持的方法. -->
