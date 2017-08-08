@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 根据小组id查询小组信息 -->
 	<select id="getGroupBygid" resultType="Group" parameterType="Group">
-		select gname,pid from group where gid = #{gid}
+		select gid,gname,pid from group where gid = #{gid}
 	</select>
 	
 
