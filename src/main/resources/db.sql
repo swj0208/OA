@@ -50,11 +50,11 @@ create table groups(
 alter table groups 
   add constraint fk_groups_plan
      foreign key(pid) references plan(pid);
+alter table groups drop foreign key fk_groups_plan
 
-
-drop table power
+drop table power;
 --权限表：编号、权限名、用户编号
-create table power(
+create table power (
 	powerid int primary key auto_increment,
 	powername VARCHAR(50),
 	uid int,
@@ -111,11 +111,13 @@ select * from plan
 ----
 
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
-	values('张三','12345678','男',null,now(),'13579246810','12345678@zs.com','12345678','1987-1-1','湖南','开发部','正常',1)
+	values('a','a','男',null,now(),'13579246810','12345678@zs.com','12345678','1987-1-1','湖南','开发部','正常',1)
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
 	values('wp','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
 	
+update users set upwd = "6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2";
 select * from users
+delete from users where uid = 4;
 
 -----
 insert into groups(gname ,pid )

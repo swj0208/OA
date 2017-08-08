@@ -32,7 +32,7 @@ $(function(){
 		$.ajax({
 			type:"POST",
 			data:$("#myform").serialize(),
-			url:"user_login.action",
+			url:"users_login.action",
 			dataType:"JSON",
 			success:function(data){
 				if(data.code== 1){
@@ -70,5 +70,3 @@ $(function(){
     </body>
 
 </html>
-
-    
