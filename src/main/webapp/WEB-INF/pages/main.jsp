@@ -35,7 +35,7 @@
 				</ul>
 			</div>
 			<div title="权限管理2" style="overflow: auto; padding: 10px;">
-				<ul id="userPowerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				<ul id="userpowerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 			
