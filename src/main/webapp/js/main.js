@@ -45,6 +45,7 @@ $(function() {
 		            	  }
 		              } ]
 	} ];
+	
 	var planTreeData = [ {
 		"text" : "任务管理",
 		"state" : "closed",
@@ -63,6 +64,7 @@ $(function() {
 
 		              } ]
 	} ];
+	
 	var userTreeData = [ {
 		"text" : "个人管理",
 		"state" : "closed",
@@ -73,6 +75,7 @@ $(function() {
 			} 
 			}]
 		} ];
+	
 		var powerTreeData = [ {
 			"text" : "权限中心",
 			"state" : "closed",
@@ -91,11 +94,6 @@ $(function() {
 
 					} ]
 		} ];
-
-	
-	});
-
-	
 	
 	var userpowerTreeData = [ {
 		"text" : "人员管理",
@@ -132,7 +130,7 @@ $(function() {
 	showTree("fileTree", fileTreeData);
 	showTree("powerTree", powerTreeData);
 	showTree("userpowerTree", userpowerTreeData);
-	
+});	
 function showTree(treeId, data) {
 	$("#" + treeId).tree({
 		data : data, // 将这里改成：url:"right.action" 这个地址会得到一个上面 treeData这样的字符串

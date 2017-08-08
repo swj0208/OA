@@ -47,4 +47,19 @@ public class UsersController {
 		return jsonModel;
 
 	}
+	
+	@RequestMapping("/users_add.action")
+	public JsonModel addUser(Users user, HttpServletRequest request, HttpSession session) {
+		JsonModel jm=new JsonModel();
+		try {
+			usersBiz.add(user);//添加时user中没有id,但是更新一定有
+			jm.setCode(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			jm.setCode(0);
+			jm.setMsg(e.getMessage());
+		}
+		return jm;
+
+	}
 }

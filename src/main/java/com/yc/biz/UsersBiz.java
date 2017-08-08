@@ -11,4 +11,6 @@ public interface UsersBiz {
 	 */
 	public Users login(Users users);
 	
+	public boolean add(Users users);
+	
 }

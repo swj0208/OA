@@ -4,8 +4,8 @@
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
-	/* $(function(){
-		//showNewsType();
+	/*  $(function(){
+		 showDepartment();
 		$("#addBtn").click(function(){
 			$.ajax({
 				type:"POST",
@@ -21,27 +21,26 @@
 				}
 			});
 		});
-	}); */
+	}); 
 	
-	/* function showNewsType(){
-		var url="back/newsType.action";
+	 function showDepartment(){
+		var url="department_findAll.action";
 		$.ajax({
 			type:"POST",
 			url:url,
 			data:"op=findAll&status=1",
 			dataType:"JSON",
 			success:function(data){
-				
 				str="";
 				for( var i=0;i<data.rows.length;i++){
 					var newstype=data.rows[i];
 					str+="<option value='"+newstype.tid+"'>"+newstype.tname+"</option>";
 				}
-				$("#tid").html(str);
+				$("#gid").html(str);
 			}
 		});
-	} */
-	
+	}
+	 */
 	function showUploadImg(obj,picid){
 		//判断浏览器是否支持FileReader接口
 		if(typeof FileReader=='undefined'){
@@ -81,19 +80,19 @@
 				加入时间:<input type="text" id=entrytime name="entrytime" class="easyui-datebox"/><br/>
 				联系电话: <input type="text" name="tel" id="tel"/><br/>
 				邮箱: <input type="text" name="email" id="email"/><br/>
-				邮箱: <input type="text" name="qq" id="qq"/><br/>
+				QQ: <input type="text" name="qq" id="qq"/><br/>
 				出生日期:<input type="text" name="birthday" id="birthday" class="easyui-datebox"/><br/>
 				家庭地址:<input type="text" name="address" id="address"/><br/>
-				<div>所属部门：
+				<!-- <div>所属部门：
 				<select class="text" name="department" id="department" onchange="onchangeDistrict(this.value)">
 										<option value=""></option>
 				</select> 		
 				所属小组：
 				<select class="text" name="gid" id="gid">	</select><br/>
-				</div>
-				状态:<select class="text" name="ustatus" id="ustatus">
-				</select><br/>
-				
+				</div> -->
+				<!-- 状态:<select class="text" name="ustatus" id="ustatus">
+				</select><br/> -->
+				<input type="submit" value="提交"/>
 			</div>
 		</form>
 	
