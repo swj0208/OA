@@ -82,6 +82,7 @@ public class JsonModel<T> implements Serializable {
 		this.rows = rows;
 	}
 
+
 	@Override
 	public String toString() {
 		return "JsonModel [code=" + code + ", msg=" + msg + ", obj=" + obj + ", total=" + total + ", pages=" + pages
