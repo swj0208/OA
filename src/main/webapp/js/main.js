@@ -1,21 +1,22 @@
 $(function() {
 		// 行政管理
-		var PoTreeData = [ {} ];
+		var PoTreeData = [ {
+		} ];
 		// 信息系统
-		var messageTreeData = [ {
+		var noticeTreeData = [ {
 			"text" : "信息管理",
 			"state" : "closed",
 			"children" : [
 					{
 						"text" : "发布消息",
 						"attributes" : {
-							"url" : "<iframe width='100%' height='100%' src='toAddMessage.action'/>"
+							"url" : "<iframe width='100%' height='100%' src='toAddNotice.action'/>"
 						}
 					},
 					{
 						"text" : "消息显示",
 						"attributes" : {
-							"url" : "<iframe width='100%' height='100%' src='toShowMessage.action'/>"
+							"url" : "<iframe width='100%' height='100%' src='toShowNotice.action'/>"
 						}
 					} ]
 		} ];
@@ -85,7 +86,7 @@ $(function() {
 		} ];
 
 		showTree("PoTree", PoTreeData);
-		showTree("messageTree", messageTreeData);
+		showTree("noticeTree", noticeTreeData);
 		showTree("planTree", planTreeData);
 		showTree("userTree", userTreeData);
 		showTree("fileTree", fileTreeData);

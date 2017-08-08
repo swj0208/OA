@@ -17,4 +17,8 @@ public class IndexControllere {
 		return "main";
 	}
 
+	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
+	public String toAddMessage(){
+		return "notice/AddNotice";
+	}
 }

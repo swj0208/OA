@@ -22,5 +22,5 @@
 <script type="text/javascript" src="easyui15/jquery.min.js"></script>
 <script type="text/javascript" src="easyui15/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="easyui15/jquery.edatagrid.js"></script>
-
+</head>
 
