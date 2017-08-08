@@ -2,20 +2,20 @@
 <%@ include file="header.jsp"%>
 <script type="text/javascript" src="js/main.js"></script>
 <title>OA在线办公系统欢迎您</title>
-</head>
+
 <body class="easyui-layout layout panel-noscroll">
 	<div data-options="region:'north'" style="height: 100px">top</div>
 	<div data-options="region:'south',split:true" style="height: 50px">button</div>
 	<div data-options="region:'east',split:true" title="East" style="width: 200px">right</div>
 	<div data-options="region:'west',split:true" title="West" style="width: 150px">
 		<!-- <div id="westpanel"></div> 使用panel-->
-		<div class="easyui-accordion" style="width: 500px; height: 300px;">
+		<div class="easyui-accordion" style="width: auto; height: 300px;">
 			<div title="行政管理" style="overflow: auto; padding: 10px;">
 				<ul id="PoTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 			<div title="信息系统" style="overflow: auto; padding: 10px;">
-				<ul id="messageTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				<ul id="noticeTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 			<div title="任务计划" style="overflow: auto; padding: 10px;">
