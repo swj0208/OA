@@ -1,6 +1,17 @@
 $(function() {
 		// 行政管理
-		var PoTreeData = [ {} ];
+		var PoTreeData = [ {
+			"text" : "待办事宜",
+			"state" : "closed",
+			"children" : [
+					{
+						"text" : "查看计划",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toShowPlan.action'/>"
+						}
+					}
+					]
+		} ];
 		// 信息系统
 		var messageTreeData = [ {
 			"text" : "信息管理",
