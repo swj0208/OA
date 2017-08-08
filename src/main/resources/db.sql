@@ -109,10 +109,11 @@ insert into plan(pname,content,timestart,timelimit,timeend,pstatus)
 select * from plan
 
 ----
+
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
 	values('张三','12345678','男',null,now(),'13579246810','12345678@zs.com','12345678','1987-1-1','湖南','开发部','正常',1)
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
-	values('李四','12345678','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
+	values('wp','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
 	
 select * from users
 

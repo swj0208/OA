@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="header.jsp" %>    
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
@@ -25,22 +26,46 @@
     </head>
 
     <body>
+<script  type="text/javascript">
+$(function(){
+	$("#inputbutton").click(function(){
+		$.ajax({
+			type:"POST",
+			data:$("#myform").serialize(),
+			url:"user_login.action",
+			dataType:"JSON",
+			success:function(data){
+				if(data.code== 1){
+					alert("登录成功！");
+					location.href="toMain.action";
+				}else{
+					alert("登录失败！原因"+data.msg);
+				}
+			}
+		});
+	});	
+});
+</script>
 
         <div class="page-container">
             <h1>Login</h1>
-            <form action="" method="post">
-                <input type="text" name="username" class="username" placeholder="Username">
-                <input type="password" name="password" class="password" placeholder="Password">
-                <button type="submit">Sign me in</button>
+            <form action="" method="post" id="myform">
+                <input type="text" name="uname" class="username" placeholder="Username">
+                <input type="password" name="upwd" class="password" placeholder="Password">
+				<input type="text"  name="zccode" id="zccode" placeholder="请输入验证码" style="font-size:14px; width:100px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img  src="image.jsp" onclick="changeVilidateCode(this)" border="0" title="点击图片刷新验证码" size="10"/>
+                <button type="button" id="inputbutton">Sign me in</button>
                 <div class="error"><span>+</span></div>
             </form>
         </div>
 
         <!-- Javascript -->
+
         <script src="assets/js/jquery-1.8.2.min.js"></script>
         <script src="assets/js/supersized.3.2.7.min.js"></script>
         <script src="assets/js/supersized-init.js"></script>
         <script src="assets/js/scripts.js"></script>
+       
 
     </body>
 

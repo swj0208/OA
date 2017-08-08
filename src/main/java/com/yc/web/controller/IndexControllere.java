@@ -12,4 +12,9 @@ public class IndexControllere {
 		return "login";
 	}
 
+	
+	@RequestMapping(value="/toMain.action",method = RequestMethod.GET)
+	public String toMain(){
+		return "main";
+	}
 }
