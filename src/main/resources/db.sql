@@ -38,6 +38,17 @@ create table users(
 
 
 drop table groups
+--部门
+create table department(
+	did int primary key auto_increment,
+	department varchar(50),
+	gid int,
+	temp1 VARCHAR(200),
+	temp2 VARCHAR(200)
+)
+drop table department;
+
+
 --小组编号：编号、小组名、任务编号
 create table groups(
 	gid int primary key auto_increment,
@@ -67,20 +78,22 @@ drop table notice
 --通知表:编号、内容、通知权重、发布时间、发布人编号、发送给小组的编号、发送给用户的编号,是否查看
 create table notice(
 	nid int primary key auto_increment,
-	content VARCHAR(200),
+	content VARCHAR(4000),
 	nweight int,
 	createtime  DATETIME,
+	did int,
+	gid int,
 	uid int,
-	togid int,
-	touid int,
-	nstatus VARCHAR(10),
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
-
+drop table notice;
 alter table notice 
   add constraint fk_notice_users
      foreign key(uid) references users(uid);
+alter table notice drop foreign key fk_notice_users
+
+
 
 
 drop table file

@@ -22,4 +22,8 @@ public class IndexControllere {
 		return "plandoing";
 	}
 
+	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
+	public String toAddMessage(){
+		return "notice/AddNotice";
+	}
 }

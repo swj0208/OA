@@ -15,7 +15,7 @@
 				</ul>
 			</div>
 			<div title="信息系统" style="overflow: auto; padding: 10px;">
-				<ul id="messageTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				<ul id="noticeTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 			<div title="任务计划" style="overflow: auto; padding: 10px;">
