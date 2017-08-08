@@ -83,6 +83,25 @@ $(function() {
 
 					} ]
 		} ];
+		var userpowerTreeData = [ {
+			"text" : "权限中心",
+			"state" : "closed",
+			"children" : [
+					{
+						"text" : "查看权限",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toShowPower.action'/>"
+						}
+					},
+					{
+						"text" : "修改权限",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toUpdatePower.action'/>"
+						}
+
+					} ]
+		} ];
+		
 
 		showTree("PoTree", PoTreeData);
 		showTree("messageTree", messageTreeData);
@@ -90,6 +109,7 @@ $(function() {
 		showTree("userTree", userTreeData);
 		showTree("fileTree", fileTreeData);
 		showTree("powerTree", powerTreeData);
+		showTree("userpowerTree", userpowerTreeData);
 	});
 	function showTree(treeId, data) {
 		$("#" + treeId).tree({

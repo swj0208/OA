@@ -52,8 +52,8 @@ $(function(){
             <form action="" method="post" id="myform">
                 <input type="text" name="uname" class="username" placeholder="Username">
                 <input type="password" name="upwd" class="password" placeholder="Password">
-				<input type="text"  name="zccode" id="zccode" placeholder="请输入验证码" style="font-size:14px; width:100px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<img  src="image.jsp" onclick="changeVilidateCode(this)" border="0" title="点击图片刷新验证码" size="10"/>
+				<input type="text"  name="zccode" id="zccode" placeholder="请输入验证码" style="font-size:14px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<br/><img  src="image.jsp" onclick="changeVilidateCode(this)" border="0" title="点击图片刷新验证码" size="40"/>
                 <button type="button" id="inputbutton">Sign me in</button>
                 <div class="error"><span>+</span></div>
             </form>
