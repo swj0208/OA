@@ -15,6 +15,8 @@ create table plan(
 	
 )
 
+
+
 drop table users
 --用户表:编号、姓名、密码、性别、照片路径、入职时间、电话、email、QQ、生日、住址、部门、状态、小组编号
 create table users(
@@ -29,7 +31,7 @@ create table users(
 	qq VARCHAR(50),
 	birthday date,
 	address VARCHAR(100),
-	department VARCHAR(50),
+	did int,
 	ustatus VARCHAR(50),
 	gid int,
 	temp1 VARCHAR(200),
