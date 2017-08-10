@@ -13,11 +13,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 添加用户 -->
 	<insert id="saveUser" parameterType="Users" useGeneratedKeys="true" keyProperty="uid">
-		insert into users(uname,upwd,entrytime,tel,email,qq,birthday,address,department,
-		ustatus,gid)values(#{uname},#{upwd},now(),#{tel},#{email},#{qq},#{birthday}
-		,#{address},#{department},#{ustatus},#{gid}
+		insert into users(uname,upwd,entrytime,tel,email,qq,birthday,address,
+		)values(#{uname},#{upwd},#{entrytime},#{tel},#{email},#{qq},#{birthday}
+		,#{address})
 		
 	</insert>
 	
+	<!-- 查询所有的用户 -->
+	<select id="findAllUsersCondition" resultType="Users" parameterType="Users">
+		select * from users where 1=1
+	</select>
+	
+	
 
+	<!-- 查询用户的数量-->
+	<select id="findAllUsersConditionCount" resultType="int" parameterType="Users">
+		select count(*) from users where 1=1
+	</select>
 </mapper>

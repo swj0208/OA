@@ -1,5 +1,7 @@
 package com.yc.biz.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -38,6 +40,16 @@ public class UsersBizImpl implements UsersBiz {
 	public boolean add(Users users) {
 		baseDao.save(users, "saveUser");
 		return true;
+	}
+
+	@Override
+	public List<Users> getAllUsers(Users users) {
+		return this.baseDao.findAll(users, "findAllUsersCondition");
+	}
+
+	@Override
+	public int getAllUsersCount(Users users) {
+		return Integer.parseInt(this.baseDao.findOne(users,"findAllUsersConditionCount").toString());
 	}
 
 

@@ -1,14 +1,24 @@
 package com.yc.web.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
+import com.yc.utils.RequestUtil;
 import com.yc.web.model.JsonModel;
 
 
@@ -62,4 +72,35 @@ public class UsersController {
 		return jm;
 
 	}
+
+	protected void outjson(Object obj,HttpServletResponse resp) throws IOException{
+		Gson gson=new Gson();
+		String jsonstr=gson.toJson(obj);
+		outjsonstr(jsonstr, resp);
+	}
+
+
+
+	public void outjsonstr(String jsonstr, HttpServletResponse resp) throws IOException {
+		resp.setContentType("application/json;charset=utf-8");
+		PrintWriter out=resp.getWriter();
+		out.println(jsonstr);
+		out.flush();
+		out.close();
+		
+	}
+	@RequestMapping("user/manUser.action")
+	public void manUser(Users user, HttpServletRequest request, HttpSession session,HttpServletResponse response) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+			Users users=RequestUtil.getParemeter(request, Users.class);
+			List<Users> list=usersBiz.getAllUsers(users);
+			int count =usersBiz.getAllUsersCount(users);
+			//easyUI要求的格式
+			Map<String, Object> map=new HashMap<String,Object>();
+			map.put("total", count);
+			map.put("rows", list);
+			outjson(map, response);
+			
+	
+	}
 }
+

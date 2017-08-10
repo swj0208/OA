@@ -66,7 +66,7 @@
 
 		发布新闻
 		<hr/>
-		<form id="addUserForm" action="" method="post" enctype="multipart/form-data">
+		<form id="addUserForm" action="users_add.action" method="post" enctype="multipart/form-data">
 			<div style="text-align:left;">
 				用户名: <input type="text" name="uname" id="uname"/><br/>
 				密码: <input type="password" name="upwd" id="uname" value="a"/><br/>
