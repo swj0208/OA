@@ -2,13 +2,23 @@ package com.yc.bean;
 
 import java.io.Serializable;
 
-public class Group implements Serializable {
+public class Groups implements Serializable {
 
 	private static final long serialVersionUID = 4334853560591069153L;
 
 	private Integer gid;
 	private String gname;
-	private Integer pid;
+	private Integer did;
+
+	
+	
+	public Integer getDid() {
+		return did;
+	}
+
+	public void setDid(Integer did) {
+		this.did = did;
+	}
 
 	public Integer getGid() {
 		return gid;
@@ -26,17 +36,9 @@ public class Group implements Serializable {
 		this.gname = gname;
 	}
 
-	public Integer getPid() {
-		return pid;
-	}
-
-	public void setPid(Integer pid) {
-		this.pid = pid;
-	}
-
 	@Override
 	public String toString() {
-		return "Group [gid=" + gid + ", gname=" + gname + ", pid=" + pid + "]";
+		return "Groups [gid=" + gid + ", gname=" + gname + ", did=" + did + "]";
 	}
 
 }

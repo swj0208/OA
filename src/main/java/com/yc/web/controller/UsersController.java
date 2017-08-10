@@ -1,5 +1,9 @@
 package com.yc.web.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,5 +50,16 @@ public class UsersController {
 		}
 		return jsonModel;
 
+	}
+	
+	
+	@RequestMapping("/user/uname_list.action")
+	public JsonModel uname_list(HttpServletRequest request){
+		int did = Integer.parseInt( request.getParameter("did") );
+		int gid = Integer.parseInt( request.getParameter("gid") );
+		List<Users> list = usersBiz.getUserBygidanddid(did,gid);
+		JsonModel jm =new JsonModel();
+		jm.setRows(list);     //jm.setObj(list);
+		return jm;
 	}
 }

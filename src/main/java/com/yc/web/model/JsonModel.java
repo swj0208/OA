@@ -13,6 +13,17 @@ public class JsonModel<T> implements Serializable {
 	private Integer pages; // * 当前为第几页
 	private Integer pagesize; // *每页xx条
 	private List<T> rows; // 记录集合
+	
+	private Integer page;
+	
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
 
 	public JsonModel(int code, String msg, Object obj) {
 		super();

@@ -3,10 +3,60 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yc.bean.NoticeMapper">
-	
+
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
 	</cache>
-	
-	
+
+	<sql id="orderSql">
+		<if test="orderby!=null and orderby!=''">
+			order by #{orderby}
+			<if test="orderway!=null and orderway!=''">
+				#{orderway}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 分页条件的拼接 -->
+	<sql id="pageSql">
+		<if test="start!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</sql>
+
+
+	<!-- 添加通知 -->
+	<insert id="AddNotice" parameterType="Notice" useGeneratedKeys="true"
+		keyProperty="nid">
+		insert into notice(content,nweight,createtime,did,gid,uid)
+		values(#{content},#{nweight},now(),#{did},#{gid},#{uid})
+	</insert>
+
+	<!-- 按条件查找Notice -->
+	<select id="FindNoticeByCondition" parameterType="Notice"
+		resultType="Notice">
+		select content,uid,did,nid,gid,createtime,nweight from notice
+		<where>
+			<if test="did!=null and did!=''">
+				did = #{did}
+			</if>
+			<if test="gid!=null and gid!=''">
+				gid = #{gid}
+			</if>
+			<if test="uid!=null and uid!=''">
+				uid = #{uid}
+			</if>
+			<if test="createtime!=null and createtime!=''">
+				createtime = #{createtime}
+			</if>
+		</where>
+		<include refid="orderSql"/>
+		<include refid="pageSql"/>
+	</select>
+
+	<!-- 查找notice数量 -->
+	<select id="NoticeCount" resultType="int">
+		select count(*) from notice
+	</select>
+
 
 </mapper>
