@@ -17,10 +17,24 @@ public class JsonModel<T> implements Serializable {
 	
 	
 	
-	@Override
-	public String toString() {
-		return "JsonModel [code=" + code + ", msg=" + msg + ", obj=" + obj + ", url=" + url + ", total=" + total
-				+ ", pages=" + pages + ", pageSize=" + pageSize + ", rows=" + rows + "]";
+	private static final long serialVersionUID = -1947607909350498604L;
+
+	private Integer page;
+	
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public JsonModel() {
+		super();
+		this.code = code;
+		this.msg = msg;
+		this.obj = obj;
 	}
 	public Integer getCode() {
 		return code;

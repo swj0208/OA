@@ -6,5 +6,6 @@ import com.yc.bean.Department;
 
 public interface DepartmentBiz {
 	
-	public List<Department> findAllDepartment(Department department);
+
+	public List<Department> getDepartmentBydname(Department department);
 }

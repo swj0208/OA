@@ -17,7 +17,7 @@ public class DepartmentController {
 	
 	@RequestMapping("/department_findAll.action")
 	public JsonModel department_findAll( Department department, HttpSession session){
-		JsonModel jm=(JsonModel) this.departmentBiz.findAllDepartment(department);
+		JsonModel jm=(JsonModel) this.departmentBiz.getDepartmentBydname(department);
 		session.setAttribute("department", jm);
 		return jm;
 	}

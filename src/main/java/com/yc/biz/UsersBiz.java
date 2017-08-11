@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 import com.yc.bean.Users;
 
@@ -24,4 +26,6 @@ public interface UsersBiz {
 	public int getAllUsersCount(Users users);
 	
 
+	
+	List<Users> getUserBygidanddid(int did, int gid);
 }

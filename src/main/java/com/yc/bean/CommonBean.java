@@ -60,6 +60,4 @@ public class CommonBean implements Serializable {
 	}
 	
 	
-	
-
 }

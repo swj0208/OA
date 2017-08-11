@@ -1,5 +1,5 @@
 create database oa;
-
+drop database oa;
 drop table plan
 --任务表： 任务编号、任务名、内容、开始时间、时间限制、完成时间、状态、
 create table plan(
@@ -37,28 +37,38 @@ create table users(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
-
+select * from users;
+drop table users;
 
 drop table groups
 --部门
 create table department(
 	did int primary key auto_increment,
 	department varchar(50),
-	gid int,
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
 drop table department;
-
+insert into department(department,temp1,temp2) values("设计部",null,null);
+insert into department(department,temp1,temp2) values("研发部",null,null);
+select * from department;
 
 --小组编号：编号、小组名、任务编号
 create table groups(
 	gid int primary key auto_increment,
 	gname VARCHAR(50),
-	pid int,
+	did int,
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
+	
 )
+drop table groups;
+select * from groups;
+insert into groups(gname,did,temp1,temp2) values('A组',1,null,null);
+insert into groups(gname,did,temp1,temp2) values('B组',1,null,null);
+insert into groups(gname,did,temp1,temp2) values('C组',2,null,null);
+insert into groups(gname,did,temp1,temp2) values('D组',2,null,null);
+
 
 alter table groups 
   add constraint fk_groups_plan
@@ -89,6 +99,10 @@ create table notice(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+
+insert into notice(content,nweight,createtime,did,gid,uid) values("1111",1,now(),1,1,1);
+select * from notice;
+
 drop table notice;
 alter table notice 
   add constraint fk_notice_users
@@ -133,6 +147,12 @@ insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address 
 	values('李四','12345678','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
 	values('ws','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('a','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('b','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','女',null,now(),'13222222222','12222222@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
+
+	
 	
 update users set upwd = "6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2";
 select * from users

@@ -44,6 +44,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	<!-- 根据gid和did查询用户 -->
+	<select id="getUserBygidanddid" resultType="Users" parameterType="Map">
+		select * from users where gid = #{gid} and did = #{did}
+	</select>
+	
+	
+	
+	
 
 	<!-- 查询用户的数量-->
 	<select id="findAllUsersConditionCount" resultType="int" parameterType="Users">

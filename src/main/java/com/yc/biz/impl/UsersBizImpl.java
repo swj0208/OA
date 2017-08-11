@@ -2,6 +2,7 @@ package com.yc.biz.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,14 @@ public class UsersBizImpl implements UsersBiz {
 	
 	
 
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<Users> getUserBygidanddid(int did ,int gid) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("did", did+"");
+		map.put("gid", gid+"");
+		return baseDao.findAll(Users.class, "getUserBygidanddid", map);
+	}
 
 
 }

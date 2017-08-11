@@ -19,7 +19,7 @@ public class Users  extends CommonBean implements Serializable {
 	private String qq;
 	private String birthday;
 	private String address;
-	private String department;
+	private Integer did;
 	private String ustatus;
 	private Integer gid;
 
@@ -111,12 +111,12 @@ public class Users  extends CommonBean implements Serializable {
 		this.address = address;
 	}
 
-	public String getDepartment() {
-		return department;
+	public Integer getDid() {
+		return did;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setDid(Integer did) {
+		this.did = did;
 	}
 
 	public String getUstatus() {
@@ -139,7 +139,7 @@ public class Users  extends CommonBean implements Serializable {
 	public String toString() {
 		return "Users [uid=" + uid + ", uname=" + uname + ", upwd=" + upwd + ", sex=" + sex + ", photo=" + photo
 				+ ", entrytime=" + entrytime + ", tel=" + tel + ", email=" + email + ", qq=" + qq + ", birthday="
-				+ birthday + ", address=" + address + ", department=" + department + ", ustatus=" + ustatus + ", gid="
+				+ birthday + ", address=" + address + ", did=" + did + ", ustatus=" + ustatus + ", gid="
 				+ gid + "]";
 	}
 

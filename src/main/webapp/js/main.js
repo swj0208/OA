@@ -22,6 +22,54 @@ $(function() {
 						"url" : "<iframe width='100%' height='100%' src='toShowPlan.action'/>"
 					}
 				}
+					]
+
+		} ];
+		// 信息系统
+		var noticeTreeData = [ {
+			"text" : "信息管理",
+			"state" : "closed",
+			"children" : [
+					{
+						"text" : "发布消息",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toAddNotice.action'/>"
+						}
+					},
+					{
+						"text" : "消息管理",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toManageNotice.action'/>"
+						}
+					} ]
+		} ];
+		var planTreeData = [ {
+			"text" : "任务管理",
+			"state" : "closed",
+			"children" : [
+					{
+						"text" : "新增任务",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toaddPlan.action'/>"
+						}
+					},
+					{
+						"text" : "查看任务",
+						"attributes" : {
+							"url" : "<iframe width='100%' height='100%' src='toshowUsers.action'/>"
+						}
+
+					} ]
+		} ];
+		var userTreeData = [ {
+			"text" : "个人管理",
+			"state" : "closed",
+			"children" : [ {
+				"text" : "修改个人信息",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' src='toUpdateSelf.action'/>"
+				}
+			}
 				]
 
 	} ];
