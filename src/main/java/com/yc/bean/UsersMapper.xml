@@ -19,15 +19,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</insert>
 	
+	<!-- 排序的拼接 -->
+	<sql id="orderSql">
+		<if test="orderby!=null and orderby!=''">
+			order by #{orderby}
+			<if test="orderway!=null and orderway!=''">
+				#{orderway}
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 分页条件的拼接 -->
+	<sql id="pageSql">
+		<if test="start!=null">
+			limit #{start},#{pageSize}
+		</if>
+	</sql>
+	
 	<!-- 查询所有的用户 -->
 	<select id="findAllUsersCondition" resultType="Users" parameterType="Users">
-		select * from users where 1=1
+		select * from users where 1=1 <include refid="orderSql" />
+		<include refid="pageSql" />
 	</select>
+	
 	
 	
 
 	<!-- 查询用户的数量-->
 	<select id="findAllUsersConditionCount" resultType="int" parameterType="Users">
-		select count(*) from users where 1=1
+		select count(*) from users where 1=1 
 	</select>
 </mapper>

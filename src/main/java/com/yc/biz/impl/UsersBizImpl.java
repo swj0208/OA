@@ -1,13 +1,18 @@
 package com.yc.biz.impl;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
@@ -51,6 +56,10 @@ public class UsersBizImpl implements UsersBiz {
 	public int getAllUsersCount(Users users) {
 		return Integer.parseInt(this.baseDao.findOne(users,"findAllUsersConditionCount").toString());
 	}
+	
+	
+	
+
 
 
 }

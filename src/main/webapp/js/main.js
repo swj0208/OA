@@ -118,16 +118,9 @@ $(function() {
 		            	  }
 		              },
 		              {
-		            	  "text" : "修改人员",
+		            	  "text" : "人员列表",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toUpdateUser.action'/>"
-		            	  }
-
-		              },
-		              {
-		            	  "text" : "删除人员",
-		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toDeleteUser.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' src='toManUser.action'/>"
 		            	  }
 
 		              }]

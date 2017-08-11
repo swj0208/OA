@@ -21,6 +21,11 @@ public class IndexControllere {
 	public String toAddUser(){
 		return "user/addUser";
 	}
+	
+	@RequestMapping(value="/toManUser.action",method = RequestMethod.GET)
+	public String toManUser(){
+		return "user/manUser";
+	}
 		
 	@RequestMapping(value="/toShowPlan.action",method = RequestMethod.GET)
 	public String toPlan(){

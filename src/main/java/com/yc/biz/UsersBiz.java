@@ -1,6 +1,10 @@
 package com.yc.biz;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.yc.bean.Users;
 
@@ -19,4 +23,5 @@ public interface UsersBiz {
 	
 	public int getAllUsersCount(Users users);
 	
+
 }

@@ -40,7 +40,7 @@
 			}
 		});
 	}
-	 */
+	
 	function showUploadImg(obj,picid){
 		//判断浏览器是否支持FileReader接口
 		if(typeof FileReader=='undefined'){
@@ -56,6 +56,26 @@
 		}
 		reader.readAsDataURL(file)
 	}
+	 */ 
+		function onchangeDistrict(obj){
+			var districtid=obj;
+			$.ajax({
+				type:"POST",
+				url:"street_list.action",
+				data:"id="+districtid,
+				dataType:"JSON",
+				success:function(data){
+					var str="";
+					var length=data.rows.length;
+					for(var i=0;i<length;i++){
+						var street=data.rows[i];
+						str+='<option value="'+street.id+'">'+street.name+'</option>';
+					}
+					$("#houseStreet").html(str);
+				}
+			});
+		}
+
 
 </script>
 <title>添加新闻</title>
@@ -66,7 +86,7 @@
 
 		发布新闻
 		<hr/>
-		<form id="addUserForm" action="users_add.action" method="post" enctype="multipart/form-data">
+		<form id="addUserForm" action="user/user_doAdd.action" method="post" enctype="multipart/form-data">
 			<div style="text-align:left;">
 				用户名: <input type="text" name="uname" id="uname"/><br/>
 				密码: <input type="password" name="upwd" id="uname" value="a"/><br/>

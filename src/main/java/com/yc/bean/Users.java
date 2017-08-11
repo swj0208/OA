@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 
-public class Users implements Serializable {
+public class Users  extends CommonBean implements Serializable {
 
 	private static final long serialVersionUID = -8608252383657396863L;
 	private Integer uid;
