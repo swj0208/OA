@@ -8,7 +8,6 @@ public class Group implements Serializable {
 
 	private Integer gid;
 	private String gname;
-	private Integer pid;
 
 	public Integer getGid() {
 		return gid;
@@ -26,17 +25,9 @@ public class Group implements Serializable {
 		this.gname = gname;
 	}
 
-	public Integer getPid() {
-		return pid;
-	}
-
-	public void setPid(Integer pid) {
-		this.pid = pid;
-	}
-
 	@Override
 	public String toString() {
-		return "Group [gid=" + gid + ", gname=" + gname + ", pid=" + pid + "]";
+		return "Group [gid=" + gid + ", gname=" + gname + "]";
 	}
 
 }

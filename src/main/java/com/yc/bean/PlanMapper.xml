@@ -4,11 +4,54 @@
 <mapper namespace="com.yc.bean.PlanMapper">
 	<!-- 加入带日志的ehcache缓存 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"></cache>
-	
-	<!-- 查所有的计划 -->
-	<select id="findAllPlan" resultType="Plan">
-		select pid,pname,content,timestart,timelimit,timeend,pstatus from district
+
+	<!-- 排序条件的拼接 -->
+	<sql id="orderSql">
+		<if test="orderby!=null and orderby!=''">
+			order by #{orderby}
+			<if test="orderway!=null and orderway!=''">
+				#{orderway}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 分页条件的拼接 -->
+	<sql id="pageSql">
+		<if test="start!=null ">
+			limit #{start},#{pagesize}
+		</if>
+	</sql>
+
+	<!-- 通过小组ID查找小组的所有工作计划的详情,可以分工作状态 -->
+	<select id="findAllPlan" parameterType="Plan" resultType="Plan">
+		select pid,pname,timestart,timelimit,timeend,pstatus,plan.gid as
+		gid,gname from plan left join groups
+		on plan.gid=groups.gid
+		<where>
+			<if test="gid!=null and gid!=''">
+				and plan.gid=#{gid}
+			</if>
+			<if test="pstatus!=null and pstatus!=''">
+				and pstatus=#{pstatus}
+			</if>
+		</where>
+		<include refid="orderSql" />
+		<include refid="pageSql" />
 	</select>
+
+	<!-- 条件统计查询 -->
+	<select id="findAllPlanCount" parameterType="java.util.Map" resultType="int">
+		select count(1) from plan
+		<where>
+			<if test="gid!=null and gid!=''">
+				and gid=#{gid}
+			</if>
+			<if test="pstatus!=null and pstatus!=''">
+				and pstatus=#{pstatus}
+			</if>
+		</where>
+	</select>
+
 
 
 </mapper>

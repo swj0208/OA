@@ -1,7 +1,6 @@
 package com.yc.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Notice implements Serializable {
 
