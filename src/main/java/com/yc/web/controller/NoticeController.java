@@ -40,7 +40,7 @@ public class NoticeController {
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages-1)*pagesize;
 		notice.setStart(start);
-		notice.setPageSize(pagesize);
+		notice.setPagesize(pagesize);
 		List<Notice> list = noticeBiz.findAllNotice(notice);
 		Integer count = noticeBiz.findNoticeCount();
 		jsonModel.setRows(list);

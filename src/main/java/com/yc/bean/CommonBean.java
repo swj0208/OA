@@ -7,7 +7,7 @@ public class CommonBean implements Serializable {
 	private static final long serialVersionUID = -1220734587096028186L;
 	
 	private Integer pages=1;
-	private Integer pageSize=5;
+	private Integer pagesize=5;
 	private String orderby;
 	private String orderway;
 	
@@ -21,12 +21,14 @@ public class CommonBean implements Serializable {
 		this.pages = pages;
 	}
 
-	public Integer getPageSize() {
-		return pageSize;
+	
+
+	public Integer getPagesize() {
+		return pagesize;
 	}
 
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+	public void setPagesize(Integer pagesize) {
+		this.pagesize = pagesize;
 	}
 
 	public String getOrderby() {
@@ -55,7 +57,7 @@ public class CommonBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CommonBean [pages=" + pages + ", pageSize=" + pageSize + ", orderby=" + orderby + ", orderway="
+		return "CommonBean [pages=" + pages + ", pagesize=" + pagesize + ", orderby=" + orderby + ", orderway="
 				+ orderway + ", start=" + start + "]";
 	}
 	

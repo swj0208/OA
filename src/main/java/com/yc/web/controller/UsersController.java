@@ -95,10 +95,10 @@ public class UsersController {
 	public String manUser(Users users,HttpServletRequest request) throws Exception {
 			JsonModel jModel=new JsonModel();
 			int pages=Integer.parseInt(request.getParameter("page").toString());
-			int pageSize=Integer.parseInt(request.getParameter("rows").toString());
-			int start=(pages-1)*pageSize;
+			int pagesize=Integer.parseInt(request.getParameter("rows").toString());
+			int start=(pages-1)*pagesize;
 			users.setStart(start);
-			users.setPageSize(pageSize);
+			users.setPagesize(pagesize);
 			List<Users> list=usersBiz.getAllUsers(users);
 			Integer count =usersBiz.getAllUsersCount(users);
 			jModel.setRows(list);

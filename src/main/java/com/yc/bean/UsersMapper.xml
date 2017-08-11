@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 分页条件的拼接 -->
 	<sql id="pageSql">
 		<if test="start!=null">
-			limit #{start},#{pageSize}
+			limit #{start},#{pagesize}
 		</if>
 	</sql>
 	
