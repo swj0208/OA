@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
-<script src="ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 	  $(function(){
 		$("#addBtn").click(function(){
@@ -94,7 +93,7 @@
 				密码: <input type="password" name="upwd" id="uname" value="a"/><br/>
 				性别:	<label><input name="sex" id="sex" type="radio" value="男" />男 </label>
 					<label><input name="sex" id="sex" type="radio" value="女" />女 </label><br/>
-				照片:	<input type="file" name="photo" id="photo" onchange="showUploadImg(this,'showpic')" accept="image/*"/><br/>
+				照片:<input type="file" name="photo" id="photo" onchange="showUploadImg(this,'showpic')" accept="image/*"/><br/>
 				<input type="button" value="隐藏图片" onclick="document.getElementById('showpic').style.display='none';"/>
 				<input type="button" value="显示图片" onclick="document.getElementById('showpic').style.display='block';"/>
 				<br/>

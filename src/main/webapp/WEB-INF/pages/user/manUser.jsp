@@ -5,9 +5,6 @@
 <title>人员列表</title>
 </head>
 <body>
-
-
-
 <script type="text/javascript">
 	$(function(){
 		$('#manTypeTable').edatagrid({
@@ -40,13 +37,43 @@
 				width:100,
 				align:'center'
 			},{
+				field:'sex',
+				title:'性别',
+				width:100,
+				align:'center'
+			},{
+				field:'entrytime',
+				title:'入职时间',
+				width:100,
+				align:'center'
+			},{
+				field:'tel',
+				title:'联系电话',
+				width:100,
+				align:'center'
+			},{
+				field:'address',
+				title:'家庭地址',
+				width:100,
+				align:'center'
+			},{
+				field:'did',
+				title:'所属部门',
+				width:100,
+				align:'center'
+			},{
+				field:'gid',
+				title:'所属小组',
+				width:100,
+				align:'center'
+			},{
 				field:'ustatus',
 				title:'显示状态',
 				width:100,
 				align:'center'
 			}]]
 			
-		});
+		})
 	
 	});
 	

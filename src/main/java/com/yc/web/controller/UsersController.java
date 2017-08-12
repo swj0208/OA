@@ -82,7 +82,7 @@ public class UsersController {
 
 	}
 	
-	@RequestMapping("/user/manUser.action")
+	@RequestMapping(value="/user/manUser.action")
 	public String manUser(Users users,HttpServletRequest request) throws Exception {
 			JsonModel jModel=new JsonModel();
 			int pages=Integer.parseInt(request.getParameter("page").toString());
