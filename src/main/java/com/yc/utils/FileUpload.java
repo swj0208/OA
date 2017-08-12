@@ -28,7 +28,7 @@ public class FileUpload extends HttpServlet {
 	private long totalFileSize=4*singleSize;
 	
 	
-	public Map<String , String>uploadFiles(PageContext pageContext,HttpServletRequest request) throws ServletException, IOException, SQLException, SmartUploadException{
+	public Map<String , String> uploadFiles(PageContext pageContext,HttpServletRequest request) throws ServletException, IOException, SQLException, SmartUploadException{
 		Map<String, String>map=new HashMap<String,String>();
 		SmartUpload su=new SmartUpload();
 		su.initialize(pageContext); //初始化
@@ -90,10 +90,11 @@ public class FileUpload extends HttpServlet {
 				
 				String fieldName=file.getFieldName();
 				String oldFileName=file.getFileName();
-				
+				map.put("photo",weburl);
 				map.put(fieldName+"_weburl", weburl);
 				map.put(fieldName+"_destFilePathName", destFilePathName);
 				map.put(fieldName+"_oldFileName", oldFileName);
+				
 			}
 		}
 		return map;

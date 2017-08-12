@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
 import com.yc.utils.Encrypt;
+import com.yc.utils.FileUpload;
 
 @Service
 @Transactional
@@ -39,11 +41,14 @@ public class UsersBizImpl implements UsersBiz {
 		return u;
 	}
 
+	
+
 	/**
 	 * 添加用户
 	 */
 	@Override
-	public boolean add(Users users) {
+	public boolean add(Users users ) {
+		users.setUpwd(Encrypt.md5AndSha(users.getUpwd()));
 		baseDao.save(users, "saveUser");
 		return true;
 	}

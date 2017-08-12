@@ -15,6 +15,7 @@
 <base href="<%=basePath%>"/>
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
+
 <link type="text/css" rel="stylesheet" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="easyui15/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="easyui15/themes/icon.css">

@@ -17,7 +17,7 @@ public class Users  extends CommonBean implements Serializable {
 	private String tel;
 	private String email;
 	private String qq;
-	private String birthday;
+	private Date birthday;
 	private String address;
 	private Integer did;
 	private String ustatus;
@@ -95,11 +95,11 @@ public class Users  extends CommonBean implements Serializable {
 		this.qq = qq;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

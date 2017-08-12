@@ -87,7 +87,7 @@ $(function() {
 				{
 					"text" : "消息显示",
 					"attributes" : {
-						"url" : "<iframe width='100%' height='100%' src='toShowNotice.action'/>"
+						"url" : "<iframe width='100%' height='100%' src='toManageNotice.action'/>"
 					}
 				} ]
 	} ];

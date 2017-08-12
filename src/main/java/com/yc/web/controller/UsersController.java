@@ -1,23 +1,30 @@
 package com.yc.web.controller;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jspsmart.upload.SmartUploadException;
 import com.yc.bean.Users;
 import com.yc.biz.JsonBiz;
 import com.yc.biz.UsersBiz;
+import com.yc.utils.FileUpload;
 import com.yc.web.model.JsonModel;
 
 
@@ -60,36 +67,20 @@ public class UsersController {
 
 	}
 	
-	@RequestMapping("/users_add.action")
-	public JsonModel addUser(Users user, HttpServletRequest request, HttpSession session) {
+	@RequestMapping("/user/users_add.action")
+	public JsonModel addUser(Users user) {
 		JsonModel jm=new JsonModel();
-		try {
-			usersBiz.add(user);//添加时user中没有id,但是更新一定有
+		boolean result=usersBiz.add(user);
+		if(result){
 			jm.setCode(1);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else{
 			jm.setCode(0);
-			jm.setMsg(e.getMessage());
 		}
 		return jm;
 		
 		
 
 	}
-
-
-//	@RequestMapping("/user/manUser.action")
-//	public void manUser(Users users,HttpServletResponse response) throws Exception {
-//			List<Users> list=usersBiz.getAllUsers(users);
-//			int count =usersBiz.getAllUsersCount(users);
-//			//easyUI要求的格式
-//			Map<String, Object> map=new HashMap<String,Object>();
-//			map.put("total", count);
-//			map.put("rows", list);
-//			jsonBiz.outjson(map, response);
-//			
-//	
-//	}
 	
 	@RequestMapping("/user/manUser.action")
 	public String manUser(Users users,HttpServletRequest request) throws Exception {
@@ -114,27 +105,27 @@ public class UsersController {
 
 
 	
-	@RequestMapping("/user/user_toAdd.action")
-	public String userToAdd(HttpSession session){
-		session.setAttribute("TOKEN", 1);
-		return "user/addUser";
-		
-	}
-	
-	@RequestMapping("/user/user_doAdd.action")
-	public String userDoAdd(Users users,HttpSession session,HttpServletRequest request){
-		if(session.getAttribute("TOKEN")!=null){
-			Users u=(Users) session.getAttribute("user");
-			users.setUid(u.getUid());
-			boolean result=usersBiz.add(users);
-			session.setAttribute("TOKEN", null);
-			session.removeAttribute("TOKEN");
-		}
-		//要利用重定向防止用户重复提交,但是重定向不能定向到.WEB-INF/下面
-		return "user/manUser";
-		
-	}
-	
+//	@RequestMapping("/user/user_toAdd.action")
+//	public String userToAdd(HttpSession session){
+//		session.setAttribute("TOKEN", 1);
+//		return "user/addUser";
+//		
+//	}
+//	
+//	@RequestMapping("/user/user_doAdd.action")
+//	public String userDoAdd(Users users,HttpSession session,HttpServletRequest request){
+//		if(session.getAttribute("TOKEN")!=null){
+//			Users u=(Users) session.getAttribute("user");
+//			users.setUid(u.getUid());
+//			boolean result=usersBiz.add(users);
+//			session.setAttribute("TOKEN", null);
+//			session.removeAttribute("TOKEN");
+//		}
+//		//要利用重定向防止用户重复提交,但是重定向不能定向到.WEB-INF/下面
+//		return "user/manUser";
+//		
+//	}
+//	
 	
 	
 	@RequestMapping("/user/uname_list.action")

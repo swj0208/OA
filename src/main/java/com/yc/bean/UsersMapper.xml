@@ -13,9 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 添加用户 -->
 	<insert id="saveUser" parameterType="Users" useGeneratedKeys="true" keyProperty="uid">
-		insert into users(uname,upwd,entrytime,tel,email,qq,birthday,address,
-		)values(#{uname},#{upwd},#{entrytime},#{tel},#{email},#{qq},#{birthday}
-		,#{address})
+		insert into users(uname,upwd,entrytime,tel,email,qq,birthday,address,did,gid,ustatus
+		,sex)values(#{uname},#{upwd},#{entrytime},#{tel},#{email},#{qq},#{birthday}
+		,#{address},#{did},#{gid},#{ustatus},#{sex})
 		
 	</insert>
 	

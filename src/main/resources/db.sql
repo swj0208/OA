@@ -51,6 +51,7 @@ create table department(
 drop table department;
 insert into department(department,temp1,temp2) values("设计部",null,null);
 insert into department(department,temp1,temp2) values("研发部",null,null);
+insert into department(department,temp1,temp2) values("人事部",null,null);
 select * from department;
 
 --小组编号：编号、小组名、任务编号
