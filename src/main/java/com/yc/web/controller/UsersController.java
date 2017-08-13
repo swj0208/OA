@@ -83,7 +83,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value="/user/manUser.action")
-	public String manUser(Users users,HttpServletRequest request) throws Exception {
+	public JsonModel manUser(Users users,HttpServletRequest request) throws Exception {
 			JsonModel jModel=new JsonModel();
 			int pages=Integer.parseInt(request.getParameter("page").toString());
 			int pagesize=Integer.parseInt(request.getParameter("rows").toString());
@@ -94,10 +94,7 @@ public class UsersController {
 			Integer count =usersBiz.getAllUsersCount(users);
 			jModel.setRows(list);
 			jModel.setTotal(count);
-			Gson gson=new Gson();
-			Type jsonType=new TypeToken<JsonModel>(){}.getType();
-			String strjson=gson.toJson(jModel,jsonType);
-			return strjson;
+			return jModel;
 			//easyUI要求的格式
 			
 	

@@ -44,7 +44,7 @@
 			},{
 				field:'entrytime',
 				title:'入职时间',
-				width:100,
+				width:100,  
 				align:'center'
 			},{
 				field:'tel',
