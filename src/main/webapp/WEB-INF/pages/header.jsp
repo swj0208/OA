@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ taglib prefix="yc" uri="http://www.hyycinfo.com" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>

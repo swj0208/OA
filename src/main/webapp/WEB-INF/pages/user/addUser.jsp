@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 <script type="text/javascript">
-	  $(function(){
+	 $(function(){
 		$("#addBtn").click(function(){
 			$.ajax({
 				type:"POST",
@@ -77,7 +77,10 @@
 				}
 
 			});
-		}
+		} 
+		
+		
+		
 </script>
 <title>添加新闻</title>
 </head>
@@ -87,7 +90,7 @@
 
 		发布新闻
 		<hr/>
-		<form id="addUserForm" action="addUser_photo.action" method="post" enctype="multipart/form-data">
+		<form id="addUserForm" action="" method="post" enctype="multipart/form-data">
 			<div style="text-align:left;">
 				用户名: <input type="text" name="uname" id="uname" value="pw"/><br/>
 				密码: <input type="password" name="upwd" id="uname" value="a"/><br/>
@@ -104,7 +107,7 @@
 				QQ: <input type="text" name="qq" id="qq" value="234"/><br/>
 				出生日期:<input type="text" name="birthday" id="birthday" class="easyui-datebox"/><br/>
 				家庭地址:<input type="text" name="address" id="address" value="湖南"/><br/>
-				 <div>所属部门：
+			  <div>所属部门：
 				<select class="text" name="did" id="did" onchange="onchangedepartment(this.value)">
 					<option></option>
 					<c:forEach items="${Department }" var="d">
@@ -116,7 +119,7 @@
 				</div> 
 				 状态:<select class="text" name="ustatus" id="ustatus">
 				</select><br/>
-				<input type="button" id="addBtn" value="添加"/>
+				<input type="button" id="addBtn" value="添加" />
 			</div>
 		</form>
 	
