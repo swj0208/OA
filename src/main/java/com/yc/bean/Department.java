@@ -8,7 +8,6 @@ public class Department implements Serializable {
 
 	private Integer did;
 	private String department;
-	private Integer gid;
 
 	public Integer getDid() {
 		return did;
@@ -26,17 +25,10 @@ public class Department implements Serializable {
 		this.department = department;
 	}
 
-	public Integer getGid() {
-		return gid;
-	}
-
-	public void setGid(Integer gid) {
-		this.gid = gid;
-	}
 
 	@Override
 	public String toString() {
-		return "Department [did=" + did + ", department=" + department + ", gid=" + gid + "]";
+		return "Department [did=" + did + ", department=" + department + "]";
 	}
 
 }

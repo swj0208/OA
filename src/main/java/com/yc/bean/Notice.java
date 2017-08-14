@@ -2,7 +2,7 @@ package com.yc.bean;
 
 import java.io.Serializable;
 
-public class Notice implements Serializable {
+public class Notice extends CommonBean implements Serializable {
 
 	private static final long serialVersionUID = -3042360926416388190L;
 
@@ -13,7 +13,7 @@ public class Notice implements Serializable {
 	private Integer did;
 	private Integer gid;
 	private Integer uid;
-
+	
 	public Integer getNid() {
 		return nid;
 	}

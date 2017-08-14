@@ -8,7 +8,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</cache>
 	<!-- 根据部门名查找部门信息 -->
 	<select id="getDepartmentBydname" resultType="Department" parameterType="Department">
-		select department,gid from department where department = #{department}
+		select did,department from department
+		<where>
+			<if test="department!=null and department!=''">
+				department = #{department}
+			</if>
+		</where>
 	</select>
 
 </mapper>

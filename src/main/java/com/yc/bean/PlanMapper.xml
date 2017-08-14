@@ -8,9 +8,9 @@
 	<!-- 排序条件的拼接 -->
 	<sql id="orderSql">
 		<if test="orderby!=null and orderby!=''">
-			order by #{orderby}
+			order by ${orderby}
 			<if test="orderway!=null and orderway!=''">
-				#{orderway}
+				${orderway}
 			</if>
 		</if>
 	</sql>
@@ -24,7 +24,7 @@
 
 	<!-- 通过小组ID查找小组的所有工作计划的详情,可以分工作状态 -->
 	<select id="findAllPlan" parameterType="Plan" resultType="Plan">
-		select pid,pname,timestart,timelimit,timeend,pstatus,plan.gid as
+		select pid,pname,content,timestart,timelimit,timeend,pstatus,plan.gid as
 		gid,gname from plan left join groups
 		on plan.gid=groups.gid
 		<where>
@@ -40,7 +40,7 @@
 	</select>
 
 	<!-- 条件统计查询 -->
-	<select id="findAllPlanCount" parameterType="java.util.Map" resultType="int">
+	<select id="findAllPlanCount" parameterType="Plan" resultType="int">
 		select count(1) from plan
 		<where>
 			<if test="gid!=null and gid!=''">
@@ -51,7 +51,41 @@
 			</if>
 		</where>
 	</select>
+	
+	<!-- 插入新的计划 -->
+	<insert id="addPlan" parameterType="Plan" useGeneratedKeys="true"
+		keyProperty="pid">
+		insert into plan(pname,content,timestart,timelimit,gid,pstatus)
+		values(#{pname},#{content},now(),#{timelimit},#{gid},'进行中')
+	</insert>
+	
+	<!-- 查找计划的具体内容 -->
+	<select id="findPlanContent" parameterType="java.util.Map" resultType="Plan">
+		select pid,content from plan where pid=#{pid}
+	</select>
+	
+	<!-- 删除计划 -->
+	<delete id="delPlan" parameterType="java.util.Map">
+		delete from plan where pid=#{pid}
+	</delete>
 
-
+	<!-- 通过ID查找计划 -->
+	<select id="findPlanById" resultType="Plan" parameterType="java.util.Map">
+		select pid,pname,timelimit,content,pstatus,gid from plan where pid=#{pid}
+	</select>
+	
+	<!-- 计划完成 -->
+	<update id="completePlan" parameterType="java.util.Map">
+		update plan set timeend=now(),pstatus='已完成' where pid=#{pid}
+	</update>
+	
+	<!-- 修改计划 -->
+	<update id="updatePlan" parameterType="Plan">
+		update plan set pname=#{pname},timelimit=#{timelimit},content=#{content},pstatus=#{pstatus},gid=#{gid} 
+		<if test="pstatus=='已完成'">
+			,timeend=now()
+		</if>
+		where pid=#{pid}
+	</update>
 
 </mapper>

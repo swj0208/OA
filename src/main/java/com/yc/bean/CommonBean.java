@@ -8,27 +8,16 @@ public class CommonBean implements Serializable {
 
 	private Integer pages = 1;
 	private Integer pagesize = 5;
-	private String orderby;// select * from xxx order by 列名 desc/asc
+	private String orderby; // 列名
 	private String orderway;
 	private Integer start;
-
-	public CommonBean() {
-		super();
+	
+	public Integer getStart() {
+		return start;
 	}
 
-	public CommonBean(Integer pages, Integer pagesize, String orderby, String orderway, Integer start) {
-		super();
-		this.pages = pages;
-		this.pagesize = pagesize;
-		this.orderby = orderby;
-		this.orderway = orderway;
+	public void setStart(Integer start) {
 		this.start = start;
-	}
-
-	@Override
-	public String toString() {
-		return "CommonBean [pages=" + pages + ", pagesize=" + pagesize + ", orderby=" + orderby + ", orderway="
-				+ orderway + ", start=" + start + "]";
 	}
 
 	public Integer getPages() {
@@ -63,12 +52,11 @@ public class CommonBean implements Serializable {
 		this.orderway = orderway;
 	}
 
-	public Integer getStart() {
-		return start;
+	@Override
+	public String toString() {
+		return "CommonBean [pages=" + pages + ", pagesize=" + pagesize + ", orderby=" + orderby + ", orderway="
+				+ orderway + ", start=" + start + "]";
 	}
 
-	public void setStart(Integer start) {
-		this.start = start;
-	}
-
+	
 }

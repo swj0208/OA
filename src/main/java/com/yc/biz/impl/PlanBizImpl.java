@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.bean.Plan;
 import com.yc.biz.PlanBiz;
 import com.yc.dao.BaseDao;
-import com.yc.web.model.JsonModel;
 
 @Service
 @Transactional
@@ -22,18 +21,43 @@ public class PlanBizImpl implements PlanBiz {
 	private BaseDao baseDao;
 
 	@Override
-	public JsonModel<Plan> findAllPlan(Plan plan) {
-		List<Plan> list = baseDao.findAll(plan, "findAllPlan");
-		Map<String, String> map=new HashMap<String,String>();
-		map.put("gid", plan.getGid()+"");
-		map.put("pstatus", plan.getPstatus());
-		int total =  (int) baseDao.getFunc(Plan.class, "findAllPlanCount",map);
+	public List<Plan> findAllPlan(Plan plan) {
+		List<Plan> list = this.baseDao.findAll(plan, "findAllPlan");
+		return list;
+	}
 
-		JsonModel<Plan> jsonModel = new JsonModel<Plan>();
-		jsonModel.setCode(1);
-		jsonModel.setRows(list);
-		jsonModel.setTotal(total);
-		return jsonModel;
+	@Override
+	public int findAllPlanCount(Plan plan) {
+		int count = (int) this.baseDao.findOne(plan, "findAllPlanCount");
+		return count;
+	}
+
+	@Override
+	public boolean addPlan(Plan plan) {
+		baseDao.save(plan, "addPlan");
+		return true;
+	}
+
+	@Override
+	public boolean delPlan(int pid) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pid", pid);
+		baseDao.del(Plan.class, "delPlan", map);
+		return true;
+	}
+
+	@Override
+	public boolean completePlan(int pid) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pid", pid);
+		this.baseDao.update(Plan.class, "completePlan", map);
+		return true;
+	}
+
+	@Override
+	public boolean updatePlan(Plan plan) {
+		this.baseDao.update(plan, "updatePlan");
+		return true;
 	}
 
 }

@@ -8,6 +8,7 @@ public class Plan extends CommonBean implements Serializable {
 
 	private Integer pid;
 	private String pname;
+	private String content;
 	private String timestart;
 	private String timelimit;
 	private String timeend;
@@ -15,6 +16,14 @@ public class Plan extends CommonBean implements Serializable {
 	private Integer gid;
 
 	private String gname;
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public String getGname() {
 		return gname;
@@ -80,11 +89,12 @@ public class Plan extends CommonBean implements Serializable {
 		this.pstatus = pstatus;
 	}
 
-	public Plan(Integer pid, String pname, String timestart, String timelimit, String timeend, String pstatus,
-			Integer gid, String gname) {
+	public Plan(Integer pid, String pname, String content, String timestart, String timelimit, String timeend,
+			String pstatus, Integer gid, String gname) {
 		super();
 		this.pid = pid;
 		this.pname = pname;
+		this.content = content;
 		this.timestart = timestart;
 		this.timelimit = timelimit;
 		this.timeend = timeend;
@@ -95,8 +105,9 @@ public class Plan extends CommonBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Plan [pid=" + pid + ", pname=" + pname + ", timestart=" + timestart + ", timelimit=" + timelimit
-				+ ", timeend=" + timeend + ", pstatus=" + pstatus + ", gid=" + gid + ", gname=" + gname + "]";
+		return "Plan [pid=" + pid + ", pname=" + pname + ", content=" + content + ", timestart=" + timestart
+				+ ", timelimit=" + timelimit + ", timeend=" + timeend + ", pstatus=" + pstatus + ", gid=" + gid
+				+ ", gname=" + gname + "]";
 	}
 
 	public Plan() {
