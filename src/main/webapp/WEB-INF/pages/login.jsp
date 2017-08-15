@@ -69,4 +69,20 @@ $(function(){
 
     </body>
 
+<body>
+	<div class="page-container">
+		<h1>Login</h1>
+		<form id="login" method="post">
+			<input type="text" name="uname" class="username" placeholder="用户名">
+			<input type="password" name="upwd" class="password" placeholder="密码">
+			<input type="text" name="zccode" id="zccode" class="username" placeholder="验证码" />
+			<img src="image.jsp" onclick="changeVilidateCode(this)" border="0" title="点击刷新验证码" size="10" />
+			<button id="button" type="button">Sign me in</button>
+			<div class="error">
+				<span>+</span>
+			</div>
+		</form>
+	</div>
+	<!-- Javascript -->
+</body>
 </html>

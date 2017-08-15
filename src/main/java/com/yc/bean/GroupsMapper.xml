@@ -7,10 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
 	</cache>
 
-	<!-- 根据小组id查询小组信息 -->
+	<!-- 根据部门id查询小组信息 -->
 	<select id="getGroupsByCondition" resultType="Groups" parameterType="int">
 		select gid,gname,did from groups where did= #{did}
 	</select>
 
+	<!-- 根据小组id查询小组信息 -->
+	<select id="getGroupBygid" resultType="Groups" parameterType="Groups">
+		select gname,pid from group where gid = #{gid}
+	</select>
 
 </mapper>

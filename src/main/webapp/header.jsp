@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ taglib prefix="yc" uri="http://www.hyycinfo.com" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +15,6 @@
 <base href="<%=basePath%>"/>
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
-
 <script type="text/javascript" src="js/dateformat.js"></script><!-- 日期的格式化 -->
 <link type="text/css" rel="stylesheet" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="easyui15/themes/default/easyui.css">

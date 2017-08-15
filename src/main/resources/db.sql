@@ -1,19 +1,23 @@
 create database oa;
+
 drop database oa;
+
 drop table plan
 --任务表： 任务编号、任务名、内容、开始时间、时间限制、完成时间、状态、
 create table plan(
 	pid int primary key auto_increment,
 	pname VARCHAR(50),
-	content VARCHAR(200),
+	content VARCHAR(2000),
 	timestart DATETIME,
 	timelimit DATETIME,
 	timeend DATETIME,
+	gid int,
 	pstatus VARCHAR(50),
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 	
 )
+
 
 
 
@@ -105,6 +109,7 @@ insert into notice(content,nweight,createtime,did,gid,uid) values("1111",1,now()
 select * from notice;
 
 drop table notice;
+
 alter table notice 
   add constraint fk_notice_users
      foreign key(uid) references users(uid);
@@ -132,11 +137,35 @@ alter table file
   add constraint fk_file_users
      foreign key(uid) references users(uid);
 
+
 ---------------------------------------------------------初始化数据----------------------------------
-insert into plan(pname,content,timestart,timelimit,timeend,pstatus) 
-	values('OA系统开发','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,'进行中')
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('OA系统开发','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,1,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('第四季度策划','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 4 DAY),null,2,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试1','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 5 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试2','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 2 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试3','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 1 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试4','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试5','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试6','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试7','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试8','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试9','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
+insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
+	values('任务计划的测试10','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,3,'进行中');
 	
 select * from plan
+
 
 ----
 
@@ -160,8 +189,12 @@ select * from users
 delete from users where uid = 4;
 
 -----
-insert into groups(gname ,pid )
-	values('OA开发小组',1)
+insert into groups(gname )
+	values('OA开发小组')
+insert into groups(gname )
+	values('第一策划小组')
+insert into groups(gname )
+	values('第一测试小组')
 
 select * from groups
 
@@ -179,3 +212,39 @@ select * from notice
 insert into file(fname,description,path ,uid ,uptime ,downtimes ,fweight)
 	values('绝密资料','这是一份绝密资料',null,1,now(),0,1)
 select * from file
+
+
+--查找小组的工作计划的详情	
+select pid,pname,content,timestart,timelimit,timeend,pstatus,gid from plan 
+			where gid=1 and pstatus='进行中'
+
+select * from plan
+select pid,pname,content,timestart,timelimit,timeend,pstatus,gid from plan WHERE  pstatus='进行中'  limit 0,5
+
+
+
+update plan set content = "计划编号5--计算机的诞生和发展促进了人类社会的进步和繁荣，作为信息科学的载体和核心，计算机科学在知识时代扮了重要的角色。在行政机关、企事业单位工作中，是采用Internet/Intranet技术，基于工作流的概念，以计算机为中心，采用一系列现代化的办公设备和先进的通信技术，广泛、全面、迅速地收集、整理、加工、存储和使用信息，使企业内部人员方便快捷地共享信息，高效地协同工作；改变过去复杂、低效的手工办公方式，为科学管理和决策服务，从而达到提高行政效率的目的。一个企业实现办公自动化的程度也是衡量其实现现代化管理的标准。中国专家在第一次全国办公自动化规划讨论会上提出办公自动化的定义为：利用先进的科学技术，使部分办公业务活动物化于人以外的各种现代化办公设备中，由人与技术设备构成服务于某种办公业务目的的人一机信息处理系统。
+--OA未来： “以人为本”是协同的精髓.企业的核心管控环节包括各项事务都存在一个事前规划预测、事中执行监控、事后分析优化的循环体系，都要有一个目标制定、分解执行落地、执行中资源协助、执行后分析优化的过程，不管是流程管理、知识管理还是目标绩效、计划任务管理。当我们把目光聚焦到执行者身上，就很轻易地得出以人为中心的协同运营导航平台的原型：这个平台需要能够明确地传达他的工作体系是怎样的、目标是什么、执行落地的步骤该怎么操作、执行过程中所需要的资源应该从哪里获取，以及执行的过程可以怎样来优化等等，而这个执行的过程支撑着企业各项事务的落地和效果。因此，以人为中心是协同的精髓之所在。"
+where pid=5
+
+select pid,pname,content,timestart,timelimit,timeend,pstatus,plan.gid as gid,gname from plan left join  groups 
+		on plan.gid=groups.gid
+		
+		
+insert into plan(pname,content,timestart,timelimit,gid,pstatus)
+		values('测试14','具体内容',now(),DATE_ADD(now(),INTERVAL 5 DAY),1,'进行中')
+		
+delete from plan where pid=19
+
+
+
+select pid,pname,timestart,timelimit,timeend,pstatus,plan.gid as
+		gid,gname from plan left join groups
+		on plan.gid=groups.gid 
+		order by pid
+		asc
+		limit 0,5
+		and pstatus='进行中'
+		
+		
+select * from plan

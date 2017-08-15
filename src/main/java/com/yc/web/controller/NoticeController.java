@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yc.bean.Notice;
 import com.yc.biz.NoticeBiz;
-import com.yc.utils.JsonModelToJson;
 import com.yc.web.model.JsonModel;
 
 @RestController
@@ -33,8 +32,8 @@ public class NoticeController {
 		return jsonModel;
 	}
 	
-	@RequestMapping(value="/user/findAllNotice.action",produces="text/html;charset=UTF-8")
-	private String findAll(Notice notice, HttpServletRequest request) throws Exception {
+	@RequestMapping(value="/user/findAllNotice.action")
+	private JsonModel findAll(Notice notice, HttpServletRequest request) throws Exception {
 		JsonModel jsonModel = new JsonModel();
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
@@ -45,9 +44,6 @@ public class NoticeController {
 		Integer count = noticeBiz.findNoticeCount();
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
-		
-		JsonModelToJson jmtj = new JsonModelToJson();
-		String jsonStr = jmtj.toJson(jsonModel);
-		return jsonStr;
+		return jsonModel;
 	}
 }
