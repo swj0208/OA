@@ -30,7 +30,7 @@ public class IndexControllere {
 	
 	@RequestMapping(value="/toShowPlan.action",method = RequestMethod.GET)
 	public String toPlan(){
-		return "plandoing";
+		return "plan/plandoing";
 	}
 
 	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
