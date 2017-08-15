@@ -1,18 +1,15 @@
 package com.yc.web.controller;
 
-import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yc.bean.Notice;
 import com.yc.biz.NoticeBiz;
-import com.yc.utils.JsonModelToJson;
 import com.yc.web.model.JsonModel;
 
 @RestController
