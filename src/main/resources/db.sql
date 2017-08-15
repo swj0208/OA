@@ -18,7 +18,7 @@ create table plan(
 	
 )
 
-
+select * from plan;
 
 
 drop table users
