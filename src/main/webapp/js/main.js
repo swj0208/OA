@@ -98,13 +98,13 @@ $(function() {
 				{
 					"text" : "新增任务",
 					"attributes" : {
-						"url" : "<iframe width='100%' height='100%' src='toaddPlan.action'/>"
+						"url" : "<iframe width='100%' height='100%' src='addPlan.action'/>"
 					}
 				},
 				{
 					"text" : "查看任务",
 					"attributes" : {
-						"url" : "<iframe width='100%' height='100%' src='toshowUsers.action'/>"
+						"url" : "<iframe width='100%' height='100%' src='findAllPlan.action'/>"
 					}
 
 				} ]
