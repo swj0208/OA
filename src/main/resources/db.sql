@@ -114,6 +114,7 @@ drop table file
 --共享文件表：编号、文件名、文件描述、路径、上传用户的id、上传时间、下载次数、文件权重
 create table file(
 	fid int primary key auto_increment,
+	fuuid VARCHAR(100),
 	fname  VARCHAR(50),
 	description VARCHAR(200),
 	path VARCHAR(100),
@@ -121,9 +122,15 @@ create table file(
 	uptime DATETIME,
 	downtimes int,
 	fweight int,
-	temp1 VARCHAR(200),
+	touid int,
+	togid int,
+	todid int,
+	temp1 VARCHAR(200), 
 	temp2 VARCHAR(200)
 )
+select * from file;
+
+drop table file;
 
 alter table file 
   add constraint fk_file_users

@@ -35,6 +35,18 @@
 		<property name="locations" value="classpath*:db.properties" />
 	</bean>
 
+
+	<!-- 多部分文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1048576000" /><!-- 总文件大小 -->
+		<property name="maxUploadSizePerFile" value="1048576000" /><!-- 总文件大小 -->
+		<property name="maxInMemorySize" value="4096" /><!-- 配置缓存 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+	
+	
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />

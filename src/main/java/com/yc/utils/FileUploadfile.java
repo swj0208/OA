@@ -20,9 +20,8 @@ import com.jspsmart.upload.Request;
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
 
-public class FileUpload {
-	private long singleSize = 10 * 1024 * 1024*10;
-	private String allowedFilesList="gif,jpg,jpeg,png";
+public class FileUploadfile {
+	private long singleSize = 10 * 1024 * 1024*100;
 	private String deniedFilesList="jsp,asp,php,aspx,html,htm,exe,bat,sh";
 	private long totalFileSize=5*singleSize;
 	
@@ -52,7 +51,6 @@ public class FileUpload {
 		
 		
 		// 定义允许上传文件类型
-		su.setAllowedFilesList(allowedFilesList);
 		// 不允许上传文件类型
 		su.setDeniedFilesList(deniedFilesList);
 		// 单个文件最大限制
@@ -124,7 +122,7 @@ public class FileUpload {
 	private String genNewFilePrefixName() {
 		// 生成新的文件名
 		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("SSyyyymmddHHmmss");
 		String filePrefixName = sdf.format(d); // 文件的前缀名
 		return filePrefixName;
 	}
@@ -137,13 +135,6 @@ public class FileUpload {
 		this.singleSize = singleSize;
 	}
 
-	public String getAllowedFilesList() {
-		return allowedFilesList;
-	}
-
-	public void setAllowedFilesList(String allowedFilesList) {
-		this.allowedFilesList = allowedFilesList;
-	}
 
 	public String getDeniedFilesList() {
 		return deniedFilesList;

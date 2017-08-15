@@ -34,12 +34,18 @@ public class IndexControllere {
 	}
 
 	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
-	public String toAddMessage(Department department,HttpSession session){
+	public String toAddMessage(){
 		return "notice/addNotice";
 	}
 	
 	@RequestMapping(value="/toManageNotice.action",method = RequestMethod.GET)
-	public String toManageNotice(Department department,HttpSession session){
+	public String toManageNotice(){
 		return "notice/manageNotice";
+	}
+	
+	
+	@RequestMapping(value="/toUploadFile.action",method = RequestMethod.GET)
+	public String totoUploadFile(){
+		return "file/uploadFile";
 	}
 }

@@ -48,8 +48,8 @@ public class UsersController {
 				jsonModel.setMsg(e.getMessage());
 			}
 		}
+		session.setAttribute("users", user);
 		return jsonModel;
-
 	}
 	
 	
