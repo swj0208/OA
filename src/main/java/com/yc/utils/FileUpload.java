@@ -47,6 +47,8 @@ public class FileUpload extends HttpServlet {
 		
 		//取参数 Request是smartupload的request-->HttpServletRequest
 		Request re=su.getRequest();
+		
+		
 		Enumeration<String> enu=re.getParameterNames();
 		while(enu.hasMoreElements()){
 			String pn=enu.nextElement();
@@ -90,7 +92,8 @@ public class FileUpload extends HttpServlet {
 				
 				String fieldName=file.getFieldName();
 				String oldFileName=file.getFileName();
-				map.put("photo",weburl);
+				//request.setAttribute("photo", weburl);
+				//map.put("photo", weburl);
 				map.put(fieldName+"_weburl", weburl);
 				map.put(fieldName+"_destFilePathName", destFilePathName);
 				map.put(fieldName+"_oldFileName", oldFileName);

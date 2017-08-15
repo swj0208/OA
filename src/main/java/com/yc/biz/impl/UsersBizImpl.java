@@ -2,19 +2,24 @@ package com.yc.biz.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
+import com.jspsmart.upload.Request;
+import com.jspsmart.upload.SmartUploadException;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
@@ -45,9 +50,13 @@ public class UsersBizImpl implements UsersBiz {
 
 	/**
 	 * 添加用户
+	 * @throws SmartUploadException 
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * @throws ServletException 
 	 */
 	@Override
-	public boolean add(Users users ) {
+	public boolean add(Users users) {
 		users.setUpwd(Encrypt.md5AndSha(users.getUpwd()));
 		baseDao.save(users, "saveUser");
 		return true;

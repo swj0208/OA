@@ -6,6 +6,8 @@
 	FileUpload fu  = new FileUpload();
 	Map<String,String> map = fu.uploadFiles(pageContext, request);
 	
+	
+	
 	//取出回调函数名  ：jsonp技术
 	response.setContentType("text/html;charset=UTF-8");
 	

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 <script type="text/javascript">
-	 $(function(){
+ 	 $(function(){
 		$("#addBtn").click(function(){
 			$.ajax({
 				type:"POST",
@@ -18,7 +18,7 @@
 				}
 			});
 		});
-	}); 
+	});  
 	  function showUploadImg(obj,picid){
 			//判断浏览器是否支持FileReader接口
 			if(typeof FileReader=='undefined'){

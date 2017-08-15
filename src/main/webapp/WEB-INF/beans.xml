@@ -14,7 +14,7 @@
         http://www.springframework.org/schema/task 
         http://www.springframework.org/schema/task/spring-task-3.0.xsd
         http://www.springframework.org/schema/mvc 
-           http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+           http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"  >
 
 
 	<import resource="beans_email.xml" />
@@ -28,13 +28,17 @@
 	<mvc:annotation-driven />
 
 	<!-- 开启aspectj的自动代理机制 -->
+	<aop:aspectj-autoproxy />	<!-- 开启aspectj的自动代理机制 -->
 	<aop:aspectj-autoproxy />
 
 	<!-- 读取属性配置文件 -->
 	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
 		<property name="locations" value="classpath*:db.properties" />
 	</bean>
+	
+	
+	
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -74,7 +78,7 @@
 	</bean>
 
 	<!-- 通过工厂创建 session -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" >
 		<!-- 使用构造方法进行di -->
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>

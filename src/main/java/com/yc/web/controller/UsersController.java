@@ -1,16 +1,23 @@
 package com.yc.web.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jspsmart.upload.SmartUploadException;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
+import com.yc.utils.FileUpload;
 import com.yc.web.model.JsonModel;
 
 
@@ -19,6 +26,7 @@ public class UsersController {
 
 	@Resource(name="usersBizImpl")
 	private UsersBiz usersBiz;
+	
 	
 	@RequestMapping("/users_login.action")
 	public JsonModel login(Users user, HttpServletRequest request, HttpSession session) {
@@ -51,9 +59,9 @@ public class UsersController {
 	}
 	
 	@RequestMapping("/user/users_add.action")
-	public JsonModel addUser(Users user) {
+	public JsonModel addUser(Users users) {
 		JsonModel jm=new JsonModel();
-		boolean result=usersBiz.add(user);
+		boolean result=usersBiz.add(users);
 		if(result){
 			jm.setCode(1);
 		} else{
