@@ -22,6 +22,27 @@ public class Users  extends CommonBean implements Serializable {
 	private Integer did;
 	private String ustatus;
 	private Integer gid;
+	
+	private String department;
+	private String gname;
+	
+	
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getGname() {
+		return gname;
+	}
+
+	public void setGname(String gname) {
+		this.gname = gname;
+	}
 
 	public Integer getUid() {
 		return uid;
@@ -139,9 +160,10 @@ public class Users  extends CommonBean implements Serializable {
 	public String toString() {
 		return "Users [uid=" + uid + ", uname=" + uname + ", upwd=" + upwd + ", sex=" + sex + ", photo=" + photo
 				+ ", entrytime=" + entrytime + ", tel=" + tel + ", email=" + email + ", qq=" + qq + ", birthday="
-				+ birthday + ", address=" + address + ", did=" + did + ", ustatus=" + ustatus + ", gid="
-				+ gid + "]";
+				+ birthday + ", address=" + address + ", did=" + did + ", ustatus=" + ustatus + ", gid=" + gid
+				+ ", department=" + department + ", gname=" + gname + "]";
 	}
+
 
 	
 	

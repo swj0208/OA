@@ -57,7 +57,7 @@ public class UsersController {
 		return jsonModel;
 
 	}
-	
+	//添加员工
 	@RequestMapping("/user/users_add.action")
 	public JsonModel addUser(Users users) {
 		JsonModel jm=new JsonModel();
@@ -68,11 +68,35 @@ public class UsersController {
 			jm.setCode(0);
 		}
 		return jm;
-		
-		
-
 	}
 	
+	//修改员工资料
+	@RequestMapping("/updateUser.action")
+	public JsonModel updateUser(Users users) {
+		JsonModel jm=new JsonModel();
+		boolean result=usersBiz.updateUsers(users);
+		if(result){
+			jm.setCode(1);
+		} else{
+			jm.setCode(0);
+		}
+		return jm;
+	}
+	
+	// 删除人员(员工离职)
+	@RequestMapping("/delUsers.action")
+	public JsonModel delUsers(Integer uid) throws Exception {
+		boolean flag = this.usersBiz.delUsers(uid);
+		JsonModel jm = new JsonModel();
+		if (flag) {
+			jm.setCode(1);
+		} else {
+			jm.setCode(0);
+		}
+		return jm;
+	}
+	
+	//查询所有员工,加载到页面分页等
 	@RequestMapping("/user/manUser.action")
 	public JsonModel manUser(Users users,HttpServletRequest request) throws Exception {
 			JsonModel jModel=new JsonModel();

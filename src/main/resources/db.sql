@@ -17,10 +17,9 @@ create table plan(
 	temp2 VARCHAR(200)
 	
 )
-
 select * from plan;
 
-
+select * from users u left join department d on u.did=d.did left join groups g on g.gid=u.gid  where 1=1
 drop table users
 --用户表:编号、姓名、密码、性别、照片路径、入职时间、电话、email、QQ、生日、住址、部门、状态、小组编号
 create table users(

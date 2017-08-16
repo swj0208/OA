@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.jspsmart.upload.Request;
 import com.jspsmart.upload.SmartUploadException;
+import com.yc.bean.Plan;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
@@ -82,6 +83,24 @@ public class UsersBizImpl implements UsersBiz {
 		map.put("did", did+"");
 		map.put("gid", gid+"");
 		return baseDao.findAll(Users.class, "getUserBygidanddid", map);
+	}
+
+
+	
+	@Override
+	public boolean delUsers(int uid) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("uid", uid);
+		baseDao.del(Users.class, "delUsers", map);
+		return true;
+	}
+
+
+
+	@Override
+	public boolean updateUsers(Users users) {
+		this.baseDao.update(users, "updateUsers");
+		return true;
 	}
 
 

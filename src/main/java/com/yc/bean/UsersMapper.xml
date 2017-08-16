@@ -3,22 +3,24 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yc.bean.UsersMapper">
-	
+
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
 	</cache>
-	
+
 	<!-- 根据用户名和密码查询用户 -->
 	<select id="getUserByLogin" resultType="Users" parameterType="Users">
 		select * from users where uname = #{uname} and upwd = #{upwd}
 	</select>
 	<!-- 添加用户 -->
-	<insert id="saveUser" parameterType="Users" useGeneratedKeys="true" keyProperty="uid">
-		insert into users(uname,upwd,entrytime,tel,email,qq,birthday,address,did,gid,ustatus
+	<insert id="saveUser" parameterType="Users" useGeneratedKeys="true"
+		keyProperty="uid">
+		insert into
+		users(uname,upwd,entrytime,tel,email,qq,birthday,address,did,gid,ustatus
 		,sex)values(#{uname},#{upwd},#{entrytime},#{tel},#{email},#{qq},#{birthday}
 		,#{address},#{did},#{gid},#{ustatus},#{sex})
-		
+
 	</insert>
-	
+
 	<!-- 排序的拼接 -->
 	<sql id="orderSql">
 		<if test="orderby!=null and orderby!=''">
@@ -28,33 +30,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</if>
 	</sql>
-	
+
 	<!-- 分页条件的拼接 -->
 	<sql id="pageSql">
 		<if test="start!=null">
 			limit #{start},#{pagesize}
 		</if>
 	</sql>
-	
+
 	<!-- 查询所有的用户 -->
-	<select id="findAllUsersCondition" resultType="Users" parameterType="Users">
-		select * from users where 1=1 <include refid="orderSql" />
+	<select id="findAllUsersCondition" resultType="Users"
+		parameterType="Users">
+		select * from users u left join department d on u.did=d.did inner join
+		groups g on g.gid=u.gid where 1=1
+		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
-	
-	
-	
+
+
+
 	<!-- 根据gid和did查询用户 -->
-	<select id="getUserBygidanddid" resultType="Users" parameterType="Map">
+	<select id="getUserBygidanddid" resultType="Users"
+		parameterType="Map">
 		select * from users where gid = #{gid} and did = #{did}
 	</select>
-	
-	
-	
-	
 
-	<!-- 查询用户的数量-->
-	<select id="findAllUsersConditionCount" resultType="int" parameterType="Users">
-		select count(*) from users where 1=1 
+
+	<!-- 删除计划 -->
+	<delete id="delUsers" parameterType="java.util.Map">
+		delete from users where
+		uid=#{uid}
+	</delete>
+
+
+
+	<!-- 查询用户的数量 -->
+	<select id="findAllUsersConditionCount" resultType="int"
+		parameterType="Users">
+		select count(*) from users where 1=1
 	</select>
+
+	<!-- 修改用户的资料 -->
+	<update id="updateUsers" parameterType="Users">
+		update users set
+		gid=#{gid},did=#{did},ustatus=#{ustatus} where uid=#{uid}
+	</update>
+	
 </mapper>

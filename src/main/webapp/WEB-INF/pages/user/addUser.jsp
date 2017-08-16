@@ -57,7 +57,7 @@
 
 			});
 		}
-		function onchangegname() {
+	 	function onchangegname() {
 			var did = $("#did").val();
 			var gid = $("#gid").val();
 			$.ajax({
@@ -77,34 +77,34 @@
 				}
 
 			});
-		} 
+		}  
 		
 		
 		
 </script>
-<title>添加新闻</title>
+<title>添加员工</title>
 </head>
 <body>
 
 
 
-		发布新闻
+		添加员工
 		<hr/>
 		<form id="addUserForm" action="" method="post" enctype="multipart/form-data">
 			<div style="text-align:left;">
-				用户名: <input type="text" name="uname" id="uname" value="pw"/><br/>
-				密码: <input type="password" name="upwd" id="uname" value="a"/><br/>
-				性别:	<label><input name="sex" id="sex" type="radio" value="男" />男 </label>
+				用&nbsp;户&nbsp;名: <input type="text" name="uname" id="uname" value="pw"/><br/>
+				密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码: <input type="password" name="upwd" id="uname" value="a"/><br/>
+				性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:	<label><input name="sex" id="sex" type="radio" value="男" />男 </label>
 					<label><input name="sex" id="sex" type="radio" value="女" />女 </label><br/>
-				照片:<input type="file" name="photo" id="photo" onchange="showUploadImg(this,'showpic')" accept="image/*"/><br/>
+				照&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片:<input type="file" name="photo" id="photo" onchange="showUploadImg(this,'showpic')" accept="image/*"/><br/>
 				<input type="button" value="隐藏图片" onclick="document.getElementById('showpic').style.display='none';"/>
 				<input type="button" value="显示图片" onclick="document.getElementById('showpic').style.display='block';"/>
 				<br/>
 				<img id="showpic" /><br/>
 				加入时间:<input type="text" id=entrytime name="entrytime" class="easyui-datebox"/><br/>
 				联系电话: <input type="text" name="tel" id="tel" value="1234"/><br/>
-				邮箱: <input type="text" name="email" id="email" value="234@qq.com"/><br/>
-				QQ: <input type="text" name="qq" id="qq" value="234"/><br/>
+				邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱: <input type="text" name="email" id="email" value="234@qq.com"/><br/>
+				Q&nbsp;&nbsp;Q&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="qq" id="qq" value="234"/><br/>
 				出生日期:<input type="text" name="birthday" id="birthday" class="easyui-datebox"/><br/>
 				家庭地址:<input type="text" name="address" id="address" value="湖南"/><br/>
 			  <div>所属部门：
@@ -112,16 +112,19 @@
 					<option></option>
 					<c:forEach items="${Department }" var="d">
 					<option value="${d.did }">${d.department}</option>
-				</c:forEach>
+					</c:forEach>
 				</select> 		
 				所属小组：
 				<select class="text" name="gid" id="gid" onchange="onchangegname()">	</select><br/>
 				</div> 
-				 状态:<select class="text" name="ustatus" id="ustatus">
+				 状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态:<select class="text" name="ustatus" id="ustatus">
+					<option value="正常" selected>正常</option>
+					<option value="请假">请假</option>
+					<option value="出差">出差</option>
+				
 				</select><br/>
 				<input type="button" id="addBtn" value="添加" />
 			</div>
 		</form>
-	
 </body>
 </html>
