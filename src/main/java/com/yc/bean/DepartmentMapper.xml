@@ -15,5 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
-
+	
+	<!-- 查询所有部门 -->
+	<select id="getAllDepartment" resultType="Department" parameterType="Department">
+		select * from department where 1=1
+	</select>
 </mapper>

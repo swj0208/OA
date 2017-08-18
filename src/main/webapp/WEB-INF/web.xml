@@ -70,9 +70,9 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<listener>
+	 <listener>
 		<listener-class>com.yc.web.listeners.InitListener</listener-class>
-	</listener>
+	</listener> 
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

@@ -12,6 +12,7 @@ import com.yc.bean.Department;
 import com.yc.biz.DepartmentBiz;
 import com.yc.dao.BaseDao;
 
+
 @Service
 @Transactional
 public class DepartmentBizImpl implements DepartmentBiz {
@@ -24,5 +25,7 @@ public class DepartmentBizImpl implements DepartmentBiz {
 	public List<Department> getDepartmentBydname(Department department) {
 		return  baseDao.findAll(department, "getDepartmentBydname");
 	}
+
+	
 
 }

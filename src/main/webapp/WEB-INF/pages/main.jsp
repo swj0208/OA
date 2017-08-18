@@ -33,7 +33,11 @@
 			<div title="权限管理" style="overflow: auto; padding: 10px;">
 				<ul id="powerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
+				<ul id="userpowerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				</ul>
 			</div>
+		
+			
 		</div>
 	</div>
 	<div data-options="region:'center',title:'主操作区',iconCls:'icon-ok'">

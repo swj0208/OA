@@ -4,16 +4,21 @@ import java.io.Serializable;
 import java.util.List;
 
 public class JsonModel<T> implements Serializable {
-	private static final long serialVersionUID = -1947607909350498604L;
-	private int code;
-	private String msg;
-	private Object obj;
-
-	private Integer total; // *总记录数
-	private Integer pages; // * 当前为第几页
-	private Integer pagesize; // *每页xx条
-	private List<T> rows; // 记录集合
+	private Integer code;//操作状态编码:1.成功 2.失败
+	private String msg; //信息
+	private Object obj; //对象
+	private String url; //下一步要去页面
 	
+	private Integer total;//总记录数
+	private Integer pages;//当前为第几页
+	private Integer pageSize;//每页几条
+	private List<T> rows; 
+	
+	
+	
+	
+	private static final long serialVersionUID = -1947607909350498604L;
+
 	private Integer page;
 	
 
@@ -25,80 +30,64 @@ public class JsonModel<T> implements Serializable {
 		this.page = page;
 	}
 
-	public JsonModel(int code, String msg, Object obj) {
+	public JsonModel() {
 		super();
 		this.code = code;
 		this.msg = msg;
 		this.obj = obj;
 	}
-
-	public JsonModel() {
-		super();
-	}
-
-	public int getCode() {
+	public Integer getCode() {
 		return code;
 	}
-
-	public void setCode(int code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
-
 	public String getMsg() {
 		return msg;
 	}
-
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-
 	public Object getObj() {
 		return obj;
 	}
-
 	public void setObj(Object obj) {
 		this.obj = obj;
 	}
-
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public Integer getTotal() {
 		return total;
 	}
-
-	// 设置总记录数 要先调用 setPageSize(),setPages();
 	public void setTotal(Integer total) {
 		this.total = total;
 	}
-
 	public Integer getPages() {
 		return pages;
 	}
-
 	public void setPages(Integer pages) {
 		this.pages = pages;
 	}
-
-	public Integer getPagesize() {
-		return pagesize;
+	public Integer getPageSize() {
+		return pageSize;
 	}
-
-	public void setPagesize(Integer pagesize) {
-		this.pagesize = pagesize;
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
-
 	public List<T> getRows() {
 		return rows;
 	}
-
 	public void setRows(List<T> rows) {
 		this.rows = rows;
 	}
+	
+	
 
 
-	@Override
-	public String toString() {
-		return "JsonModel [code=" + code + ", msg=" + msg + ", obj=" + obj + ", total=" + total + ", pages=" + pages
-				+ ", pagesize=" + pagesize + ", rows=" + rows + "]";
-	}
 
 	
 }

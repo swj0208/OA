@@ -17,8 +17,9 @@ create table plan(
 	temp2 VARCHAR(200)
 	
 )
+select * from plan;
 
-
+select * from users u left join department d on u.did=d.did left join groups g on g.gid=u.gid  where 1=1
 drop table users
 --用户表:编号、姓名、密码、性别、照片路径、入职时间、电话、email、QQ、生日、住址、部门、状态、小组编号
 create table users(
@@ -40,6 +41,8 @@ create table users(
 	temp2 VARCHAR(200)
 )
 select * from users;
+
+delete  from users where 1=1;
 drop table users;
 
 drop table groups
@@ -53,6 +56,7 @@ create table department(
 drop table department;
 insert into department(department,temp1,temp2) values("设计部",null,null);
 insert into department(department,temp1,temp2) values("研发部",null,null);
+insert into department(department,temp1,temp2) values("人事部",null,null);
 select * from department;
 
 --小组编号：编号、小组名、任务编号
@@ -171,10 +175,18 @@ select * from plan
 
 ----
 
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
+	values('a','a','男',null,now(),'13579246810','12345678@zs.com','12345678','1987-1-1','湖南','开发部','正常',1)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
+	values('wp','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
+	
+	values('李四','12345678','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('ws','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
 	values('a','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
-	values('b','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','女',null,now(),'13222222222','12222222@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
+	values('v','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','女',null,now(),'13222222222','12222222@ls.com','12345679','1987-11-12','湖南',1,'正常',1)
 
 	
 	
@@ -195,7 +207,7 @@ select * from groups
 -----
 insert into power (powername,uid)
 	values('管理员',1)
-select * from power
+select * from department
 
 ----
 insert into notice(content,nweight ,createtime  ,uid ,nstatus)

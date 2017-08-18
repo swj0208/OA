@@ -3,7 +3,9 @@ package com.yc.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Users implements Serializable {
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+public class Users  extends CommonBean implements Serializable {
 
 	private static final long serialVersionUID = -8608252383657396863L;
 	private Integer uid;
@@ -15,11 +17,32 @@ public class Users implements Serializable {
 	private String tel;
 	private String email;
 	private String qq;
-	private String birthday;
+	private Date birthday;
 	private String address;
 	private Integer did;
 	private String ustatus;
 	private Integer gid;
+	
+	private String department;
+	private String gname;
+	
+	
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getGname() {
+		return gname;
+	}
+
+	public void setGname(String gname) {
+		this.gname = gname;
+	}
 
 	public Integer getUid() {
 		return uid;
@@ -93,11 +116,11 @@ public class Users implements Serializable {
 		this.qq = qq;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
@@ -137,9 +160,10 @@ public class Users implements Serializable {
 	public String toString() {
 		return "Users [uid=" + uid + ", uname=" + uname + ", upwd=" + upwd + ", sex=" + sex + ", photo=" + photo
 				+ ", entrytime=" + entrytime + ", tel=" + tel + ", email=" + email + ", qq=" + qq + ", birthday="
-				+ birthday + ", address=" + address + ", did=" + did + ", ustatus=" + ustatus + ", gid="
-				+ gid + "]";
+				+ birthday + ", address=" + address + ", did=" + did + ", ustatus=" + ustatus + ", gid=" + gid
+				+ ", department=" + department + ", gname=" + gname + "]";
 	}
+
 
 	
 	

@@ -53,12 +53,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.38</version>
 		</dependency>
-		<!-- oracle 驱动 自已在 maven仓库中创建的 -->
-		<dependency>
-			<groupId>com.yc.drivers</groupId>
-			<artifactId>oracle</artifactId>
-			<version>14</version>
-		</dependency>
+	
 
 		<!-- servlet 包，上线后不要，因为 tomcat的lib中自带有, 所以要配置 scope为provided -->
 		<dependency>

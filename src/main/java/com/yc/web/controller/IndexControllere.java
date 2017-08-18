@@ -28,11 +28,22 @@ public class IndexControllere {
 		return "main";
 	}
 	
+	@RequestMapping(value="/toAddUser.action",method = RequestMethod.GET)
+	public String toAddUser(){
+		return "user/addUser";
+	}
+	
+	@RequestMapping(value="/toManUser.action",method = RequestMethod.GET)
+	public String toManUser(){
+		return "user/manUser";
+	}
+		
 	@RequestMapping(value="/toShowPlan.action",method = RequestMethod.GET)
 	public String toPlan(){
 		return "plan/plandoing";
 	}
 
+	
 	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
 	public String toAddMessage(){
 		return "notice/addNotice";
