@@ -34,7 +34,6 @@ public class UsersController {
 			try{
 				user = usersBiz.login(user);
 				if (user != null) {
-					session.setAttribute("user", user);
 					jsonModel.setCode(1);
 					user.setUpwd(null);    //设为空后,密码就不会传到界面
 					jsonModel.setObj(user);
