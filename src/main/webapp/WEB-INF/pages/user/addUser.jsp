@@ -1,22 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
  	 $(function(){
 		$("#addBtn").click(function(){
-			$.ajax({
-				type:"POST",
-				url:"user/users_add.action",
-				data:$("#addUserForm").serialize(),
-				dataType:"JSON",
-				success:function(data){
-					if(data.code==1){
-						$.messager.alert('Warning','添加成功');
-					}else{
-						$.messager.alert('Warning','添加失败,'+data.errorMsg);
+			var opt = {
+				type : "POST",
+				url : "user/users_add.action",
+				dataType : "JSON",
+				success : function(data) {
+					if (data.code == 1) {
+						alert("提交成功");
+						location.href = "toManUser.action";
+					} else {
+						alert("提交失败！" + data.msg);
 					}
 				}
-			});
+			}
+			$("#addUserForm").ajaxSubmit(opt);
 		});
 	});  
 	  function showUploadImg(obj,picid){
@@ -90,7 +92,7 @@
 
 		添加员工
 		<hr/>
-		<form id="addUserForm" action="" method="post" enctype="multipart/form-data">
+		<form id="addUserForm" method="post" enctype="multipart/form-data">
 			<div style="text-align:left;">
 				用&nbsp;户&nbsp;名: <input type="text" name="uname" id="uname" value="pw"/><br/>
 				密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码: <input type="password" name="upwd" id="uname" value="a"/><br/>

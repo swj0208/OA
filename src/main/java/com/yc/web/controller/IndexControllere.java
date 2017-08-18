@@ -53,4 +53,15 @@ public class IndexControllere {
 	public String toManageNotice(){
 		return "notice/manageNotice";
 	}
+	
+	
+	@RequestMapping(value="/user/toUploadFile.action",method = RequestMethod.GET)
+	public String totoUploadFile(){
+		return "file/uploadFile";
+	}
+	
+	@RequestMapping(value="/user/toShowFile.action",method = RequestMethod.GET)
+	public String toShowFile(){
+		return "file/showFile";
+	}
 }

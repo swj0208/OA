@@ -21,7 +21,12 @@ public class NoticeBizImpl implements NoticeBiz {
 	@Override
 	public boolean AddNotice(Notice notice) {
 		baseDao.save(notice, "AddNotice");
-		return true;
+		if (notice!=null) {
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 
 	@Override

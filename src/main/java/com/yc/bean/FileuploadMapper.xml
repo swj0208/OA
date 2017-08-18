@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.bean.FileuploadMapper">
+
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
+	</cache>
+
+	<sql id="orderSql">
+		<if test="orderby!=null and orderby!=''">
+			order by #{orderby}
+			<if test="orderway!=null and orderway!=''">
+				#{orderway}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 分页条件的拼接 -->
+	<sql id="pageSql">
+		<if test="start!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</sql>
+
+	<insert id="addFile" parameterType="Fileupload"
+		useGeneratedKeys="true" keyProperty="fid">
+		insert into
+		file(fname,description,path,uid,uptime,downtimes,fweight,todid,togid,touid)
+		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid})
+	</insert>
+
+
+
+	<select id="findFile" parameterType="Fileupload" resultType="Fileupload">
+		select
+		fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
+		from file
+		<where>
+			<if test="fname!=null and fname!=''">
+				fname = #{fname}
+			</if>
+		</where>
+		<include refid="orderSql" />
+		<include refid="pageSql" />
+		
+	</select>
+
+
+
+	<!-- 查找notice数量 -->
+	<select id="FileCount" resultType="int">
+		select count(*) from file
+	</select>
+
+
+	<select id="findFilefordownload" parameterType="Fileupload" resultType="Fileupload">
+	select
+	fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
+	from file where fid = #{fid}
+	</select>
+
+
+
+
+</mapper>

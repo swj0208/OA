@@ -60,7 +60,11 @@ public class UsersBizImpl implements UsersBiz {
 	public boolean add(Users users) {
 		users.setUpwd(Encrypt.md5AndSha(users.getUpwd()));
 		baseDao.save(users, "saveUser");
-		return true;
+		if(users!=null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override

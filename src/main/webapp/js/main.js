@@ -63,9 +63,9 @@ $(function() {
 		            	  "attributes" : {
 		            		  "url" : "<iframe width='100%' height='100%' src='toshowUsers.action'/>"
 		            	  }
+					} ]
+		} ];
 
-		              } ]
-	} ];
 	var userTreeData = [ {
 		"text" : "个人管理",
 		"state" : "closed",
@@ -83,13 +83,13 @@ $(function() {
 		              {
 		            	  "text" : "上传文件",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toUploadFile.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toUploadFile.action'/>"
 		            	  }
 		              },
 		              {
 		            	  "text" : "查看所有文件",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toshowFile.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toShowFile.action'/>"
 		            	  }
 
 		              } ]

@@ -6,9 +6,9 @@
 <script type="text/javascript">
 	$(function() {
 		$("#addBtn").click(function() {
-		    for( instance in CKEDITOR.instances ){  
-		        CKEDITOR.instances[instance].updateElement();  
-		    }  
+			for (instance in CKEDITOR.instances) {
+				CKEDITOR.instances[instance].updateElement();
+			}
 			$.ajax({
 				type : "POST",
 				url : "user/noticeAdd.action",
@@ -28,33 +28,30 @@
 </script>
 <hr />
 <form id="addMessageForm" action="" method="post" enctype="multipart/form-data">
-	<div style="text-align: left">
-		消息权重：
-		<select class="text" name="nweight" id="nweight" onchange="onchangetogid(this.value)">
-			<option>5</option>
-			<option>4</option>
-			<option>3</option>
-			<option>2</option>
-			<option>1</option>
-		</select>
-		<br /> 发送部门：
-		<select class="text" name="did" id="did" onchange="onchangedepartment(this.value)">
-			<option></option>
-			<c:forEach items="${Department }" var="d">
-				<option value="${d.did }">${d.department}</option>
-			</c:forEach>
-		</select>
-		发送小组：
-		<select class="text" name="gid" id="gid" onchange="onchangegname()">
-		</select>
-		发送员工：
-		<select class="text" name="uid" id="uid">
-		</select>
-		<br /> 消息内容：
-		<textarea class="ckeditor" name="content" id="content"></textarea>
-		<br />
-		<input type="button" id="addBtn" value="发送" />
-	</div>
+	消息权重：
+	<select class="text" name="nweight" id="nweight" onchange="onchangetogid(this.value)">
+		<option>4</option>
+		<option>3</option>
+		<option>2</option>
+		<option>1</option>
+	</select>
+	<br /> 发送部门：
+	<select class="text" name="did" id="did" onchange="onchangedepartment(this.value)">
+		<option></option>
+		<c:forEach items="${Department }" var="d">
+			<option value="${d.did }">${d.department}</option>
+		</c:forEach>
+	</select>
+	发送小组：
+	<select class="text" name="gid" id="gid" onchange="onchangegname()">
+	</select>
+	发送员工：
+	<select class="text" name="uid" id="uid">
+	</select>
+	<br /> 消息内容：
+	<textarea class="ckeditor" name="content" id="content"></textarea>
+	<br />
+	<input type="button" id="addBtn" value="发送" />
 </form>
 <script>
 	function onchangedepartment(obj) {

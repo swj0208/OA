@@ -117,7 +117,6 @@ alter table notice drop foreign key fk_notice_users
 
 
 
-drop table file
 --共享文件表：编号、文件名、文件描述、路径、上传用户的id、上传时间、下载次数、文件权重
 create table file(
 	fid int primary key auto_increment,
@@ -128,9 +127,15 @@ create table file(
 	uptime DATETIME,
 	downtimes int,
 	fweight int,
-	temp1 VARCHAR(200),
+	touid int,
+	togid int,
+	todid int,
+	temp1 VARCHAR(200), 
 	temp2 VARCHAR(200)
 )
+select * from file;
+
+drop table file;
 
 alter table file 
   add constraint fk_file_users
