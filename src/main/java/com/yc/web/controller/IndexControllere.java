@@ -44,8 +44,13 @@ public class IndexControllere {
 	}
 	
 	
-	@RequestMapping(value="/toUploadFile.action",method = RequestMethod.GET)
+	@RequestMapping(value="/user/toUploadFile.action",method = RequestMethod.GET)
 	public String totoUploadFile(){
 		return "file/uploadFile";
+	}
+	
+	@RequestMapping(value="/user/toShowFile.action",method = RequestMethod.GET)
+	public String toShowFile(){
+		return "file/showFile";
 	}
 }

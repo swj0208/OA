@@ -1,17 +1,16 @@
 package com.yc.biz;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
-
-import com.jspsmart.upload.SmartUploadException;
+import java.util.List;
 import com.yc.bean.Fileupload;
 
 public interface FileuploadBiz {
 
 	public boolean addFile(Fileupload fileupload);
+	
+	public List<Fileupload> findFile(Fileupload	fileupload);
+	
+	
+	public int findFileCount() throws Exception;
+	
+	public Fileupload findFilefordownload(Fileupload	fileupload);
 }

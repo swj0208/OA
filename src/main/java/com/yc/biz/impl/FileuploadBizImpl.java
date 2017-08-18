@@ -1,18 +1,11 @@
 package com.yc.biz.impl;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jspsmart.upload.SmartUploadException;
 import com.yc.bean.Fileupload;
 import com.yc.biz.FileuploadBiz;
 import com.yc.dao.BaseDao;
@@ -32,6 +25,22 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		}else{
 			return false;
 		}
+	}
+
+	@Override
+	public List<Fileupload> findFile(Fileupload fileupload) {
+		return baseDao.findAll(fileupload, "findFile");
+	}
+
+	@Override
+	public int findFileCount() throws Exception {
+		int count = (int) baseDao.findOne(Fileupload.class, "FileCount");
+		return count;
+	}
+
+	@Override
+	public Fileupload findFilefordownload(Fileupload fileupload) {
+		return (Fileupload) baseDao.findOne(fileupload, "findFilefordownload");
 	}
 	
 

@@ -11,7 +11,7 @@
 				success : function(data) {
 					if (data.code == 1) {
 						alert("提交成功");
-						location.href = "toUploadFile.action";
+						location.href = "user/toUploadFile.action";
 					} else {
 						alert("提交失败！" + data.msg);
 					}
@@ -20,6 +20,8 @@
 			$("#uploadFile").ajaxSubmit(opt);
 		});
 	});
+	
+	
 </script>
 <body>
 	<form id="uploadFile" method="post" enctype="multipart/form-data">

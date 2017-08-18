@@ -1,14 +1,12 @@
 package com.yc.bean;
 
 import java.io.Serializable;
-import java.util.UUID;
 
-public class Fileupload implements Serializable {
+public class Fileupload extends CommonBean implements Serializable {
 
 	private static final long serialVersionUID = 8853796702754803815L;
 
 	private Integer fid;
-	private String fuuid;
 	private String fname;
 	private String description;
 	private String path;
@@ -19,15 +17,6 @@ public class Fileupload implements Serializable {
 	private Integer touid;
 	private Integer togid;
 	private Integer todid;
-
-	public String getFuuid() {
-		fuuid = UUID.randomUUID().toString();
-		return fuuid;
-	}
-
-	public void setFuuid(String fuuid) {
-		this.fuuid = fuuid;
-	}
 
 	public Integer getTouid() {
 		return touid;
@@ -119,7 +108,7 @@ public class Fileupload implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Fileupload [fid=" + fid + ", fuuid=" + fuuid + ", fname=" + fname + ", description=" + description
+		return "Fileupload [fid=" + fid + ", fname=" + fname + ", description=" + description
 				+ ", path=" + path + ", uid=" + uid + ", uptime=" + uptime + ", downtimes=" + downtimes + ", fweight="
 				+ fweight + ", touid=" + touid + ", togid=" + togid + ", todid=" + todid + "]";
 	}

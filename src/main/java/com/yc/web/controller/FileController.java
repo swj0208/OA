@@ -2,10 +2,8 @@ package com.yc.web.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 import com.yc.biz.FileuploadBiz;
+import com.yc.utils.FileuploadReady;
 import com.yc.web.model.JsonModel;
 
 @RestController
@@ -35,33 +34,14 @@ public class FileController {
 	@RequestMapping("/user/fileupload.action")
 	public JsonModel fileUpload(Fileupload fileupload, HttpSession session,
 			@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+		FileuploadReady fileuploadReady = new FileuploadReady();
 		JsonModel jsonModel = new JsonModel();
-		String oldFilename = file.getOriginalFilename(); // 上传时的名字
-		Calendar c = Calendar.getInstance();// 获取tomcat
-		String tomcatdir = request.getRealPath("/"); // xxx/xxx/webapps/oa
-		File tomcatFile = new File(tomcatdir);
-		File webapppath = tomcatFile.getParentFile(); // xxx/xxx/webapps
-		// xxx/xxx/webapps/file/2017/8
-		File picpath = new File(webapppath, "file" + File.separator + c.get(Calendar.YEAR) + File.separator
-				+ (c.get(Calendar.MONTH) + 1) + File.separator);
-		// 访问路径名
-		String weburl = "../file/" + c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH) + 1) + "/";
-		// 判断目录是否存在，不在则创建
-		if (picpath.exists() == false) {
-			picpath.mkdirs();
-		}
-		String filePrefixName = genNewFilePrefixName();// 由时间得到的新名字
-		// 取出原文件的后缀名
-		String ext = oldFilename.substring(oldFilename.lastIndexOf(".") + 1).toUpperCase();
-		// 拼接新的文件名
-		String fuuid = fileupload.getFuuid();
-		String fileName = fuuid + filePrefixName + "." + ext;
-		// xxx/xxx/webapps/file/2017/7/xxx.jpgyyyjpg
-		weburl += fileName;
-		// 物理路径: xxx/xxx/webapps/file/2017/7/20170720222222.png
-		String destFilePathName = picpath + "/" + fileName;
-		// 存
-		fileupload.setPath(weburl);
+		String fileName = "";
+		Map<String, String> map = fileuploadReady.upload(fileName, file, request);
+		String oldFilename = map.get("oldFilename");
+		String destFilePathName = map.get("destFilePathName");
+		
+		fileupload.setPath(destFilePathName);
 		fileupload.setFname(oldFilename);
 		Users users = (Users) session.getAttribute("users");
 		fileupload.setUid(users.getUid());
@@ -80,14 +60,26 @@ public class FileController {
 	
 	
 	@RequestMapping("/user/showFile.action")
-	public List<Fileupload> showFile(Fileupload fileupload){
-		
-		return null;
+	public JsonModel showFile(Fileupload fileupload,HttpServletRequest request) throws Exception{
+		JsonModel jsonModel = new JsonModel();
+		int pages = Integer.parseInt(request.getParameter("page").toString());
+		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
+		int start = (pages-1)*pagesize;
+		fileupload.setStart(start);
+		fileupload.setPagesize(pagesize);
+		List<Fileupload> list = fileuploadBiz.findFile(fileupload);
+		Integer count = fileuploadBiz.findFileCount();
+		jsonModel.setRows(list);
+		jsonModel.setTotal(count);
+		return jsonModel;
 	}
 
 	@RequestMapping("/user/fileDownload.action")
-	public ResponseEntity<byte[]> fileDownload(Fileupload fileupload) throws IOException {
+	public ResponseEntity<byte[]> fileDownload(int fid) throws IOException {
 		//待改：根据传过来的id查file
+		Fileupload fileupload = new Fileupload();
+		fileupload.setFid(fid);
+		fileupload = (Fileupload) fileuploadBiz.findFilefordownload(fileupload);
 		File file = new File(fileupload.getPath());
 		HttpHeaders headers = new HttpHeaders();
 		String filename = new String(fileupload.getFname().getBytes("UTF-8"), "iso-8859-1");
@@ -95,13 +87,6 @@ public class FileController {
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
-
-	private String genNewFilePrefixName() {
-		// 生成新的文件名
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String filePrefixName = sdf.format(d); // 文件的前缀名
-		return filePrefixName;
-	}
-
+	
+	
 }
