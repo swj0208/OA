@@ -78,8 +78,7 @@ public class UsersController {
 //	}
 	@RequestMapping("/user/users_add.action")
 	public JsonModel addUsers(Users users, HttpSession session,
-			@RequestParam("photo") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
-		System.out.println("11111111111111");
+			@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
 		FileuploadReady fileuploadReady = new FileuploadReady();
 		JsonModel jsonModel = new JsonModel();
 		String fileName = "";

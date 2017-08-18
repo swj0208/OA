@@ -41,6 +41,8 @@ create table users(
 	temp2 VARCHAR(200)
 )
 select * from users;
+
+delete  from users where 1=1;
 drop table users;
 
 drop table groups
