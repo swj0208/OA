@@ -60,28 +60,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from file where fid = #{fid}
 	</select>
 	
-	<!-- 查找发给自己的文件或本部门的文件 -->
+	<!--  查找发给自己的文件或本部门的文件 -->
 	<select id="sendMeFile" parameterType="Fileupload" resultType="Fileupload">
-		select fid,fname,description,uptime,downtimes,uname from users  
-		inner join file  on file.touid=users.uid  and file.todid=users.did 
-		<where>
-			<if test="touid!=null and touid!=''">
-				 touid=#{touid}
-			</if>
-			<if test="todid!=null and todid!=''">
-				or todid=#{todid}
-			</if>
-		</where>
+		select fid,fname,description,uptime,downtimes,uname ,did from users  
+		inner join file  on file.touid=users.uid   
+		where did=#{todid}
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
 	
-	<!-- 查找发给自己的文件或本部门的文件 -->
+	查找发给自己的文件或本部门的文件
 	<select id="sendMeFileCount"  resultType="int">
 		select count(*) from users  
 		inner join file  on file.touid=users.uid  where 1=1
 		 
-	</select>
+	</select> 
 
 
 

@@ -147,9 +147,13 @@ select count(*) from users u inner join file f on f.touid=u.uid
 select f.fname,f.description,f.uptime,f.downtimes,u.uname,d.department from users u inner join file f on f.touid=u.uid  
 left join department d on f.todid=d.did where u.uid=17 ;
 
-select fid,fname,description,uptime,downtimes,uname from users 
-inner join file  on file.touid=users.uid  and file.todid=users.did
- where touid=17 or todid=1
+select fid,fname,description,uptime,downtimes,uname ,did from users  
+		inner join file  on file.touid=users.uid  and file.todid=users.did 
+		where did=1
+		
+		select fid,fname,description,uptime,downtimes,uname ,did from users  
+		inner join file  on file.touid=users.uid   
+		where did=1 
 
 	select fid,fname,description,uptime,downtimes,uname,department from  file 
 	inner join  users on file.touid=users.uid  

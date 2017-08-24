@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 import com.yc.biz.FileuploadBiz;
 import com.yc.biz.UsersBiz;
@@ -29,6 +30,7 @@ public class UsersController {
 	
 	@Resource(name = "fileuploadBizImpl")
 	private FileuploadBiz fileuploadBiz;
+	
 	
 	@RequestMapping("/users_login.action")
 	public JsonModel login(Users user, HttpServletRequest request, HttpSession session) {

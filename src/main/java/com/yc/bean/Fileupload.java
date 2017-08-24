@@ -17,6 +17,30 @@ public class Fileupload extends CommonBean implements Serializable {
 	private Integer touid;
 	private Integer togid;
 	private Integer todid;
+	
+	private String uname;
+	
+	private Integer did;
+	
+	
+	
+	
+
+	public Integer getDid() {
+		return did;
+	}
+
+	public void setDid(Integer did) {
+		this.did = did;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
 
 	public Integer getTouid() {
 		return touid;

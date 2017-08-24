@@ -76,4 +76,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		gid=#{gid},did=#{did},ustatus=#{ustatus} where uid=#{uid}
 	</update>
 	
+	
 </mapper>

@@ -3,7 +3,7 @@ package com.yc.biz;
 
 import java.util.List;
 
-
+import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 
 public interface UsersBiz {
@@ -33,4 +33,8 @@ public interface UsersBiz {
 	
 	//修改工作状态
 	public boolean updateUsers(Users users);
+	
+
+	
+	
 }
