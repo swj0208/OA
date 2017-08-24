@@ -1,15 +1,12 @@
 package com.yc.web.controller;
 
-import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yc.bean.Department;
 import com.yc.biz.DepartmentBiz;
 
 @Controller

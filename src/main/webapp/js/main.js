@@ -32,21 +32,22 @@ $(function() {
 	                   ];
 	// 信息系统
 	var noticeTreeData = [ {
-		"text" : "信息管理",
+		"text" : "公告管理",
 		"state" : "closed",
 		"children" : [
 		              {
-		            	  "text" : "发布消息",
+		            	  "text" : "发布公告",
 		            	  "attributes" : {
 		            		  "url" : "<iframe width='100%' height='100%' src='toAddNotice.action'/>"
 		            	  }
 		              },
 		              {
-		            	  "text" : "消息管理",
+		            	  "text" : "所有公告",
 		            	  "attributes" : {
 		            		  "url" : "<iframe width='100%' height='100%' src='toManageNotice.action'/>"
 		            	  }
-		              } ]
+		              }
+		              ]
 	} ];
 	var planTreeData = [ {
 		"text" : "任务管理",

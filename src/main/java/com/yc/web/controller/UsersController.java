@@ -2,27 +2,21 @@ package com.yc.web.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.jspsmart.upload.SmartUploadException;
-import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 import com.yc.biz.FileuploadBiz;
 import com.yc.biz.UsersBiz;
-import com.yc.utils.FileUpload;
 import com.yc.utils.FileuploadReady;
 import com.yc.web.model.JsonModel;
 
@@ -65,17 +59,6 @@ public class UsersController {
 		return jsonModel;
 	}
 	//添加员工
-//	@RequestMapping("/user/users_add.action")
-//	public JsonModel addUser(Users users) {
-//		JsonModel jm=new JsonModel();
-//		boolean result=usersBiz.add(users);
-//		if(result){
-//			jm.setCode(1);
-//		} else{
-//			jm.setCode(0);
-//		}
-//		return jm;
-//	}
 	@RequestMapping("/user/users_add.action")
 	public JsonModel addUsers(Users users, HttpSession session,
 			@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
@@ -85,9 +68,7 @@ public class UsersController {
 		Map<String, String> map = fileuploadReady.upload(fileName, file, request);
 		String destFilePathName = map.get("destFilePathName");
 		String weburl=map.get("weburl");
-		
 		users.setPhoto(weburl);
-
 		File newFile = new File(destFilePathName);
 		// 通过CommonsMultipartFile的方法直接写文件（注意这个时候）
 		file.transferTo(newFile);

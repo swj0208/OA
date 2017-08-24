@@ -1,6 +1,24 @@
 create database oa;
 
 drop database oa;
+--公告表:编号、标题 ,内容、公告类型、发布时间、发布人编号、发送给小组的编号、发送给用户的编号,是否查看
+create table notice(
+	nid int primary key auto_increment,
+	ntitle varchar(50),
+	ncontent varchar(2000),
+	ntype varchar(20),
+	publictime DATETIME,
+	uid int,
+	temp1 varchar(100),
+	temp2 varchar(100)
+)
+delete  from notice where nid=10;
+
+insert into notice(ntitle,ncontent,ntype,publictime,uid)values('好消息','今晚全体放假','放假通知',now(),17)
+
+select u.uname,n.ntitle from notice n left join users u on n.uid=u.uid where n.uid=17
+select * from notice;
+drop table affiche;
 
 drop table plan
 --任务表： 任务编号、任务名、内容、开始时间、时间限制、完成时间、状态、
@@ -92,24 +110,9 @@ create table power (
 )
 
 
-drop table notice
---通知表:编号、内容、通知权重、发布时间、发布人编号、发送给小组的编号、发送给用户的编号,是否查看
-create table notice(
-	nid int primary key auto_increment,
-	content VARCHAR(4000),
-	nweight int,
-	createtime  DATETIME,
-	did int,
-	gid int,
-	uid int,
-	temp1 VARCHAR(200),
-	temp2 VARCHAR(200)
-)
 
-insert into notice(content,nweight,createtime,did,gid,uid) values("1111",1,now(),1,1,1);
-select * from notice;
 
-drop table notice;
+
 
 alter table notice 
   add constraint fk_notice_users

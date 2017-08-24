@@ -27,26 +27,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 添加通知 -->
 	<insert id="AddNotice" parameterType="Notice" useGeneratedKeys="true"
 		keyProperty="nid">
-		insert into notice(content,nweight,createtime,did,gid,uid)
-		values(#{content},#{nweight},now(),#{did},#{gid},#{uid})
+		insert into notice(ntitle,ncontent,ntype,publictime,uid)
+		values(#{ntitle},#{ncontent},#{ntype},now(),#{uid})
 	</insert>
 
 	<!-- 按条件查找Notice -->
 	<select id="FindNoticeByCondition" parameterType="Notice"
 		resultType="Notice">
-		select content,uid,did,nid,gid,createtime,nweight from notice
+		select ntitle,ncontent,ntype,publictime,notice.uid as uid,uname from notice inner join users on
+		notice.uid=users.uid
 		<where>
-			<if test="did!=null and did!=''">
-				did = #{did}
+			<if test="ntitle!=null and ntitle!=''">
+				and ntitle=#{ntitle}
 			</if>
-			<if test="gid!=null and gid!=''">
-				gid = #{gid}
+			<if test="ntype!=null and ntype!=''">
+				and ntype=#{ntype}
 			</if>
 			<if test="uid!=null and uid!=''">
-				uid = #{uid}
-			</if>
-			<if test="createtime!=null and createtime!=''">
-				createtime = #{createtime}
+				and uid=#{uid}
 			</if>
 		</where>
 		<include refid="orderSql"/>

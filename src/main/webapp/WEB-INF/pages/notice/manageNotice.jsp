@@ -28,35 +28,75 @@
 				align : 'center',
 				hidden : 'true'
 			}, {
-				field : 'did',
-				title : '部门编号',
+				field : 'ntitle',
+				title : '标题',
 				width : 100,
 				align : 'center'
 			}, {
-				field : 'gid',
-				title : '小组',
-				width : 100,
-				align : 'center'
-			}, {
-				field : 'uid',
-				title : '员工',
-				width : 100,
-				align : 'center'
-			}, {
-				field : 'content',
+				field : 'ncontent',
 				title : '内容',
 				width : 100,
 				align : 'center'
 			}, {
-				field : 'nweight',
-				title : '权重',
+				field : 'uname',
+				title : '员工',
 				width : 100,
 				align : 'center'
-			}] ]
+			}, {
+				field : 'ntype',
+				title : '类别',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'publictime',
+				title : '发布时间',
+				width : 150,
+				align : 'center'
+			}
+			] ],
+			view: detailview,
+            detailFormatter: function(index, row) {
+                return '<div id="ddv-' + index + '" style="padding:5px;"></div>';
+            },
+             onExpandRow: function(index, row) {
+            	 $('#ddv-'+index).datagrid({  
+                     fitColumns:true,  
+                     singleSelect:true,  
+                     rownumbers:false,  
+                     loadMsg:'',  
+                     height:'auto',
+                     nowrap: false,
+                     columns:[[  
+                         {field:'ntitle',title:'标题'},  
+                         {field:'ncontent',title:'内容' }
+                          
+                     ]], 
+                     
+                     onResize:function(){  
+                         $('#manNoticeTable').datagrid('fixDetailRowHeight',index);  
+                     },  
+                     onLoadSuccess:function(){  
+                         setTimeout(function(){  
+                             $('#manNoticeTable').datagrid('fixDetailRowHeight',index);  
+                         },0);  
+                     } 
+            	 }); 
+            	 $('#manNoticeTable').datagrid('selectRow',index);
+            	 var obj=$('#manNoticeTable').datagrid('getSelected');
+            	 var data={
+            			 'rows':[{
+            				 ntitle:obj.ntitle,
+            				 ncontent:obj.ncontent
+            			 }]
+            		 }
+            	$('#ddv-'+index).datagrid('loadData',data); //加载选中行数据
+                $('#manNoticeTable').datagrid('fixDetailRowHeight', index);
+            } 
+	
 		})
 	});
 </script>
-<title>新闻维护</title>
+<title>公告管理</title>
 </head>
 <body>
 	<table id="manNoticeTable"></table>

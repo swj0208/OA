@@ -28,33 +28,22 @@
 </script>
 <hr />
 <form id="addMessageForm" action="" method="post" enctype="multipart/form-data">
-	消息权重：
-	<select class="text" name="nweight" id="nweight" onchange="onchangetogid(this.value)">
-		<option>4</option>
-		<option>3</option>
-		<option>2</option>
-		<option>1</option>
-	</select>
-	<br /> 发送部门：
-	<select class="text" name="did" id="did" onchange="onchangedepartment(this.value)">
+	发布人:
+	<input type="hidden" id="uid" name="uid" value="${users.uid}">
+	<br/> 	公告标题:
+	<input type="text" name="ntitle" id="ntitle"/>
+	<br /> 公告类型:
+	<select class="text" name="ntype" id="ntype">
 		<option></option>
-		<c:forEach items="${Department }" var="d">
-			<option value="${d.did }">${d.department}</option>
-		</c:forEach>
+		<option>放假通知</option>
+		<option>人员调动</option>
 	</select>
-	发送小组：
-	<select class="text" name="gid" id="gid" onchange="onchangegname()">
-	</select>
-	发送员工：
-	<select class="text" name="uid" id="uid">
-	</select>
-	<br /> 消息内容：
-	<textarea class="ckeditor" name="content" id="content"></textarea>
-	<br />
+	<br /> 消息内容:
+	<textarea class="ckeditor" name="ncontent" id="ncontent"></textarea>
 	<input type="button" id="addBtn" value="发送" />
 </form>
 <script>
-	function onchangedepartment(obj) {
+/* 	function onchangedepartment(obj) {
 		var did = obj;
 		$.ajax({
 			url : "user/group_list.action",
@@ -96,6 +85,6 @@
 			}
 
 		});
-	}
+	} */
 </script>
 </html>
