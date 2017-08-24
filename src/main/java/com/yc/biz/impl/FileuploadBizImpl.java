@@ -42,6 +42,17 @@ public class FileuploadBizImpl implements FileuploadBiz {
 	public Fileupload findFilefordownload(Fileupload fileupload) {
 		return (Fileupload) baseDao.findOne(fileupload, "findFilefordownload");
 	}
+
+	@Override
+	public List<Fileupload> sendMeFile(Fileupload fileupload) {
+		return baseDao.findAll(fileupload, "sendMeFile");
+	}
+
+	@Override
+	public int sendMeFileCount() {
+		int count=(int) baseDao.findOne(Fileupload.class, "sendMeFileCount");
+		return count;
+	}
 	
 
 } 

@@ -71,6 +71,8 @@ create table department(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select * from department
+
 drop table department;
 insert into department(department,temp1,temp2) values("设计部",null,null);
 insert into department(department,temp1,temp2) values("研发部",null,null);
@@ -139,6 +141,20 @@ create table file(
 	temp2 VARCHAR(200)
 )
 select * from file;
+select count(*) from users u inner join file f on f.touid=u.uid  
+		left join department d on f.todid=d.did where u.uid=17
+
+select f.fname,f.description,f.uptime,f.downtimes,u.uname,d.department from users u inner join file f on f.touid=u.uid  
+left join department d on f.todid=d.did where u.uid=17 ;
+
+select fid,fname,description,uptime,downtimes,uname from users 
+inner join file  on file.touid=users.uid  and file.todid=users.did
+ where touid=17 or todid=1
+
+	select fid,fname,description,uptime,downtimes,uname,department from  file 
+	inner join  users on file.touid=users.uid  
+		left join department  on file.todid=department.did
+		where users.uid=17 or users.did=1
 
 drop table file;
 

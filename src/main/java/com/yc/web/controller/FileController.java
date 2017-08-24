@@ -73,6 +73,21 @@ public class FileController {
 		jsonModel.setTotal(count);
 		return jsonModel;
 	}
+	
+	@RequestMapping("/user/sendMeFile.action")
+	public JsonModel sendMeFile(Fileupload fileupload,HttpServletRequest request) throws Exception{
+		JsonModel jsonModel = new JsonModel();
+		int pages = Integer.parseInt(request.getParameter("page").toString());
+		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
+		int start = (pages-1)*pagesize;
+		fileupload.setStart(start);
+		fileupload.setPagesize(pagesize);
+		List<Fileupload> list = fileuploadBiz.sendMeFile(fileupload);
+		Integer count = fileuploadBiz.sendMeFileCount();
+		jsonModel.setRows(list);
+		jsonModel.setTotal(count);
+		return jsonModel;
+	}
 
 	@RequestMapping("/user/fileDownload.action")
 	public ResponseEntity<byte[]> fileDownload(int fid) throws IOException {

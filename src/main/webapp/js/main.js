@@ -93,7 +93,14 @@ $(function() {
 		            		  "url" : "<iframe width='100%' height='100%' src='user/toShowFile.action'/>"
 		            	  }
 
-		              } ]
+		              } ,
+		              {
+		            	  "text" : "查看我的文件",
+		            	  "attributes" : {
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
+		            	  }
+
+		              }]
 	} ];
 	var powerTreeData = [ {
 		"text" : "权限中心",

@@ -13,4 +13,8 @@ public interface FileuploadBiz {
 	public int findFileCount() throws Exception;
 	
 	public Fileupload findFilefordownload(Fileupload	fileupload);
+	
+	public List<Fileupload> sendMeFile(Fileupload	fileupload);
+	
+	public int sendMeFileCount();
 }
