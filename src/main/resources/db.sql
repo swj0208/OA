@@ -144,22 +144,20 @@ select * from file;
 select count(*) from users u inner join file f on f.touid=u.uid  
 		left join department d on f.todid=d.did where u.uid=17
 
-select f.fname,f.description,f.uptime,f.downtimes,u.uname,d.department from users u inner join file f on f.touid=u.uid  
-left join department d on f.todid=d.did where u.uid=17 ;
-
-select fid,fname,description,uptime,downtimes,uname ,did from users  
-		inner join file  on file.touid=users.uid  and file.todid=users.did 
-		where did=1
+select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) 
+or (todid = 1 and togid = 1 and ISNULL(touid)) 
+or (todid = 1 and togid = 1 and touid = 17)
 		
-		select fid,fname,description,uptime,downtimes,uname ,did from users  
-		inner join file  on file.touid=users.uid   
-		where did=1 
-
-	select fid,fname,description,uptime,downtimes,uname,department from  file 
-	inner join  users on file.touid=users.uid  
-		left join department  on file.todid=department.did
-		where users.uid=17 or users.did=1
-
+select  fid,fname,description,uptime,downtimes,uname from  file 
+inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+or (todid =did  and togid=gid and ISNULL(touid)) 
+or (todid = did and togid =gid  and touid=users.uid) where
+users.uid=17
+		
+		select count(*) from users  
+		inner join file  on file.touid=users.uid
+		and file.todid=users.did where touid=17 
+		
 drop table file;
 
 alter table file 

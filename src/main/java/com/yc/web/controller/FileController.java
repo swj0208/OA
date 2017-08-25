@@ -2,6 +2,7 @@ package com.yc.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,15 +76,18 @@ public class FileController {
 	}
 	
 	@RequestMapping("/user/sendMeFile.action")
-	public JsonModel sendMeFile(Fileupload fileupload,HttpServletRequest request) throws Exception{
+	public JsonModel sendMeFile(Fileupload fileupload,HttpServletRequest request,HttpSession session) throws Exception{
 		JsonModel jsonModel = new JsonModel();
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages-1)*pagesize;
 		fileupload.setStart(start);
 		fileupload.setPagesize(pagesize);
+		Users users=(Users) session.getAttribute("users");
+		fileupload.setTodid(users.getDid());
+		fileupload.setTouid(users.getUid());
 		List<Fileupload> list = fileuploadBiz.sendMeFile(fileupload);
-		Integer count = fileuploadBiz.sendMeFileCount();
+		Integer count = fileuploadBiz.sendMeFileCount(fileupload);
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
 		return jsonModel;

@@ -34,13 +34,13 @@ $(function() {
 				{
 					field : 'fname',
 					title : '文件名',
-					width : 100,
+					width : 130,
 					align : 'center'
 				},
 				{
 					field : 'description',
 					title : '简介',
-					width : 100,
+					width : 130,
 					align : 'center'
 				},
 				{
@@ -52,7 +52,7 @@ $(function() {
 				{
 					field : 'uptime',
 					title : '上传时间',
-					width : 150,
+					width : 180,
 					align : 'center'
 				},
 				{
@@ -84,6 +84,10 @@ function filedownload(index){
 <title>显示文件</title>
 </head>
 <body>
-	<table id="showfileTable"></table>
+		<input type="hidden" id="did" name="did" value="${users.did }"/>
+		<input type="hidden" id="uid" name="uid" value="${users.uid }"/>
+	<table id="showfileTable">
+		
+	</table>
 </body>
 </html>

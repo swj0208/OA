@@ -62,17 +62,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--  查找发给自己的文件或本部门的文件 -->
 	<select id="sendMeFile" parameterType="Fileupload" resultType="Fileupload">
-		select fid,fname,description,uptime,downtimes,uname ,did from users  
-		inner join file  on file.touid=users.uid   
-		where did=#{todid}
+		select  fid,fname,description,uptime,downtimes,uname from  file 
+		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+		or (todid =did  and togid=gid and ISNULL(touid)) 
+		or (todid = did and togid =gid  and touid=users.uid) where
+		users.uid=#{touid}
+		
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
 	
-	查找发给自己的文件或本部门的文件
-	<select id="sendMeFileCount"  resultType="int">
-		select count(*) from users  
-		inner join file  on file.touid=users.uid  where 1=1
+	<!--  查找发给自己的文件或本部门的文件-->
+	<select id="sendMeFileCount" parameterType="Fileupload" resultType="int">
+			select  count(*) from  file 
+		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+		or (todid =did  and togid=gid and ISNULL(touid)) 
+		or (todid = did and togid =gid  and touid=users.uid) where
+		users.uid=#{touid}
 		 
 	</select> 
 
