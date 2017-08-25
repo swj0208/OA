@@ -252,5 +252,5 @@ select pid,pname,timestart,timelimit,timeend,pstatus,plan.gid as
 		limit 0,5
 		and pstatus='进行中'
 		
+		join groups on plan.gid=groups.gid where pid=31 limit 1,10
 		
-select * from plan

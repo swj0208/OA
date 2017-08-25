@@ -1,4 +1,48 @@
 $(function() {
+	
+	//审批流转
+	var approvalTree = [
+			{
+				"text" : "起草申请",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%'  frameborder='0' src='toShowNewApproval.action'/>"
+				}
+			},
+			{
+				"text" : "我的申请",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='92%' frameborder='0' src='toShowPlan.action'/>"
+				}
+			},
+			{
+				"text" : "待我审批",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+				}
+			},
+			{
+				"text" : "经我审批",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+				}
+			},
+			{
+				"text" : "我的承办",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+				}
+			},
+			{
+				"text" : "审批数据查询",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+				}
+			}
+
+	];
+	
+	
+	
 	// 行政管理
 	var PoTreeData = [ /*
 	 * { "text" : "待办事宜", "state" : "closed", "data":[
@@ -12,15 +56,15 @@ $(function() {
 	                   {
 	                	   "text" : "工作日志",
 	                	   "attributes" : {
-	                		   "url" : "<iframe width='100%' height='92%' frameborder='0' src='toShowPlan.action'/>"
+	                		   "url" : "<iframe width='100%' height='92%' frameborder='0' src='toShowPlaned.action'/>"
 	                	   }
 	                   },
 	                   {
-	                	   "text" : "报表管理",
-	                	   "attributes" : {
-	                		   "url" : "<iframe width='100%' height='100%' src='toShowPlan.action'/>"
-	                	   }
-	                   }
+	       				"text" : "聊天",
+	       				"attributes" : {
+	       					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+	       					}
+	       				}
 
 	                   /*
 	                    * "children" : [ { "text" : "查看计划", "attributes" : { "url" : "<iframe
@@ -30,6 +74,11 @@ $(function() {
 	                    * width='100%' height='100%' src='toShowPlan.action'/>" } } ] }
 	                    */
 	                   ];
+	
+	
+	
+	
+	
 	// 信息系统
 	var noticeTreeData = [ {
 		"text" : "信息管理",
@@ -38,16 +87,17 @@ $(function() {
 		              {
 		            	  "text" : "发布消息",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toAddNotice.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='toAddNotice.action'/>"
 		            	  }
 		              },
 		              {
 		            	  "text" : "消息管理",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toManageNotice.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='toManageNotice.action'/>"
 		            	  }
 		              } ]
 	} ];
+	
 	var planTreeData = [ {
 		"text" : "任务管理",
 		"state" : "closed",
@@ -136,6 +186,7 @@ $(function() {
 	}];
 
 	showTree("PoTree", PoTreeData);
+	showTree("approvalTree", approvalTree);
 	showTree("noticeTree", noticeTreeData);
 	showTree("planTree", planTreeData);
 	showTree("userTree", userTreeData);

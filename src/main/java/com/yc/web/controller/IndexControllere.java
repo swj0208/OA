@@ -42,6 +42,16 @@ public class IndexControllere {
 	public String toPlan(){
 		return "plan/plandoing";
 	}
+	
+	@RequestMapping(value="/toShowPlaned.action",method = RequestMethod.GET)
+	public String toPlaned(){
+		return "plan/planed";
+	}
+	
+	@RequestMapping(value="/toTalk.action",method = RequestMethod.GET)
+	public String toTalk(){
+		return "plan/talk";
+	}
 
 	
 	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
