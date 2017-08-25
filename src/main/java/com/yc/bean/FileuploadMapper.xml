@@ -37,8 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
 		from file
 		<where>
+			<if test="timefrom!=null and timefrom!=''">
+				and uptime >#{timefrom}
+			</if>
+			<if test="timeto!=null and timeto!=''">
+				and #{timeto}>uptime
+			</if>
 			<if test="fname!=null and fname!=''">
-				fname = #{fname}
+				and fname like '%${fname}%'
 			</if>
 		</where>
 		<include refid="orderSql" />
@@ -49,8 +55,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 查找notice数量 -->
-	<select id="FileCount" resultType="int">
+	<select id="FileCount" resultType="int" parameterType="Fileupload">
 		select count(*) from file
+		<where>
+			<if test="timefrom!=null and timefrom!=''">
+				and uptime >#{timefrom}
+			</if>
+			<if test="timeto!=null and timeto!=''">
+				and #{timeto}>uptime
+			</if>
+			<if test="fname!=null and fname!=''">
+				and fname like '%${fname}%'
+			</if>
+		</where>
 	</select>
 
 
@@ -60,7 +77,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from file where fid = #{fid}
 	</select>
 
-
+	<!-- 删除 -->
+	<delete id="deleteFile" parameterType="Fileupload">
+		delete from file where fid=#{fid}
+	</delete>
 
 
 </mapper>

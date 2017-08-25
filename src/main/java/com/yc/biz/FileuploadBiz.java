@@ -9,8 +9,10 @@ public interface FileuploadBiz {
 	
 	public List<Fileupload> findFile(Fileupload	fileupload);
 	
+	//删除
+	public boolean deleteFile(Fileupload fileupload);
 	
-	public int findFileCount() throws Exception;
+	public int findFileCount(Fileupload	fileupload) throws Exception;
 	
 	public Fileupload findFilefordownload(Fileupload	fileupload);
 }

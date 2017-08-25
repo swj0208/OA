@@ -50,7 +50,7 @@ public class IndexControllere {
 	
 	@RequestMapping(value="/toTalk.action",method = RequestMethod.GET)
 	public String toTalk(){
-		return "plan/talk";
+		return "talk/talk";
 	}
 
 	

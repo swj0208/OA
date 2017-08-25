@@ -33,8 +33,8 @@ public class FileuploadBizImpl implements FileuploadBiz {
 	}
 
 	@Override
-	public int findFileCount() throws Exception {
-		int count = (int) baseDao.findOne(Fileupload.class, "FileCount");
+	public int findFileCount(Fileupload	fileupload) throws Exception {
+		int count = (int) baseDao.findOne(fileupload, "FileCount");
 		return count;
 	}
 
@@ -42,6 +42,14 @@ public class FileuploadBizImpl implements FileuploadBiz {
 	public Fileupload findFilefordownload(Fileupload fileupload) {
 		return (Fileupload) baseDao.findOne(fileupload, "findFilefordownload");
 	}
+
+	@Override
+	public boolean deleteFile(Fileupload fileupload) {
+		this.baseDao.del(fileupload, "deleteFile");
+		return true; 
+	}
+
+
 	
 
 } 

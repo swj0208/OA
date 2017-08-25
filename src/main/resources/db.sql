@@ -118,13 +118,13 @@ alter table notice drop foreign key fk_notice_users
 
 
 
-
+drop table file
 --共享文件表：编号、文件名、文件描述、路径、上传用户的id、上传时间、下载次数、文件权重
 create table file(
 	fid int primary key auto_increment,
 	fname  VARCHAR(50),
 	description VARCHAR(200),
-	path VARCHAR(100),
+	path VARCHAR(1000),
 	uid int,
 	uptime DATETIME,
 	downtimes int,
@@ -253,4 +253,8 @@ select pid,pname,timestart,timelimit,timeend,pstatus,plan.gid as
 		and pstatus='进行中'
 		
 		join groups on plan.gid=groups.gid where pid=31 limit 1,10
+		
+select
+		fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
+		from file where fname like '.xml'
 		

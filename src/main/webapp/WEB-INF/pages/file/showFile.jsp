@@ -23,6 +23,7 @@ $(function() {
 		onError : function(a, b) {
 			$.messager.alert("错误", "操作失败");
 		},
+		toolbar:tb,
 		columns : [ [
 				{
 					field : 'fid',
@@ -80,10 +81,80 @@ function filedownload(index){
 	var row = $('#showfileTable').datagrid('getSelected');
 	location.href="user/fileDownload.action?fid="+row.fid;
 }
+
+	
+	//删除文件
+	function deleteFile() {
+		var rows = $('#showfileTable').datagrid('getSelected');
+		if (null == rows || rows.length == 0) {
+			noSelect();
+			return;
+		}
+		$.messager.confirm('计划完成', '你确定要删除这个文件吗?', function(r) {
+			if (r) {
+				$.ajax({
+					type : "POST",
+					data : rows,
+					url : "deleteFile.action",
+					dataType : "JSON",
+					success : function(data) {
+						if (data.code == 1) {
+							$.messager.alert("提示！", "文件删除成功！");
+							$('#showfileTable').datagrid("reload");
+						} else {
+							$.messager.alert("提示！", "文件删除失败！");
+						}
+					}
+				});
+			}
+		});
+	}
+	
+	//如果没有选择数据
+	function noSelect() {
+		$.messager.show({
+			title : '请注意',
+			msg : '请选择数据记录后继续该操作！',
+			timeout : 5000,
+			showType : 'slide'
+		});
+	}
+	
+	//查找文件
+	function searchFile() {
+		$.ajax({
+			type : "POST",
+			data:$('#searchFileForm').serialize(),
+			url : "searchFile.action",
+			dataType : "JSON",
+			success : function(data) {
+				if(data.code==0){
+					alert(data.msg);
+					$('#searchFileForm').form('clear');
+				}else{
+					$('#showfileTable').datagrid("loadData", data.rows);
+				}
+			}
+		});
+	}
+	
+	function clearSearchFileForm() {
+		$('#searchFileForm').form('clear');
+	}
 </script>
 <title>显示文件</title>
 </head>
 <body>
 	<table id="showfileTable"></table>
 </body>
+<div id="tb" style="padding: 2px 5px;">
+	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteFile()" style="margin-left: 10px">删除</a>
+	<form id="searchFileForm" style="float: left">
+		上传日期 : <input class="easyui-datetimebox" style="width: 110px" id="timefrom" name="timefrom">
+		— <input class="easyui-datetimebox" style="width: 110px" id="timeto" name="timeto">  
+		文件名: <input class="easyui-textbox" style="width: 100px"  panelHeight="auto" id="fname" name="fname">
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="searchFile()">查找</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearchFileForm()">清空搜索栏</a>
+	</form>
+</div>
 </html>

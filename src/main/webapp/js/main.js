@@ -58,13 +58,7 @@ $(function() {
 	                	   "attributes" : {
 	                		   "url" : "<iframe width='100%' height='92%' frameborder='0' src='toShowPlaned.action'/>"
 	                	   }
-	                   },
-	                   {
-	       				"text" : "聊天",
-	       				"attributes" : {
-	       					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
-	       					}
-	       				}
+	                   }
 
 	                   /*
 	                    * "children" : [ { "text" : "查看计划", "attributes" : { "url" : "<iframe
@@ -95,7 +89,15 @@ $(function() {
 		            	  "attributes" : {
 		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='toManageNotice.action'/>"
 		            	  }
-		              } ]
+		              } 
+		              ,
+	                   {
+	       				"text" : "聊天",
+	       				"attributes" : {
+	       					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+	       					}
+	       				}
+		              ]
 	} ];
 	
 	var planTreeData = [ {
