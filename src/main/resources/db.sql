@@ -1,5 +1,4 @@
 create database oa;
-
 drop database oa;
 
 drop table plan
@@ -15,8 +14,8 @@ create table plan(
 	pstatus VARCHAR(50),
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
-	
 )
+drop table plan;
 select * from plan;
 
 select * from users u left join department d on u.did=d.did left join groups g on g.gid=u.gid  where 1=1
@@ -40,6 +39,22 @@ create table users(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('b','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'入职',1)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('c','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',2,'入职',2)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('d','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',2,'入职',1)
+insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
+	values('e','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'入职',2)
+
+	
+	
+	select
+		fid,fname,description,path,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid
+		from file left join (select uid,uname from users) a on a.uid = file.uid
+		
 select * from users;
 
 delete  from users where 1=1;
@@ -81,23 +96,45 @@ alter table groups
      foreign key(pid) references plan(pid);
 alter table groups drop foreign key fk_groups_plan
 
-drop table power;
+drop table permission;
 --权限表：编号、权限名、用户编号
-create table power (
-	powerid int primary key auto_increment,
-	powername VARCHAR(50),
-	uid int,
+create table permission(
+	perid int primary key auto_increment,
+	pername VARCHAR(50),
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select * from permission;
+select * from users;
+select * from department;
+select * from groups;
+delete from users where uid = 2;
+
+insert into permission (pername) values('审批公文');
+insert into permission (pername) values('公告管理');
+insert into permission (pername) values('员工管理');
+insert into permission (pername) values('总经理');
 
 
-drop table notice
---通知表:编号、内容、通知权重、发布时间、发布人编号、发送给小组的编号、发送给用户的编号,是否查看
-create table notice(
-	nid int primary key auto_increment,
+--职员权限表：
+create table permissionforuser(
+	perid int,
+	uid int
+)
+select * from permissionforuser
+insert into permissionforuser(perid,uid) values(2,1);
+insert into permissionforuser(perid,uid) values(1,3);
+
+drop table permissionforuser;
+
+
+drop table message
+--消息表:编号、内容、通知权重、发布时间、发布人编号、发送给小组的编号、发送给用户的编号,是否查看
+create table message(
+	mid int primary key auto_increment,
 	content VARCHAR(4000),
-	nweight int,
+	mweight int,
+	fid int,
 	createtime  DATETIME,
 	did int,
 	gid int,
@@ -106,10 +143,9 @@ create table notice(
 	temp2 VARCHAR(200)
 )
 
-insert into notice(content,nweight,createtime,did,gid,uid) values("1111",1,now(),1,1,1);
-select * from notice;
+select * from message;
 
-drop table notice;
+drop table message;
 
 alter table notice 
   add constraint fk_notice_users
@@ -118,6 +154,33 @@ alter table notice drop foreign key fk_notice_users
 
 
 
+--公文表：公文编号、标题、发送人id、接收人id、公文时间、公文内容、附件、返回评语、
+--(审批状态 --0为未审批，1为审批通过,2为审批不合格,3为经理批准,4为经理不批准,5归档)
+create table document(
+	doid int primary key auto_increment,
+	dotitle VARCHAR(100),
+	docontent VARCHAR(10000),
+	dofromuid int,
+	dotouid int,
+	dotime DATETIME,
+	dofid int,
+	dostatus VARCHAR(50),
+	docomment VARCHAR(500),
+	temp1 VARCHAR(200),
+	temp2 VARCHAR(200)
+)
+drop table document;
+select * from document;
+
+select distinct a.uname from
+(select uname,uid from users where did=(select did from users where uid = 1) ) a
+left join permissionforuser on a.uid = permissionforuser.uid  
+where permissionforuser.uid  = (select uid from permissionforuser where perid = 2);
+
+
+select doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname as funame,b.uname as tuname
+		from document left join (select uid,uname from users) a on document.dofromuid = a.uid 
+		left join (select uid,uname from users) b on document.dotouid = b.uid 
 
 --共享文件表：编号、文件名、文件描述、路径、上传用户的id、上传时间、下载次数、文件权重
 create table file(
@@ -132,18 +195,35 @@ create table file(
 	touid int,
 	togid int,
 	todid int,
+	fstatus int,
 	temp1 VARCHAR(200), 
 	temp2 VARCHAR(200)
 )
 select * from file;
-
+update file set downtimes = downtimes+1 where fid = 1
 drop table file;
 
 alter table file 
   add constraint fk_file_users
      foreign key(uid) references users(uid);
 
-
+     
+     update document set dostatus = 0,dotouid = 1 where doid = 1
+     
+     
+     update document set
+		dostatus = '审批通过',dotouid = (select distinct a.uid from
+		(select uname,uid from users where did=(select did from users where uid = 1)
+		) a
+		left join permissionforuser on a.uid = permissionforuser.uid
+		where permissionforuser.uid = (select uid from permissionforuser where
+		perid = 2))
+		,dotouid = 1 where doid = 1
+     
+     
+     select * from users right join 
+     (select uid from permissionforuser where perid =
+     (select perid from permission where pername='审批公文')) a on users.uid = a.uid where did = 1;
 ---------------------------------------------------------初始化数据----------------------------------
 insert into plan(pname,content,timestart,timelimit,timeend,gid,pstatus) 
 	values('OA系统开发','OA系统的上线与测试',now(),DATE_ADD(now(),INTERVAL 3 DAY),null,1,'进行中');

@@ -19,13 +19,14 @@
 			}
 			$("#uploadFile").ajaxSubmit(opt);
 		});
-	});
+	}); 
 	
 	
 </script>
 <body>
-	<form id="uploadFile" method="post" enctype="multipart/form-data">
+	<form id="uploadFile" action="user/fileupload.action" method="post" enctype="multipart/form-data">
 		<div style="text-align: left">
+			<input type="hidden" name="fstatus" value="1"/>
 			上传文件：
 			<input type="file" name="file" id="file" />
 			<br /> 文件说明：
@@ -37,17 +38,18 @@
 				<option>2</option>
 				<option>1</option>
 			</select>
-			<br /> 发送部门：
+			<br /> 
+			接收部门：
 			<select class="text" name="todid" id="todid" onchange="onchangedepartment(this.value)">
 				<option></option>
 				<c:forEach items="${Department }" var="d">
 					<option value="${d.did }">${d.department}</option>
 				</c:forEach>
 			</select>
-			发送小组：
+			接收小组：
 			<select class="text" name="togid" id="togid" onchange="onchangegname()">
 			</select>
-			发送员工：
+			接收员工：
 			<select class="text" name="touid" id="touid"></select>
 			<br />
 			<input type="button" id="addBtn" value="上传" />

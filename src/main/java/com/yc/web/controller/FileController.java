@@ -85,6 +85,7 @@ public class FileController {
 		String filename = new String(fileupload.getFname().getBytes("UTF-8"), "iso-8859-1");
 		headers.setContentDispositionFormData("attachment", filename);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		fileuploadBiz.updateDownloadtimes(fileupload);
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
 	

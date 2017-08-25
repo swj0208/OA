@@ -42,6 +42,17 @@ public class FileuploadBizImpl implements FileuploadBiz {
 	public Fileupload findFilefordownload(Fileupload fileupload) {
 		return (Fileupload) baseDao.findOne(fileupload, "findFilefordownload");
 	}
+
+	@Override
+	public void updateDownloadtimes(Fileupload fileupload) {
+		baseDao.update(fileupload, "updatedownloadtimes");
+	}
+
+	@Override
+	public Fileupload addFile2(Fileupload fileupload) {
+		baseDao.save(fileupload, "addFile");
+		return fileupload;
+	}
 	
 
 } 

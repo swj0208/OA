@@ -76,4 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		gid=#{gid},did=#{did},ustatus=#{ustatus} where uid=#{uid}
 	</update>
 	
+	<!-- 根据user里面的did查找自己部门的主管 -->
+	<select id="findLeaderBydid" parameterType="Users" resultType="Users">
+		select * from users right join
+		(select uid from permissionforuser where perid =
+		(select perid from permission where pername='审批公文')) a
+		on users.uid = a.uid where did = #{did}
+	</select>
+	
 </mapper>

@@ -17,6 +17,27 @@ public class Fileupload extends CommonBean implements Serializable {
 	private Integer touid;
 	private Integer togid;
 	private Integer todid;
+	private String uname;
+	private Integer fstatus;
+	
+	
+	
+
+	public Integer getFstatus() {
+		return fstatus;
+	}
+
+	public void setFstatus(Integer fstatus) {
+		this.fstatus = fstatus;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
 
 	public Integer getTouid() {
 		return touid;
@@ -108,9 +129,11 @@ public class Fileupload extends CommonBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Fileupload [fid=" + fid + ", fname=" + fname + ", description=" + description
-				+ ", path=" + path + ", uid=" + uid + ", uptime=" + uptime + ", downtimes=" + downtimes + ", fweight="
-				+ fweight + ", touid=" + touid + ", togid=" + togid + ", todid=" + todid + "]";
+		return "Fileupload [fid=" + fid + ", fname=" + fname + ", description=" + description + ", path=" + path
+				+ ", uid=" + uid + ", uptime=" + uptime + ", downtimes=" + downtimes + ", fweight=" + fweight
+				+ ", touid=" + touid + ", togid=" + togid + ", todid=" + todid + ", uname=" + uname + ", fstatus="
+				+ fstatus + "]";
 	}
 
+	
 }

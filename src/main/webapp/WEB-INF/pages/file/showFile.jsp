@@ -44,8 +44,8 @@ $(function() {
 					align : 'center'
 				},
 				{
-					field : 'uid',
-					title : '发送者',
+					field : 'uname',
+					title : '发送人',
 					width : 100,
 					align : 'center'
 				},

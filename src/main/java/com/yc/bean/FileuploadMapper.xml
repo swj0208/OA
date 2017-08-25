@@ -26,16 +26,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="addFile" parameterType="Fileupload"
 		useGeneratedKeys="true" keyProperty="fid">
 		insert into
-		file(fname,description,path,uid,uptime,downtimes,fweight,todid,togid,touid)
-		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid})
+		file(fname,description,path,uid,uptime,downtimes,fweight,todid,togid,touid,fstatus)
+		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid},#{fstatus})
 	</insert>
 
 
 
 	<select id="findFile" parameterType="Fileupload" resultType="Fileupload">
 		select
-		fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
-		from file
+		fid,fname,description,path,file.uid,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid,fstatus
+		from file left join (select uid,uname from users) a on a.uid = file.uid where fstatus = 1
 		<where>
 			<if test="fname!=null and fname!=''">
 				fname = #{fname}
@@ -59,6 +59,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
 	from file where fid = #{fid}
 	</select>
+	
+	<!-- 更新下载次数 -->
+	<update id="updatedownloadtimes" parameterType="Fileupload">
+		update file set downtimes = downtimes+1 where fid = #{fid}
+	</update>
 
 
 
