@@ -2,6 +2,7 @@ package com.yc.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Notice extends CommonBean implements Serializable {
 
@@ -15,7 +16,19 @@ public class Notice extends CommonBean implements Serializable {
 	private Integer uid;
 	private String uname;
 	
+	private List<Notice> notices;
 	
+	
+	
+	
+	
+	
+	public List<Notice> getNotices() {
+		return notices;
+	}
+	public void setNotices(List<Notice> notices) {
+		this.notices = notices;
+	}
 	public String getUname() {
 		return uname;
 	}

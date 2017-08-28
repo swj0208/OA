@@ -62,11 +62,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--  查找发给自己的文件或本部门的文件 -->
 	<select id="sendMeFile" parameterType="Fileupload" resultType="Fileupload">
-		select  fid,fname,description,uptime,downtimes,uname from  file 
-		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
-		or (todid =did  and togid=gid and ISNULL(touid)) 
-		or (todid = did and togid =gid  and touid=users.uid) where
-		users.uid=#{touid}
+	select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
+	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
+	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+	or (todid =did  and togid=gid and ISNULL(touid)) 
+	or (todid = did and togid =gid  and touid=users.uid) where 
+	users.uid=#{touid}) a left join users u on a.uid=u.uid where 1=1
 		
 		<include refid="orderSql" />
 		<include refid="pageSql" />

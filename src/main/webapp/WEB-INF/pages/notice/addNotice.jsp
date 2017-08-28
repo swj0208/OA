@@ -35,8 +35,9 @@
 	<br /> 公告类型:
 	<select class="text" name="ntype" id="ntype">
 		<option></option>
-		<option>放假通知</option>
-		<option>人员调动</option>
+		<option>通知</option>
+		<option>部门公告</option>
+		<option>行政公告</option>
 	</select>
 	<br /> 消息内容:
 	<textarea class="ckeditor" name="ncontent" id="ncontent"></textarea>

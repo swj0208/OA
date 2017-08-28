@@ -6,13 +6,25 @@ create table notice(
 	nid int primary key auto_increment,
 	ntitle varchar(50),
 	ncontent varchar(2000),
-	ntype varchar(20),
+	ntype varchar(30),
 	publictime DATETIME,
 	uid int,
 	temp1 varchar(100),
 	temp2 varchar(100)
 )
-delete  from notice where nid=10;
+
+insert into notice(ntitle,ncontent,ntype,publictime,uid)values('部门细','就业部表现不错','部门公告',now(),17)
+select *  from notice;
+
+select nid,ntitle,ncontent,ntype,publictime,notice.uid as uid,uname 
+from notice inner join users on notice.uid=users.uid where 1=1
+
+
+select * from noticetype;
+
+delete  from notice where nid=4;
+
+select * from notice inner join users where users.uid=notice.uid and nid=1
 
 insert into notice(ntitle,ncontent,ntype,publictime,uid)values('好消息','今晚全体放假','放假通知',now(),17)
 
@@ -111,6 +123,8 @@ create table power (
 	temp2 VARCHAR(200)
 )
 
+select * from notice where nid=1
+
 
 
 
@@ -141,18 +155,16 @@ create table file(
 	temp2 VARCHAR(200)
 )
 select * from file;
-select count(*) from users u inner join file f on f.touid=u.uid  
-		left join department d on f.todid=d.did where u.uid=17
 
-select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) 
-or (todid = 1 and togid = 1 and ISNULL(touid)) 
-or (todid = 1 and togid = 1 and touid = 17)
-		
-select  fid,fname,description,uptime,downtimes,uname from  file 
+
+
+select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
+(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
 inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
 or (todid =did  and togid=gid and ISNULL(touid)) 
-or (todid = did and togid =gid  and touid=users.uid) where
-users.uid=17
+or (todid = did and togid =gid  and touid=users.uid) where 
+users.uid=17) a left join users u on a.uid=u.uid where 1=1
 		
 		select count(*) from users  
 		inner join file  on file.touid=users.uid
