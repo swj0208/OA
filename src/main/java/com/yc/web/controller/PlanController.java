@@ -21,7 +21,7 @@ public class PlanController {
 	@Resource(name = "planBizImpl")
 	private PlanBiz planBiz;
 
-	// 查找到所有的计划
+	// 查找到所有的计划，这里是初始页面的显示
 	@RequestMapping("/findAllPlan.action")
 	public JsonModel findAllPlan(Plan plan, HttpServletRequest request) throws Exception {
 		JsonModel jm = new JsonModel();
@@ -34,6 +34,12 @@ public class PlanController {
 		plan.setPagesize(pagesize);
 		plan.setOrderby(orderby);
 		plan.setOrderway(orderway);
+		
+		if(Integer.parseInt(request.getParameter("pstatus"))==1){
+			plan.setPstatus("进行中");	
+		}else{
+			plan.setPstatus("");
+		}
 		List<Plan> list = this.planBiz.findAllPlan(plan);
 		Integer count = this.planBiz.findAllPlanCount(plan);
 		jm.setRows(list);
@@ -135,6 +141,43 @@ public class PlanController {
 			jm.setCode(0);
 			jm.setMsg("数据不能为空！");
 		}
+		return jm;
+	}
+	
+	// 查找到所有的计划,这里是查找按钮的实现
+	@RequestMapping("/searchPlan.action")
+	public JsonModel searchPlan(Plan plan) throws Exception {
+		JsonModel jm = new JsonModel();
+		if(plan.getPid()==null||"".equals(plan.getPid())){
+			plan.setOrderby("pid");
+			plan.setOrderway("desc");			
+		}
+		
+		
+		DatetimeFormat df = new DatetimeFormat();
+		
+		String timefrom=plan.getTimefrom();
+		if(timefrom!=null&&!"".equals(timefrom)){
+			timefrom=df.datetimeformat(timefrom);
+			plan.setTimefrom(timefrom);
+		}
+		String timeto=plan.getTimeto();
+		if(timeto!=null&&!"".equals(timeto)){
+			timeto=df.datetimeformat(timeto);
+			plan.setTimeto(timeto);
+		}
+		
+		if("所有状态".equals(plan.getPstatus())){
+			plan.setPstatus("");
+		}
+		
+		plan.setStart(null);
+
+		List<Plan> list = this.planBiz.findAllPlan(plan);
+		Integer count = this.planBiz.findAllPlanCount(plan);
+		
+		jm.setRows(list);
+		jm.setTotal(count);
 		return jm;
 	}
 

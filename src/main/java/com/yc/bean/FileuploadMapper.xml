@@ -36,11 +36,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		fid,fname,description,path,file.uid,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid,fstatus
 		from file left join (select uid,uname from users) a on a.uid = file.uid where fstatus = 1
-		<where>
-			<if test="fname!=null and fname!=''">
-				fname = #{fname}
+		
+			<if test="timefrom!=null and timefrom!=''">
+				and uptime >#{timefrom}
 			</if>
-		</where>
+			<if test="timeto!=null and timeto!=''">
+				and #{timeto}>uptime
+			</if>
+			<if test="fname!=null and fname!=''">
+				and fname like '%${fname}%'
+			</if>
+		
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 		
@@ -49,8 +55,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 查找notice数量 -->
-	<select id="FileCount" resultType="int">
+	<select id="FileCount" resultType="int" parameterType="Fileupload">
 		select count(*) from file where fstatus = 1
+			<if test="timefrom!=null and timefrom!=''">
+				and uptime >#{timefrom}
+			</if>
+			<if test="timeto!=null and timeto!=''">
+				and #{timeto}>uptime
+			</if>
+			<if test="fname!=null and fname!=''">
+				and fname like '%${fname}%'
+			</if>
 	</select>
 
 
@@ -65,11 +80,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update file set downtimes = downtimes+1 where fid = #{fid}
 	</update>
 	
+
+	<!-- 删除 -->
 	<delete id="deleteFile" parameterType="Fileupload">
-		delete from file where fid = #{fid}
+		delete from file where fid=#{fid}
 	</delete>
-
-
 
 
 </mapper>

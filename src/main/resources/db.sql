@@ -228,6 +228,10 @@ alter table notice drop foreign key fk_notice_users
 
 
 --公文表：公文编号、标题、发送人id、接收人id、实行人id、公文时间、公文内容、附件、返回评语、
+
+drop table file
+
+--公文表：公文编号、标题、发送人id、接收人id、公文时间、公文内容、附件、返回评语、
 --(审批状态 --0为未审批，1为审批通过,2为审批不合格,3为经理批准,4为经理不批准,5归档)
 create table document(
 	doid int primary key auto_increment,
@@ -263,7 +267,7 @@ create table file(
 	fid int primary key auto_increment,
 	fname  VARCHAR(50),
 	description VARCHAR(200),
-	path VARCHAR(100),
+	path VARCHAR(1000),
 	uid int,
 	uptime DATETIME,
 	downtimes int,
@@ -341,7 +345,8 @@ select * from plan
 
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
 	values('a','a','男',null,now(),'13579246810','12345678@zs.com','12345678','1987-1-1','湖南','开发部','正常',1)
-insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
+
+	insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,department ,ustatus ,gid )
 	values('wp','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
 	
 	values('李四','12345678','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南','开发部','休假',1)
@@ -358,13 +363,6 @@ update users set upwd = "6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2";
 select * from users
 delete from users where uid = 4;
 
------
-insert into groups(gname )
-	values('OA开发小组')
-insert into groups(gname )
-	values('第一策划小组')
-insert into groups(gname )
-	values('第一测试小组')
 
 select * from groups
 
@@ -373,15 +371,6 @@ insert into power (powername,uid)
 	values('管理员',1)
 select * from department
 
-----
-insert into notice(content,nweight ,createtime  ,uid ,nstatus)
-	values('今晚加班',1,now(),1,0)
-select * from notice
-
------
-insert into file(fname,description,path ,uid ,uptime ,downtimes ,fweight)
-	values('绝密资料','这是一份绝密资料',null,1,now(),0,1)
-select * from file
 
 
 --查找小组的工作计划的详情	
@@ -406,15 +395,4 @@ insert into plan(pname,content,timestart,timelimit,gid,pstatus)
 		
 delete from plan where pid=19
 
-
-
-select pid,pname,timestart,timelimit,timeend,pstatus,plan.gid as
-		gid,gname from plan left join groups
-		on plan.gid=groups.gid 
-		order by pid
-		asc
-		limit 0,5
-		and pstatus='进行中'
 		
-		
-select * from plan
