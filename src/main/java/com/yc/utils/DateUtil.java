@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class DateUtil {
 
-	private static DateFormat df=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+	private static DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	/**
 	 * 将  str 转为   Date对象.
 	 * @param str

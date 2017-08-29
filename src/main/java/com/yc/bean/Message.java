@@ -2,24 +2,25 @@ package com.yc.bean;
 
 import java.io.Serializable;
 
-public class Notice extends CommonBean implements Serializable {
+public class Message extends CommonBean implements Serializable {
 
 	private static final long serialVersionUID = -3042360926416388190L;
 
-	private Integer nid;
+	private Integer mid;
 	private String content;
-	private Integer nweight;
+	private Integer mweight;
 	private String createtime;
+	private Integer fid;
 	private Integer did;
 	private Integer gid;
 	private Integer uid;
-	
-	public Integer getNid() {
-		return nid;
+
+	public Integer getMid() {
+		return mid;
 	}
 
-	public void setNid(Integer nid) {
-		this.nid = nid;
+	public void setMid(Integer mid) {
+		this.mid = mid;
 	}
 
 	public String getContent() {
@@ -30,12 +31,12 @@ public class Notice extends CommonBean implements Serializable {
 		this.content = content;
 	}
 
-	public Integer getNweight() {
-		return nweight;
+	public Integer getMweight() {
+		return mweight;
 	}
 
-	public void setNweight(Integer nweight) {
-		this.nweight = nweight;
+	public void setMweight(Integer mweight) {
+		this.mweight = mweight;
 	}
 
 	public String getCreatetime() {
@@ -44,6 +45,14 @@ public class Notice extends CommonBean implements Serializable {
 
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+
+	public Integer getFid() {
+		return fid;
+	}
+
+	public void setFid(Integer fid) {
+		this.fid = fid;
 	}
 
 	public Integer getDid() {
@@ -72,8 +81,8 @@ public class Notice extends CommonBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Notice [nid=" + nid + ", content=" + content + ", nweight=" + nweight + ", createtime=" + createtime
-				+ ", did=" + did + ", gid=" + gid + ", uid=" + uid + "]";
+		return "Message [mid=" + mid + ", content=" + content + ", mweight=" + mweight + ", createtime=" + createtime
+				+ ", fid=" + fid + ", did=" + did + ", gid=" + gid + ", uid=" + uid + "]";
 	}
 
 }

@@ -1,5 +1,4 @@
-
-package com.yc.websocket.websocket;
+package com.yc.web.websocket;
 
 import java.util.Map;
 
@@ -13,30 +12,35 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import com.yc.bean.Users;
 
-
 /**
- * Socket建立连接
+ * websocket拦截器
  */
 public class HandShake implements HandshakeInterceptor {
 
-	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-		//System.out.println("Websocket:用户[ID:" + ((ServletServerHttpRequest) request).getServletRequest().getSession(false).getAttribute("uid") + "]已经建立连接");
+	/**
+	 * 将HttpSession中对象放入WebSocketSession中
+	 */
+	@Override
+	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
+			Map<String, Object> map) throws Exception {
 		if (request instanceof ServletServerHttpRequest) {
 			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletRequest.getServletRequest().getSession(false);
 			// 标记用户
-			Users user =  (Users) session.getAttribute("users");
-			Integer uid=user.getUid();
-			if(uid!=null){
-				attributes.put("uid", uid);
-			}else{
+			Users user = (Users) session.getAttribute("users");
+			if (user != null) {
+				//区分socket连接以定向发送消息
+				map.put("user", user);
+			} else {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
+	@Override
+	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
+			Exception exception) {
 	}
 
 }

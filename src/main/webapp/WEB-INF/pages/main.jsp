@@ -17,7 +17,6 @@
 	<div data-options="region:'west',split:true" title="West" style="width: 150px">
 		<!-- <div id="westpanel"></div> 使用panel-->
 		<div class="easyui-accordion" style="width: auto; height: 100%;">
-		
 			<div title="行政管理" style="overflow: auto; padding: 10px;">
 				<ul id="PoTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
@@ -28,10 +27,6 @@
 			</div>
 			<div title="信息系统" style="overflow: auto; padding: 10px;">
 				<ul id="noticeTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
-				</ul>
-			</div>
-			<div title="任务计划" style="overflow: auto; padding: 10px;">
-				<ul id="planTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 			<div title="个人中心" style="overflow: auto; padding: 10px;">
@@ -46,6 +41,14 @@
 				<ul id="powerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 				<ul id="userpowerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				</ul>
+			</div>
+			<div title="公文管理" style="overflow: auto; padding: 10px;">
+				<ul id="documentTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				</ul>
+			</div>
+			<div title="在线会话" style="overflow: auto; padding: 10px;">
+				<ul id="websocketTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 		

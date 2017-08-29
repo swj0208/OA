@@ -28,45 +28,38 @@ $(function() {
 				{
 					field : 'fid',
 					title : '文件编号',
-					width : 100,
 					align : 'center',
 					hidden : 'true'
 				},
 				{
 					field : 'fname',
 					title : '文件名',
-					width : 100,
 					align : 'center'
 				},
 				{
 					field : 'description',
 					title : '简介',
-					width : 100,
 					align : 'center'
 				},
 				{
-					field : 'uid',
-					title : '发送者',
-					width : 100,
+					field : 'uname',
+					title : '发送人',
 					align : 'center'
 				},
 				{
 					field : 'uptime',
 					title : '上传时间',
-					width : 100,
 					align : 'center'
 				},
 				{
 					field : 'downtimes',
 					title : '下载次数',
-					width : 100,
 					align : 'center'
 				},
 				{
 					field : 'operate',
 					title : '操作',
 					align : 'center',
-					width : 100,
 					formatter : function(val, row, index) {
 						var str = '<a href="javascript:void(0)" onclick="filedownload('+ index + ')">下载</a>';
 						return str;
@@ -80,6 +73,7 @@ function filedownload(index){
 	$('#showfileTable').datagrid('selectRow',index);
 	var row = $('#showfileTable').datagrid('getSelected');
 	location.href="user/fileDownload.action?fid="+row.fid;
+	$('#showfileTable').datagrid("reload");
 }
 
 	

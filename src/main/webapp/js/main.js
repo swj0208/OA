@@ -81,43 +81,18 @@ $(function() {
 		              {
 		            	  "text" : "发布消息",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='toAddNotice.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toAddMessage.action'/>"
 		            	  }
 		              },
 		              {
 		            	  "text" : "消息管理",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='toManageNotice.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toManageMessage.action'/>"
 		            	  }
 		              } 
-		              ,
-	                   {
-	       				"text" : "聊天",
-	       				"attributes" : {
-	       					"url" : "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
-	       					}
-	       				}
 		              ]
 	} ];
 	
-	var planTreeData = [ {
-		"text" : "任务管理",
-		"state" : "closed",
-		"children" : [
-		              {
-		            	  "text" : "新增任务",
-		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toaddPlan.action'/>"
-		            	  }
-		              },
-		              {
-		            	  "text" : "查看任务",
-		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toshowUsers.action'/>"
-		            	  }
-					} ]
-		} ];
-
 	var userTreeData = [ {
 		"text" : "个人管理",
 		"state" : "closed",
@@ -135,13 +110,13 @@ $(function() {
 		              {
 		            	  "text" : "上传文件",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='user/toUploadFile.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='user/toUploadFile.action'/>"
 		            	  }
 		              },
 		              {
 		            	  "text" : "查看所有文件",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='user/toShowFile.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' frameborder='0' src='user/toShowFile.action'/>"
 		            	  }
 
 		              } ]
@@ -186,15 +161,50 @@ $(function() {
 
 		              }]
 	}];
+	var documentTreeData = [ {
+		"text" : "公文",
+		"state" : "closed",
+		"children" : [
+		              {
+		            	  "text" : "公文编辑",
+		            	  "attributes" : {
+		            		  "url" : 
 
+		            			  "<iframe width='100%' height='100%' src='user/toEditorDocument.action'/>"
+		            	  }
+		              },{
+		            	  "text" : "查看公文",
+		            	  "attributes" : {
+		            		  "url" : 
+
+		            			  "<iframe width='100%' height='100%' src='user/toManageDocument.action'/>"
+		            	  }
+		              }]
+	}];
+	
+	var socketTreeData = [ {
+		"text" : "在线会话",
+		"state" : "closed",
+		"children" : [
+		              {
+		            	  "text" : "会话",
+		            	  "attributes" : {
+		            		  "url" : 
+
+		            			  "<iframe width='100%' height='100%' frameborder='0' src='toTalk.action'/>"
+		            	  }
+		              }]
+	}];
+
+	showTree("websocketTree", socketTreeData);
 	showTree("PoTree", PoTreeData);
 	showTree("approvalTree", approvalTree);
 	showTree("noticeTree", noticeTreeData);
-	showTree("planTree", planTreeData);
 	showTree("userTree", userTreeData);
 	showTree("fileTree", fileTreeData);
 	showTree("powerTree", powerTreeData);
 	showTree("userpowerTree", userpowerTreeData);
+	showTree("documentTree", documentTreeData);
 });
 function showTree(treeId, data) {
 	$("#" + treeId).tree({

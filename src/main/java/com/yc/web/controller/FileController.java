@@ -85,6 +85,7 @@ public class FileController {
 		String filename = new String(fileupload.getFname().getBytes("UTF-8"), "iso-8859-1");
 		headers.setContentDispositionFormData("attachment", filename);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		fileuploadBiz.updateDownloadtimes(fileupload);
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
 
@@ -95,7 +96,6 @@ public class FileController {
 
 		File file = new File(fileupload.getPath());
 		if (file.delete()) {
-			System.out.println(file.getName() + " 文件已被删除！");
 			boolean flag = fileuploadBiz.deleteFile(fileupload);
 			jm.setCode(1);
 		} else {

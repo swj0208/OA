@@ -13,7 +13,7 @@ public class Chat implements Serializable {
 	private Integer toUid;
 	private Integer toDid;
 	private String chatText;
-	private Timestamp chatDate;
+	private String chatDate;
 
 	public Integer getChatId() {
 		return chatId;
@@ -63,14 +63,6 @@ public class Chat implements Serializable {
 		this.chatText = chatText;
 	}
 
-	public Timestamp getChatDate() {
-		return chatDate;
-	}
-
-	public void setChatDate(Timestamp chatDate) {
-		this.chatDate = chatDate;
-	}
-
 	@Override
 	public String toString() {
 		return "Chat [chatId=" + chatId + ", fromId=" + fromId + ", fromName=" + fromName + ", toUid=" + toUid
@@ -78,7 +70,7 @@ public class Chat implements Serializable {
 	}
 
 	public Chat(Integer chatId, Integer fromId, String fromName, Integer toUid, Integer toDid, String chatText,
-			Timestamp chatDate) {
+			String chatDate) {
 		super();
 		this.chatId = chatId;
 		this.fromId = fromId;
@@ -86,6 +78,14 @@ public class Chat implements Serializable {
 		this.toUid = toUid;
 		this.toDid = toDid;
 		this.chatText = chatText;
+		this.chatDate = chatDate;
+	}
+
+	public String getChatDate() {
+		return chatDate;
+	}
+
+	public void setChatDate(String chatDate) {
 		this.chatDate = chatDate;
 	}
 

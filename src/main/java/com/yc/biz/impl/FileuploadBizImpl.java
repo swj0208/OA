@@ -49,7 +49,15 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		return true; 
 	}
 
+	public void updateDownloadtimes(Fileupload fileupload) {
+		baseDao.update(fileupload, "updatedownloadtimes");
+	}
 
+	@Override
+	public Fileupload addFile2(Fileupload fileupload) {
+		baseDao.save(fileupload, "addFile");
+		return fileupload;
+	}
 	
 
 } 
