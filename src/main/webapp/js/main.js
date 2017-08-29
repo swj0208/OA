@@ -71,9 +71,9 @@ $(function() {
 		"text" : "个人管理",
 		"state" : "closed",
 		"children" : [ {
-			"text" : "修改个人信息",
+			"text" : "个人资料",
 			"attributes" : {
-				"url" : "<iframe width='100%' height='100%' src='toUpdateSelf.action'/>"
+				"url" : "<iframe width='100%' height='100%' src='toMyselfMessage.action'/>"
 			}
 		} ]
 	} ];

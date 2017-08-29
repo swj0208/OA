@@ -46,6 +46,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
+	
+	<!-- 查询所有的用户 -->
+	<select id="findUsersByUid" resultType="Users"
+		parameterType="Users">
+		select * from users u left join department d on u.did=d.did inner join
+		groups g on g.gid=u.gid where uid=#{uid}
+		<include refid="orderSql" />
+		<include refid="pageSql" />
+	</select>
 
 
 
@@ -75,6 +84,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update users set
 		gid=#{gid},did=#{did},ustatus=#{ustatus} where uid=#{uid}
 	</update>
+	
+	
+	<update id="updatePwd" parameterType="Users">
+		update users set
+		upwd=#{upwd} where uid=#{uid}
+	</update>
+	
 	
 	
 

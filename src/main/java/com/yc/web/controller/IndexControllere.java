@@ -72,4 +72,10 @@ public class IndexControllere {
 	public String toShowMeFile(){
 		return "file/showMeFile";
 	}
+	
+	@RequestMapping(value="/toMyselfMessage.action",method = RequestMethod.GET)
+	public String toMyselfMessage(){
+		return "myself/myselfMessage";
+	}
+	
 }

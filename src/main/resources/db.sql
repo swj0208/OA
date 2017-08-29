@@ -72,7 +72,7 @@ create table users(
 )
 select * from users;
 
-delete  from users where 1=1;
+update users set gid=1 where uid=17;
 drop table users;
 
 drop table groups
