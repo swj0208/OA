@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-	<!-- 查找notice数量 -->
+	<!-- 查找文件数量 -->
 	<select id="FileCount" resultType="int" parameterType="Fileupload">
 		select count(*) from file
 		<where>

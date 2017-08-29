@@ -31,11 +31,10 @@ iframe {
 				<ul id="PoTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
-			<div title="公告管理" style="overflow: auto; padding: 10px;">
-			<!-- <div title="审批流转" style="overflow: auto; padding: 10px;">
+			 <!--<div title="审批流转" style="overflow: auto; padding: 10px;">
 				<ul id="approvalTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
-			</div> -->
+			</div>--> 
 			<div title="信息系统" style="overflow: auto; padding: 10px;">
 				<ul id="messageTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
