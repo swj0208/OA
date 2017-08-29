@@ -50,7 +50,6 @@ insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address 
 	values('e','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'入职',2)
 
 	
-	
 	select
 		fid,fname,description,path,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid
 		from file left join (select uid,uname from users) a on a.uid = file.uid
@@ -97,6 +96,59 @@ alter table groups
 alter table groups drop foreign key fk_groups_plan
 
 drop table permission;
+
+
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+
+		
+		select
+		doid,dotitle,docontent,dofromuid,dotouid,douid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,c.uname as douname,file.fname as fname,permissionforuser.perid
+		from document left join
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid 
+		left join users c  on document.douid = c.uid 
+		left join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid
+		
+		
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+		
+		
+		select a.perid as perid,a.pername as pername,
+		c.uname as uname,d.gname as gname,e.department as department 
+		from  permission a 
+		left join permissionforuser b on b.perid = a.perid left join
+		users c on b.uid = c.uid left join groups d on d.gid = c.gid
+		left join  department e  on e.did = c.did
+		
+		select count(*) from users left join permissionforuser on users.uid = permissionforuser.uid
+		left join permission on permission.perid = permissionforuser.perid 
+		where permission.pername!=null
+		
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+		where permission.pername !=""
 --权限表：编号、权限名、用户编号
 create table permission(
 	perid int primary key auto_increment,
@@ -104,6 +156,31 @@ create table permission(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select * from permission
+--职员权限表：
+create table permissionforuser(
+	perid int,
+	uid int
+)
+drop table permissionforuser;
+select * from permissionforuser
+delete from permissionforuser p where uid = 6 on p.perid=c.perid
+
+
+select p.perid as perid,pername,uid,uname  from permission p left join 
+(select users.uid as uid,uname,perid  from users left join permissionforuser on users.uid=permissionforuser.uid where users.uid=3)  u
+on p.perid=u.perid
+
+		select
+		doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,file.fname as fname,permissionforuser.perid
+		from document left join
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid left
+		join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid
+
+
 select * from permission;
 select * from users;
 select * from department;
@@ -116,11 +193,7 @@ insert into permission (pername) values('员工管理');
 insert into permission (pername) values('总经理');
 
 
---职员权限表：
-create table permissionforuser(
-	perid int,
-	uid int
-)
+
 select * from permissionforuser
 insert into permissionforuser(perid,uid) values(2,1);
 insert into permissionforuser(perid,uid) values(1,3);
@@ -154,7 +227,7 @@ alter table notice drop foreign key fk_notice_users
 
 
 
---公文表：公文编号、标题、发送人id、接收人id、公文时间、公文内容、附件、返回评语、
+--公文表：公文编号、标题、发送人id、接收人id、实行人id、公文时间、公文内容、附件、返回评语、
 --(审批状态 --0为未审批，1为审批通过,2为审批不合格,3为经理批准,4为经理不批准,5归档)
 create table document(
 	doid int primary key auto_increment,
@@ -162,6 +235,7 @@ create table document(
 	docontent VARCHAR(10000),
 	dofromuid int,
 	dotouid int,
+	douid int,
 	dotime DATETIME,
 	dofid int,
 	dostatus VARCHAR(50),
@@ -172,15 +246,17 @@ create table document(
 drop table document;
 select * from document;
 
-select distinct a.uname from
-(select uname,uid from users where did=(select did from users where uid = 1) ) a
-left join permissionforuser on a.uid = permissionforuser.uid  
-where permissionforuser.uid  = (select uid from permissionforuser where perid = 2);
+		select
+		doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,file.fname as fname,permissionforuser.perid as perid
+		from document left join
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid left
+		join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid	
 
 
-select doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname as funame,b.uname as tuname
-		from document left join (select uid,uname from users) a on document.dofromuid = a.uid 
-		left join (select uid,uname from users) b on document.dotouid = b.uid 
+
 
 --共享文件表：编号、文件名、文件描述、路径、上传用户的id、上传时间、下载次数、文件权重
 create table file(
@@ -200,6 +276,14 @@ create table file(
 	temp2 VARCHAR(200)
 )
 select * from file;
+
+select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) or 
+(todid = 1 and togid = 1 and ISNULL(touid)) or (todid = 1 and togid = 1 and touid = 1)
+
+
+
+
+delete  from file where fid = 1;
 update file set downtimes = downtimes+1 where fid = 1
 drop table file;
 

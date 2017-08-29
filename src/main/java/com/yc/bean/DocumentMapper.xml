@@ -27,8 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="editorDocument" parameterType="Document"
 		useGeneratedKeys="true" keyProperty="mid">
 		insert into
-		document(dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus)
-		values(#{dotitle},#{docontent},#{dofromuid},#{dotouid},now(),#{dofid},'待审核')
+		document(dotitle,docontent,dofromuid,dotouid,douid,dotime,dofid,dostatus)
+		values(#{dotitle},#{docontent},#{dofromuid},#{dotouid},#{douid},now(),#{dofid},'待审核')
 	</insert>
 
 
@@ -36,16 +36,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="FindDocumentByCondition" parameterType="Document"
 		resultType="Document">
 		select
-		doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname
-		as funame,b.uname as tuname,c.fname as fname
+		doid,dotitle,docontent,dofromuid,dotouid,douid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,c.uname as douname,file.fname as fname,permissionforuser.perid
 		from document left join
-		(select uid,uname from users) a on document.dofromuid = a.uid
-		left join (select uid,uname from users) b on document.dotouid = b.uid left
-		join (select fid,fname from file) c on document.dofid = c.fid
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid 
+		left join users c  on document.douid = c.uid 
+		left join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
-
+	
+	
+	
 
 	<!-- 查找Document数量 -->
 	<select id="DocumentCount" resultType="int">
@@ -80,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 公文归档 -->
 	<update id="archiveDocument" parameterType="Document">
 		update document set
-		dostatus = '已归档',dotouid = #{dotouid}  where doid = #{doid}
+		dostatus = '已归档'  where doid = #{doid}
 	</update>
 
 

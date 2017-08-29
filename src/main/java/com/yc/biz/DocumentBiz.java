@@ -59,4 +59,7 @@ public interface DocumentBiz {
 	 *  
 	 */
 	public boolean archiveDocument(Document document);
+	
+	
+	
 }

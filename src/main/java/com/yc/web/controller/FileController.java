@@ -90,4 +90,17 @@ public class FileController {
 	}
 	
 	
+	@RequestMapping(value="/user/deleteFile.action")
+	private JsonModel deleteFile(Fileupload fileupload) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		boolean r = fileuploadBiz.deleteFile(fileupload);
+		if(r){
+			jsonModel.setCode(1);
+		}else{
+			jsonModel.setCode(0);
+		}
+		return jsonModel;
+	}
+	
+	
 }

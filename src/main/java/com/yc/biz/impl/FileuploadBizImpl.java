@@ -53,6 +53,12 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		baseDao.save(fileupload, "addFile");
 		return fileupload;
 	}
+
+	@Override
+	public boolean deleteFile(Fileupload fileupload) {
+		baseDao.del(fileupload, "deleteFile");
+		return true;
+	}
 	
 
 } 

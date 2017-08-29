@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 查找notice数量 -->
 	<select id="FileCount" resultType="int">
-		select count(*) from file
+		select count(*) from file where fstatus = 1
 	</select>
 
 
@@ -64,6 +64,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatedownloadtimes" parameterType="Fileupload">
 		update file set downtimes = downtimes+1 where fid = #{fid}
 	</update>
+	
+	<delete id="deleteFile" parameterType="Fileupload">
+		delete from file where fid = #{fid}
+	</delete>
 
 
 

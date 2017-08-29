@@ -14,8 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yc.bean.Permission;
 import com.yc.bean.Users;
 import com.yc.biz.DocumentBiz;
+import com.yc.biz.PermissionBiz;
+import com.yc.biz.UsersBiz;
 import com.yc.web.model.JsonModel;
 
 @Controller
@@ -23,6 +26,13 @@ public class IndexControllere {
 	
 	@Resource(name="documentBizImpl")
 	private DocumentBiz documentBiz;
+	
+	@Resource(name="usersBizImpl")
+	private UsersBiz usersBiz;
+	
+	@Resource(name="permissionBizImpl")
+	private PermissionBiz permissionBiz;
+	
 	
 	
 	@RequestMapping(value="/index.action",method = RequestMethod.GET)
@@ -72,23 +82,31 @@ public class IndexControllere {
 		return "file/showFile";
 	}
 	
-	@RequestMapping(value="/user/toWebsocket.action",method = RequestMethod.GET)
-	public String toWebsocket(){
-		return "websocket/websocket";
-	}
 	
 	@RequestMapping(value="/user/toEditorDocument.action",method = RequestMethod.GET)
 	public void toEditorDocument(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		Users users = (Users) session.getAttribute("users");
 		List<Users> list = documentBiz.findLeaderBydid(users);
 		session.setAttribute("leader", list);
-		request.getRequestDispatcher("/WEB-INF/pages/document/editorDocument.jsp").forward(request, response);;
+		List<Users> list2 = usersBiz.findUserByDid(users);
+		session.setAttribute("doUser", list2);//为了显示实行人
+		request.getRequestDispatcher("/WEB-INF/pages/document/editorDocument.jsp").forward(request, response);
 	}
 	
 	@RequestMapping(value="/user/toManageDocument.action",method = RequestMethod.GET)
 	public String toManageDocument(){
 		return "document/manageDocument";
 	}
+	
+	@RequestMapping(value="/user/toManagePermission.action",method = RequestMethod.GET)
+	public void toManagePermission(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		session.removeAttribute("permission");
+		List<Permission> list = permissionBiz.findPermission();
+		session.setAttribute("permission", list);
+		request.getRequestDispatcher("/WEB-INF/pages/permission/managePermissions.jsp").forward(request, response);
+	}
+	
+	
 	
 	
 }

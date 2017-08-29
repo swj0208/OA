@@ -1,9 +1,9 @@
 package com.yc.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-
-import org.omg.CORBA.PRIVATE_MEMBER;
+import java.util.List;
 
 public class Users  extends CommonBean implements Serializable {
 
@@ -23,10 +23,40 @@ public class Users  extends CommonBean implements Serializable {
 	private String ustatus;
 	private Integer gid;
 	
+	
 	private String department;
 	private String gname;
 	
+	private Integer perid;
+	private String pername;
 	
+	public String getPername() {
+		return pername;
+	}
+
+	public void setPername(String pername) {
+		this.pername = pername;
+	}
+
+	public Integer getPerid() {
+		return perid;
+	}
+
+	public void setPerid(Integer perid) {
+		this.perid = perid;
+	}
+
+	private Permission permissions;
+
+	
+
+	public Permission getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Permission permissions) {
+		this.permissions = permissions;
+	}
 
 	public String getDepartment() {
 		return department;
@@ -161,9 +191,9 @@ public class Users  extends CommonBean implements Serializable {
 		return "Users [uid=" + uid + ", uname=" + uname + ", upwd=" + upwd + ", sex=" + sex + ", photo=" + photo
 				+ ", entrytime=" + entrytime + ", tel=" + tel + ", email=" + email + ", qq=" + qq + ", birthday="
 				+ birthday + ", address=" + address + ", did=" + did + ", ustatus=" + ustatus + ", gid=" + gid
-				+ ", department=" + department + ", gname=" + gname + "]";
+				+ ", department=" + department + ", gname=" + gname + ", perid=" + perid + ", permissions="
+				+ permissions + "]";
 	}
-
 
 	
 	

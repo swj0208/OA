@@ -33,10 +33,6 @@
 				<ul id="documentTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
-			<div title="在线会话" style="overflow: auto; padding: 10px;">
-				<ul id="websocketTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
-				</ul>
-			</div>
 		
 			
 		</div>

@@ -82,17 +82,10 @@ $(function() {
 		"state" : "closed",
 		"children" : [
 		              {
-		            	  "text" : "查看权限",
+		            	  "text" : "权限管理",
 		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toShowPower.action'/>"
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toManagePermission.action'/>"
 		            	  }
-		              },
-		              {
-		            	  "text" : "修改权限",
-		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='toUpdatePower.action'/>"
-		            	  }
-
 		              } ]
 	} ];
 	var userpowerTreeData = [ {
@@ -138,21 +131,7 @@ $(function() {
 		              }]
 	}];
 	
-	var socketTreeData = [ {
-		"text" : "在线会话",
-		"state" : "closed",
-		"children" : [
-		              {
-		            	  "text" : "会话",
-		            	  "attributes" : {
-		            		  "url" : 
 
-		            			  "<iframe width='100%' height='100%' src='user/toWebsocket.action'/>"
-		            	  }
-		              }]
-	}];
-
-	showTree("websocketTree", socketTreeData);
 	showTree("PoTree", PoTreeData);
 	showTree("noticeTree", noticeTreeData);
 	showTree("userTree", userTreeData);

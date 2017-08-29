@@ -11,13 +11,46 @@ public class Document extends CommonBean implements Serializable {
 	private String docontent;
 	private Integer dofromuid;
 	private Integer dotouid;
+	private Integer douid;   //实行人
 	private String dotime;
 	private Integer dofid;
 	private String dostatus;
+	
+	
 	private String funame;
+	private String douname;
 	private String tuname;
 	private String fname;
 	private String docomment;
+	
+	private Integer perid;
+	
+	
+	
+	
+	public String getDouname() {
+		return douname;
+	}
+
+	public void setDouname(String douname) {
+		this.douname = douname;
+	}
+
+	public Integer getDouid() {
+		return douid;
+	}
+
+	public void setDouid(Integer douid) {
+		this.douid = douid;
+	}
+
+	public Integer getPerid() {
+		return perid;
+	}
+
+	public void setPerid(Integer perid) {
+		this.perid = perid;
+	}
 
 	public String getDocomment() {
 		return docomment;
@@ -118,9 +151,11 @@ public class Document extends CommonBean implements Serializable {
 	@Override
 	public String toString() {
 		return "Document [doid=" + doid + ", dotitle=" + dotitle + ", docontent=" + docontent + ", dofromuid="
-				+ dofromuid + ", dotouid=" + dotouid + ", dotime=" + dotime + ", dofid=" + dofid + ", dostatus="
-				+ dostatus + ", funame=" + funame + ", tuname=" + tuname + ", fname=" + fname + ", docomment="
-				+ docomment + "]";
+				+ dofromuid + ", dotouid=" + dotouid + ", douid=" + douid + ", dotime=" + dotime + ", dofid=" + dofid
+				+ ", dostatus=" + dostatus + ", funame=" + funame + ", douname=" + douname + ", tuname=" + tuname
+				+ ", fname=" + fname + ", docomment=" + docomment + ", perid=" + perid + "]";
 	}
 
+	
+	
 }

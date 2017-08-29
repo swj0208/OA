@@ -70,7 +70,18 @@ $(function() {
 						var str = '<a href="javascript:void(0)" onclick="filedownload('+ index + ')">下载</a>';
 						return str;
 					}
-			} ] ]
+				},
+				{
+					field : 'operate2',
+					title : '删除',
+					align : 'center',
+					width : 100,
+					formatter : function(val, row, index) {
+						var str = '<a href="javascript:void(0)" onclick="dodelete('+ index + ')">删除</a>';
+						return str;
+					}
+				}
+				] ]
 	});
 	
 });
@@ -79,6 +90,24 @@ function filedownload(index){
 	$('#showfileTable').datagrid('selectRow',index);
 	var row = $('#showfileTable').datagrid('getSelected');
 	location.href="user/fileDownload.action?fid="+row.fid;
+}
+
+function dodelete(index){
+	$('#showfileTable').datagrid('selectRow',index);
+	var row = $('#showfileTable').datagrid('getSelected');
+	$.ajax({
+		type : "POST",
+		url : "user/deleteFile.action?fid="+row.fid,
+		dataType : "JSON",
+		success : function(data) {
+			if (data.code == 1) {
+				$.messager.alert("提示！", "删除成功！");
+				$('#showfileTable').datagrid("reload");
+			} else {
+				$.messager.alert("提示！", "删除失败！"+data.msg);
+			}
+		}
+	});
 }
 </script>
 <title>显示文件</title>

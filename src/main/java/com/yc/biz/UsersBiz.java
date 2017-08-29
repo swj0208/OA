@@ -2,8 +2,11 @@ package com.yc.biz;
 
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.catalina.User;
 
+import com.yc.bean.Permission;
 import com.yc.bean.Users;
 
 public interface UsersBiz {
@@ -23,7 +26,7 @@ public interface UsersBiz {
 	
 
 	//根据部门id,小组id查询用户
-	List<Users> getUserBygidanddid(int did, int gid);
+	public List<Users> getUserBygidanddid(int did, int gid);
 
 	//人员添加
 	public boolean add(Users users);
@@ -33,4 +36,14 @@ public interface UsersBiz {
 	
 	//修改工作状态
 	public boolean updateUsers(Users users);
+	
+	
+	public List<Users> findPermissionforUser(Users users);
+	
+	
+	public int findPermissionCount(Users users);
+	
+	
+	
+	public List<Users> findUserByDid(Users users);
 }
