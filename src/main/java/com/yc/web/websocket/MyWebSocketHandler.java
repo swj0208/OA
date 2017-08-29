@@ -112,11 +112,12 @@ public class MyWebSocketHandler implements WebSocketHandler {
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable error) throws Exception {
 		if (session.isOpen()) {
+			subOnlineCount();
+			sendOnlineCount();
+			sendUsers();
 			session.close();
 		}
 		users.remove(session);
-		subOnlineCount();
-		sendOnlineCount();
 	}
 
 	@Override
@@ -124,6 +125,7 @@ public class MyWebSocketHandler implements WebSocketHandler {
 		users.remove(session);
 		subOnlineCount(); 
 		sendOnlineCount();
+		sendUsers();
 	}
 
 	@Override

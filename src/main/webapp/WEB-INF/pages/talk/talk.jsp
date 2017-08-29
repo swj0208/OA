@@ -145,11 +145,19 @@
 	};
 	
 	websocket.onerror = function(event) {
+		alert("通信失去连接，请刷新重试...");
+		
 		console.log("WebSocket:发生错误 ");
 		console.log(event);
 	};
 	
 	websocket.onclose = function(event) {
+		$.messager.show({
+			title : '温馨提示',
+			msg : '您已下线！',
+			timeout : 0,
+			showType : 'slide'
+		});
 		console.log("WebSocket:已关闭");
 		console.log(event);
 	}
@@ -243,17 +251,16 @@
 
 <!-- 右边 -->
 <div  id="right">
-		<input type="hidden" id="toUid">
-		<input type="hidden" id="toDid">
-		<div style="background-color: #D7D6D2">
-			<span id="with" style="color: #DD22DD;font-size: 15px;"></span>
-		</div>
-		<div id="content">
-		
-		</div>
-		
-	<form  id="chatform">
-		<input type="text" placeholder="请输入要发送的信息" id="chatText">
-		<input type="button" value="发送" id="btn" onclick="sendMsg()">
-	</form>
+	<input type="hidden" id="toUid">
+	<input type="hidden" id="toDid">
+	<div style="background-color: #D7D6D2">
+		<span id="with" style="color: #DD22DD;font-size: 15px;"></span>
+	</div>
+	<div id="content">
+	
+	</div>
+	
+
+	<input type="text" placeholder="请输入要发送的信息" id="chatText">
+	<input type="button" value="发送" id="btn" onclick="sendMsg()">
 </div>

@@ -310,5 +310,4 @@ insert into plan(pname,content,timestart,timelimit,gid,pstatus)
 		
 delete from plan where pid=19
 
-
 		

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
+
 <script type="text/javascript">
 
 $(function() {
@@ -144,9 +145,9 @@ function filedownload(index){
 <div id="tb" style="padding: 2px 5px;">
 	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteFile()" style="margin-left: 10px">删除</a>
 	<form id="searchFileForm" style="float: left">
-		上传日期 : <input class="easyui-datetimebox" style="width: 110px" id="timefrom" name="timefrom">
-		— <input class="easyui-datetimebox" style="width: 110px" id="timeto" name="timeto">  
-		文件名: <input class="easyui-textbox" style="width: 100px"  panelHeight="auto" id="fname" name="fname">
+		上传日期 : <input class="easyui-datetimebox"  id="timefrom" name="timefrom" editable="false">
+		— <input class="easyui-datetimebox"  id="timeto" name="timeto" editable="false">  
+		文件名: <input class="easyui-textbox" style="width: 110px"  panelHeight="auto" id="fname" name="fname">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="searchFile()">查找</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearchFileForm()">清空搜索栏</a>
 	</form>
