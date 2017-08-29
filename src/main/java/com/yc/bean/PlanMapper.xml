@@ -21,8 +21,8 @@
 			limit #{start},#{pagesize}
 		</if>
 	</sql>
-
-	<!-- 通过小组ID查找小组的所有工作计划的详情,可以分工作状态 -->
+	
+	<!-- 查找工作计划,可以分工作状态 -->
 	<select id="findAllPlan" parameterType="Plan" resultType="Plan">
 		select pid,pname,content,timestart,timelimit,timeend,pstatus,plan.gid as
 		gid,gname from plan left join groups
@@ -31,6 +31,24 @@
 			<if test="gid!=null and gid!=''">
 				and plan.gid=#{gid}
 			</if>
+			<if test="pid!=null and pid!=''">
+				and pid=#{pid}
+			</if>
+			<if test="pname!=null and pname!=''">
+				and pname like '%${pname}%'
+			</if>
+			<if test="timefrom!=null and timefrom!=''">
+				and timestart >#{timefrom}
+			</if>
+			<if test="timeto!=null and timeto!=''">
+				and #{timeto}>timestart
+			</if>
+			<if test="gname!=null and gname!=''">
+				and gname like '%${gname}%'
+			</if>
+			<if test="content!=null and content!=''">
+				and content like '%${content}%'
+			</if>
 			<if test="pstatus!=null and pstatus!=''">
 				and pstatus=#{pstatus}
 			</if>
@@ -38,13 +56,31 @@
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
-
-	<!-- 条件统计查询 -->
+	
+	<!-- 查找条件统计查询 -->
 	<select id="findAllPlanCount" parameterType="Plan" resultType="int">
-		select count(1) from plan
+		select count(1) from plan left join groups on plan.gid=groups.gid 
 		<where>
 			<if test="gid!=null and gid!=''">
-				and gid=#{gid}
+				and plan.gid=#{gid}
+			</if>
+			<if test="pid!=null and pid!=''">
+				and pid=#{pid}
+			</if>
+			<if test="pname!=null and pname!=''">
+				and pname like '%${pname}%'
+			</if>
+			<if test="timefrom!=null and timefrom!=''">
+				and timestart >#{timefrom}
+			</if>
+			<if test="timeto!=null and timeto!=''">
+				and #{timeto}>timestart
+			</if>
+			<if test="gname!=null and gname!=''">
+				and gname like '%${gname}%'
+			</if>
+			<if test="content!=null and content!=''">
+				and content like '%${content}%'
 			</if>
 			<if test="pstatus!=null and pstatus!=''">
 				and pstatus=#{pstatus}

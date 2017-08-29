@@ -10,7 +10,7 @@
 
 	function initData(params) {
 		$('#tt').datagrid({
-			url : 'findAllPlan.action?pages=1',
+			url : 'findAllPlan.action?pages=1&&pstatus=1',
 			fit:true,
 			title : '待办事宜',
 			iconCls : 'icon-save',
@@ -23,9 +23,9 @@
 			sortOrder:'asc',
 			sortName:'pid',
 			idField:'pid',
-			pageSize : 5, //页容量，必须和pageList对应起来，否则会报错
+			pageSize : 10, //页容量，必须和pageList对应起来，否则会报错
 			pageNumber : 1, //默认显示第几页
-			pageList : [ 5, 10, 15, 30, 50 ],//分页中下拉选项的数值
+			pageList : [10, 15, 30, 50 ],//分页中下拉选项的数值
 			toolbar:['#tb',{//工具条
 		        text:'增加',
 		        iconCls:'icon-add',
@@ -133,12 +133,16 @@
             }
 		    
 		    ,'-',{
-		    	//这里是修改按钮的具体操作
+		    	//这里是查找按钮的具体操作
 		        text:'查找',
 		        iconCls:'icon-search',
 		        
 		        handler:function(){
-      				alert("待完成")
+		        	$('#search_dlg').show();
+		        	$('#search_dlg').dialog({
+		        		 iconCls: 'icon-search',
+
+		        	});
 		        }
 		    } 
 		    
@@ -302,14 +306,26 @@
 			showType : 'slide'
 		});
 	}
-	 
- 
+	
+	//查找数据
+	function searchForm() {
+		$.ajax({
+			type : "POST",
+			data:$("#searchPlanForm").serialize(),
+			url : "searchPlan.action",
+			dataType : "JSON",
+			success : function(data) {
+				$('#tt').datagrid("loadData", data.rows);
+			}
+		});
+	}
 </script>
 
 <table id="tt" ></table>
 
 <%@ include file="planadd.jsp"%>
 <%@ include file="planupdate.jsp"%>
+<%@ include file="plansearch.jsp"%>
 
 
 </body>

@@ -23,6 +23,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 import com.yc.biz.FileuploadBiz;
+import com.yc.utils.DatetimeFormat;
 import com.yc.utils.FileuploadReady;
 import com.yc.web.model.JsonModel;
 
@@ -41,7 +42,7 @@ public class FileController {
 		Map<String, String> map = fileuploadReady.upload(fileName, file, request);
 		String oldFilename = map.get("oldFilename");
 		String destFilePathName = map.get("destFilePathName");
-		
+
 		fileupload.setPath(destFilePathName);
 		fileupload.setFname(oldFilename);
 		Users users = (Users) session.getAttribute("users");
@@ -58,18 +59,17 @@ public class FileController {
 		}
 		return jsonModel;
 	}
-	
-	
+
 	@RequestMapping("/user/showFile.action")
-	public JsonModel showFile(Fileupload fileupload,HttpServletRequest request) throws Exception{
+	public JsonModel showFile(Fileupload fileupload, HttpServletRequest request) throws Exception {
 		JsonModel jsonModel = new JsonModel();
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
-		int start = (pages-1)*pagesize;
+		int start = (pages - 1) * pagesize;
 		fileupload.setStart(start);
 		fileupload.setPagesize(pagesize);
 		List<Fileupload> list = fileuploadBiz.findFile(fileupload);
-		Integer count = fileuploadBiz.findFileCount();
+		Integer count = fileuploadBiz.findFileCount(fileupload);
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
 		return jsonModel;
@@ -95,7 +95,7 @@ public class FileController {
 
 	@RequestMapping("/user/fileDownload.action")
 	public ResponseEntity<byte[]> fileDownload(int fid) throws IOException {
-		//待改：根据传过来的id查file
+		// 待改：根据传过来的id查file
 		Fileupload fileupload = new Fileupload();
 		fileupload.setFid(fid);
 		fileupload = (Fileupload) fileuploadBiz.findFilefordownload(fileupload);
@@ -104,8 +104,56 @@ public class FileController {
 		String filename = new String(fileupload.getFname().getBytes("UTF-8"), "iso-8859-1");
 		headers.setContentDispositionFormData("attachment", filename);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		fileuploadBiz.updateDownloadtimes(fileupload);
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
-	
-	
+
+	// 删除
+	@RequestMapping("/deleteFile.action")
+	public JsonModel deleteFile(Fileupload fileupload) {
+		JsonModel jm = new JsonModel();
+
+		File file = new File(fileupload.getPath());
+		if (file.delete()) {
+			boolean flag = fileuploadBiz.deleteFile(fileupload);
+			jm.setCode(1);
+		} else {
+			jm.setCode(0);
+		}
+		return jm;
+	}
+
+	// 查找
+	@RequestMapping("/searchFile.action")
+	public JsonModel searchFile(Fileupload fileupload) throws Exception {
+		JsonModel jm = new JsonModel();
+		DatetimeFormat df = new DatetimeFormat();
+
+		String timefrom = fileupload.getTimefrom();
+		if (timefrom != null && !"".equals(timefrom)) {
+			timefrom = df.datetimeformat(timefrom);
+			fileupload.setTimefrom(timefrom);
+		}
+		String timeto = fileupload.getTimeto();
+		if (timeto != null && !"".equals(timeto)) {
+			timeto = df.datetimeformat(timeto);
+			fileupload.setTimeto(timeto);
+		}
+		if (timefrom.compareTo(timeto) > 0) {
+			jm.setMsg("请输入正确的日期格式！");
+			jm.setCode(0);
+			return jm;
+		}
+
+		fileupload.setOrderby(null);
+		fileupload.setOrderway(null);
+		fileupload.setStart(null);
+
+		List<Fileupload> list = fileuploadBiz.findFile(fileupload);
+		Integer count = fileuploadBiz.findFileCount(fileupload);
+		jm.setRows(list);
+		jm.setTotal(count);
+		return jm;
+	}
+
 }

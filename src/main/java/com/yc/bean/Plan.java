@@ -17,6 +17,25 @@ public class Plan extends CommonBean implements Serializable {
 
 	private String gname;
 
+	private String timefrom;
+	private String timeto;
+
+	public String getTimefrom() {
+		return timefrom;
+	}
+
+	public void setTimefrom(String timefrom) {
+		this.timefrom = timefrom;
+	}
+
+	public String getTimeto() {
+		return timeto;
+	}
+
+	public void setTimeto(String timeto) {
+		this.timeto = timeto;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -90,7 +109,7 @@ public class Plan extends CommonBean implements Serializable {
 	}
 
 	public Plan(Integer pid, String pname, String content, String timestart, String timelimit, String timeend,
-			String pstatus, Integer gid, String gname) {
+			String pstatus, Integer gid, String gname, String timefrom, String timeto) {
 		super();
 		this.pid = pid;
 		this.pname = pname;
@@ -101,13 +120,15 @@ public class Plan extends CommonBean implements Serializable {
 		this.pstatus = pstatus;
 		this.gid = gid;
 		this.gname = gname;
+		this.timefrom = timefrom;
+		this.timeto = timeto;
 	}
 
 	@Override
 	public String toString() {
 		return "Plan [pid=" + pid + ", pname=" + pname + ", content=" + content + ", timestart=" + timestart
 				+ ", timelimit=" + timelimit + ", timeend=" + timeend + ", pstatus=" + pstatus + ", gid=" + gid
-				+ ", gname=" + gname + "]";
+				+ ", gname=" + gname + ", timefrom=" + timefrom + ", timeto=" + timeto + "]";
 	}
 
 	public Plan() {

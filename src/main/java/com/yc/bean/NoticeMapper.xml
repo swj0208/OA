@@ -51,24 +51,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="pageSql"/>
 	</select>
 	
-	<!-- 按条件查找Notice 
-	<select id="FindNoticeByType" parameterType="Notice"
-		resultType="Notice">
-		select nid,ntitle,ncontent,ntype,publictime,notice.uid as uid,uname from notice inner join users on
-		notice.uid=users.uid where ntype=#{ntype}
-		<include refid="orderSql"/>
-		<include refid="pageSql"/>
-	</select>-->
-	
-	<!-- 按条件查找Notice数量 
-	<select id="FindNoticeByTypeCount" parameterType="Notice"
-		resultType="Notice">
-		select count(*) from notice inner join users on
-		notice.uid=users.uid where ntype=#{ntype}
-		<include refid="orderSql"/>
-		<include refid="pageSql"/>
-	</select>-->
-
 	<!-- 查找notice数量 -->
 	<select id="NoticeCount" resultType="int">
 		select count(*) from notice  where 1=1

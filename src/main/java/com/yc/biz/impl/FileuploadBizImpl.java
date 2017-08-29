@@ -36,8 +36,8 @@ public class FileuploadBizImpl implements FileuploadBiz {
 	}
 
 	@Override
-	public int findFileCount() throws Exception {
-		int count = (int) baseDao.findOne(Fileupload.class, "FileCount");
+	public int findFileCount(Fileupload	fileupload) throws Exception {
+		int count = (int) baseDao.findOne(fileupload, "FileCount");
 		return count;
 	}
 
@@ -68,6 +68,22 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		jsonModel.setPages(Integer.parseInt(map.get("pages").toString()));
 		jsonModel.setPageSize(Integer.parseInt(map.get("pagesize").toString()));
 		return jsonModel;
+	}
+	
+	@Override
+	public boolean deleteFile(Fileupload fileupload) {
+		this.baseDao.del(fileupload, "deleteFile");
+		return true; 
+	}
+
+	public void updateDownloadtimes(Fileupload fileupload) {
+		baseDao.update(fileupload, "updatedownloadtimes");
+	}
+
+	@Override
+	public Fileupload addFile2(Fileupload fileupload) {
+		baseDao.save(fileupload, "addFile");
+		return fileupload;
 	}
 	
 

@@ -44,48 +44,6 @@
 	<input type="button" id="addBtn" value="发送" />
 </form>
 <script>
-/* 	function onchangedepartment(obj) {
-		var did = obj;
-		$.ajax({
-			url : "user/group_list.action",
-			type : "POST",
-			data : "did=" + did,
-			dataType : "JSON",
-			success : function(data) {
-				var str = "";
-				str += '<option></option>';
-				var length = data.rows.length;
-				for (var i = 0; i < length; i++) {
-					var s = data.rows[i];
 
-					str += '<option value='+s.gid+'>' + s.gname + '</option>';
-				}
-				$("#gid").html(str);
-				$("#uid").html('');
-			}
-
-		});
-	}
-	function onchangegname() {
-		var did = $("#did").val();
-		var gid = $("#gid").val();
-		$.ajax({
-			url : "user/uname_list.action",
-			type : "POST",
-			data : "did=" + did + "&gid=" + gid,
-			dataType : "JSON",
-			success : function(data) {
-				var str = "";
-				str += '<option></option>';
-				var length = data.rows.length;
-				for (var i = 0; i < length; i++) {
-					var u = data.rows[i];
-					str += '<option value='+u.uid+'>' + u.uname + '</option>';
-				}
-				$("#uid").html(str);
-			}
-
-		});
-	} */
 </script>
 </html>
