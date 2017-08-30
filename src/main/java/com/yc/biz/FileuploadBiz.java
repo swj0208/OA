@@ -46,4 +46,6 @@ public interface FileuploadBiz {
 	public void updateDownloadtimes(Fileupload fileupload);
 	
 	
+	
+	
 }
