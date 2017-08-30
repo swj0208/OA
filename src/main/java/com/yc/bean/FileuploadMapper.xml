@@ -100,6 +100,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		users.uid=#{touid}
 		 
 	</select> 
+	
+	<!-- 查找我发出的文件 -->
+	<select id="findMeSendFile" parameterType="Fileupload" resultType="Fileupload">
+	select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,u.uname as uname from file f left join department d on todid=did left join groups g on togid=g.gid 
+	left join users u on u.uid=touid  where f.uid=#{uid}
+	</select>
+	
+	<!-- 查找我发出的文件数量(用于分页) -->
+	<select id="findMeSendFileCount" parameterType="Fileupload" resultType="int">
+	select count(*) from file f left join department d on todid=did left join groups g on togid=g.gid 
+	left join users u on u.uid=touid  where f.uid=#{uid}
+	</select>
+
 	<!-- 更新下载次数 -->
 	<update id="updatedownloadtimes" parameterType="Fileupload">
 		update file set downtimes = downtimes+1 where fid = #{fid}

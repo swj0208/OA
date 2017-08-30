@@ -68,6 +68,8 @@ create table users(
 	temp2 VARCHAR(200)
 )
 
+select * from users;
+
 update users set upwd='6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2' where uname='b'
 
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
@@ -240,6 +242,12 @@ create table file(
 	temp2 VARCHAR(200)
 )
 select * from file;
+
+	select f.fid as fid ,f.fname as fname,f.description as description,f.uptime as uptime,
+	f.downtimes as downtimes,f.uid as uid,u.uname as uname from file f left join department d on todid=did left join groups g on togid=g.gid 
+	left join users u on u.uid=touid  where f.uid=17
+
+drop table file;
 
 
 

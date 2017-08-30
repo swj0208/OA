@@ -57,19 +57,19 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		return count;
 	}
 
-	@Override
-	public JsonModel<Fileupload> searchHouse(Map<String, Object> map) {
-		List<Fileupload> list=baseDao.findAll(Fileupload.class, "sendMeFile",map);
-		int total=(int) baseDao.getFunc(Fileupload.class, "sendMeFileCount",map);
-
-		JsonModel<Fileupload> jsonModel=new JsonModel<Fileupload>();
-		jsonModel.setRows(list);
-		jsonModel.setTotal(total);
-		jsonModel.setPages(Integer.parseInt(map.get("pages").toString()));
-		jsonModel.setPageSize(Integer.parseInt(map.get("pagesize").toString()));
-		return jsonModel;
-	}
-	
+//	@Override
+//	public JsonModel<Fileupload> searchHouse(Map<String, Object> map) {
+//		List<Fileupload> list=baseDao.findAll(Fileupload.class, "sendMeFile",map);
+//		int total=(int) baseDao.getFunc(Fileupload.class, "sendMeFileCount",map);
+//
+//		JsonModel<Fileupload> jsonModel=new JsonModel<Fileupload>();
+//		jsonModel.setRows(list);
+//		jsonModel.setTotal(total);
+//		jsonModel.setPages(Integer.parseInt(map.get("pages").toString()));
+//		jsonModel.setPageSize(Integer.parseInt(map.get("pagesize").toString()));
+//		return jsonModel;
+//	}
+//	
 	@Override
 	public boolean deleteFile(Fileupload fileupload) {
 		this.baseDao.del(fileupload, "deleteFile");
@@ -85,6 +85,30 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		baseDao.save(fileupload, "addFile");
 		return fileupload;
 	}
+
+	@Override
+	public List<Fileupload> meSendOutFile(Fileupload fileupload) {
+		return baseDao.findAll(fileupload, "findMeSendFile");
+	}
+
+	@Override
+	public int meSendOutFileCount(Fileupload fileupload) {
+		int count=(int) baseDao.findOne(fileupload, "findMeSendFileCount");
+		return count;
+	}
+
+//	@Override
+//	public JsonModel<Fileupload> searchMeSendFile(Map<String, Object> map) {
+//		List<Fileupload> list=baseDao.findAll(Fileupload.class, "findMeSendFile",map);
+//		int total=(int) baseDao.getFunc(Fileupload.class, "findMeSendFileCount",map);
+//
+//		JsonModel<Fileupload> jsonModel=new JsonModel<Fileupload>();
+//		jsonModel.setRows(list);
+//		jsonModel.setTotal(total);
+//		jsonModel.setPages(Integer.parseInt(map.get("pages").toString()));
+//		jsonModel.setPageSize(Integer.parseInt(map.get("pagesize").toString()));
+//		return jsonModel;
+//	}
 	
 
 } 

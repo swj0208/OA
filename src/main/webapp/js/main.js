@@ -58,9 +58,9 @@ $(function() {
 
 	];
 
-	// 信息系统
-	var messageTreeData = [ {
-		"text" : "消息管理",
+	// 公告管理
+	var noticeTreeData = [ {
+		"text" : "公告管理",
 		"state" : "closed",
 		"children" : [
 		              {
@@ -79,8 +79,8 @@ $(function() {
 	} ];
 	
 	//公告系统
-		var noticeTreeData = [ {
-		"text" : "公告管理",
+		var messageTreeData = [ {
+		"text" : "消息管理",
 		"state" : "closed",
 		"children" : [
 				{
@@ -98,16 +98,60 @@ $(function() {
 	} ];
 
 	
-	//用户个人中心管理
+	//个人中心(用户信息)
 	var userTreeData = [ {
 		"text" : "个人管理",
 		"state" : "closed",
-		"children" : [ {
+		"children" : [ 
+		 {
 			"text" : "个人资料",
 			"attributes" : {
 				"url" : "<iframe width='100%' height='100%' src='toMyselfMessage.action'/>"
 			}
-		} ]
+		 }
+		 ]
+	} ];
+	
+	//个人中心(我的消息)
+	var meSendMessageTreeData = [ {
+		"text" : "我的信息",
+		"state" : "closed",
+		"children" : [ 
+		 {
+			"text" : "发件箱",
+			"attributes" : {
+				"url" : "<iframe width='100%' height='100%' src='meOutMessage.action'/>"
+			}
+		 },
+		 {
+				"text" : "收件箱",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' src='meInMessage.action'/>"
+				}
+			 }
+		 ]
+	} ];
+	
+	//个人中心(我的文件)
+	var meSendFileTreeData = [ {
+		"text" : "我的文件",
+		"state" : "closed",
+		"children" : [ 
+		 {
+			"text" : "我发出的文件",
+			"attributes" : {
+				"url" : "<iframe width='100%' height='100%' src='user/toMeSendFile.action'/>"
+			}
+		 },
+         {
+       	  "text" : "我接收的文件",
+       	  "attributes" : {
+       		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
+       	  }
+
+         
+	} 
+		 ]
 	} ];
 	
 	//文件管理
@@ -127,15 +171,7 @@ $(function() {
 						"url" : "<iframe width='100%' height='100%' frameborder='0' src='user/toShowFile.action'/>"
 					}
 
-		              } ,
-		              {
-		            	  "text" : "查看我的文件",
-		            	  "attributes" : {
-		            		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
-		            	  }
-
-		              
-				} ]
+		              } ]
 	} ];
 	
 	//权限管理
@@ -211,9 +247,11 @@ $(function() {
 	showTree("websocketTree", socketTreeData);
 	showTree("PoTree", PoTreeData);
 	showTree("approvalTree", approvalTree);
-	showTree("messageTree", messageData);
+	showTree("messageTree", messageTreeData);
 	showTree("noticeTree", noticeTreeData);
 	showTree("userTree", userTreeData);
+	showTree("meSendMessageTree",meSendMessageTreeData);
+	showTree("meSendFileTree",meSendFileTreeData);
 	showTree("fileTree", fileTreeData);
 	showTree("powerTree", powerTreeData);
 	showTree("userpowerTree", userpowerTreeData);

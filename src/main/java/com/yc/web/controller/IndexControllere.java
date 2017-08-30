@@ -31,6 +31,19 @@ public class IndexControllere {
 		return "login";
 	}
 	
+
+	
+	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
+	public String toAddNotice(){
+		return "notice/addNotice";
+	}
+	
+	@RequestMapping(value="/toManageNotice.action",method = RequestMethod.GET)
+	public String toManageNotice(){
+		return "notice/manageNotice";
+	}
+	
+	
 	@RequestMapping(value="/toMain.action",method = RequestMethod.GET)
 	public String toMain(){
 		return "main";
@@ -68,7 +81,7 @@ public class IndexControllere {
 	}
 	
 	@RequestMapping(value="/user/toManageMessage.action",method = RequestMethod.GET)
-	public String toManageNotice(){
+	public String toManageMessage(){
 		return "message/manageMessage";
 	}
 	
@@ -86,6 +99,11 @@ public class IndexControllere {
 	@RequestMapping(value="/user/toShowMeFile.action",method = RequestMethod.GET)
 	public String toShowMeFile(){
 		return "file/showMeFile";
+	}
+	
+	@RequestMapping(value="/user/toMeSendFile.action",method = RequestMethod.GET)
+	public String toMeSendFile(){
+		return "file/meSendFile";
 	}
 	
 	@RequestMapping(value="/toMyselfMessage.action",method = RequestMethod.GET)

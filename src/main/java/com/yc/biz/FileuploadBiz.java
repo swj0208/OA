@@ -35,7 +35,13 @@ public interface FileuploadBiz {
 	
 	public int sendMeFileCount(Fileupload fileupload);
 	
-	public JsonModel<Fileupload> searchHouse(Map<String, Object> map);
+	public List<Fileupload> meSendOutFile(Fileupload	fileupload);
+	
+	public int meSendOutFileCount(Fileupload fileupload);
+	
+//	public JsonModel<Fileupload> searchHouse(Map<String, Object> map);
+	
+	//public JsonModel<Fileupload> searchMeSendFile(Map<String, Object> map);
 	
 	public void updateDownloadtimes(Fileupload fileupload);
 	
