@@ -139,8 +139,8 @@
 						align : 'center',
 						width : 100,
 						formatter : function(val, row, index) {
-							if(b==row.dotouid&&a==1){
-								var str = '<a href="javascript:void(0)" onclick="goodDocument('
+							if(b==row.douid){
+								var str = '<a href="javascript:void(0)" onclick="finishDocument('
 										+ index
 										+ ')">已完成</a>/<a href="javascript:void(0)" onclick="badDocument('
 										+ index + ')">未完成</a>';
@@ -178,6 +178,24 @@
 		$.ajax({
 			type : "POST",
 			url : "user/goodDocument.action?doid=" + row.doid+"&dofromuid="+row.dofromuid,
+			dataType : "JSON",
+			success : function(data) {
+				if (data.code == 1) {
+					$.messager.alert("提示！", "审批成功！");
+					$('#showDocumentTable').datagrid("reload");
+				} else {
+					$.messager.alert("提示！", "审批失败！"+data.msg);
+				}
+			}
+		});
+	}
+	
+	function finishDocument(index) {
+		$('#showDocumentTable').datagrid('selectRow', index);
+		var row = $('#showDocumentTable').datagrid('getSelected');
+		$.ajax({
+			type : "POST",
+			url : "user/finishDocument.action?doid=" + row.doid,
 			dataType : "JSON",
 			success : function(data) {
 				if (data.code == 1) {

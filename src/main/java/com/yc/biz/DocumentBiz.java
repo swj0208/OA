@@ -1,9 +1,6 @@
 package com.yc.biz;
 
 import java.util.List;
-
-import javax.print.Doc;
-
 import com.yc.bean.Document;
 import com.yc.bean.Users;
 
@@ -61,5 +58,19 @@ public interface DocumentBiz {
 	public boolean archiveDocument(Document document);
 	
 	
+	/**
+	 * 任务完成
+	 */
+	public boolean finishDocument(Document document);
 	
+	
+	/**
+	 * 查找已归档公文
+	 */
+	public List<Document> FindGDDocument(Document document);
+	
+	/**
+	 * 已归档公文的数量
+	 */
+	public int findGDDocumentCount(Document document) throws Exception;
 }

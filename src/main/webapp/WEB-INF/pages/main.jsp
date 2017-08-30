@@ -18,12 +18,6 @@ iframe {
 </style>
 
 <body class="easyui-layout layout panel-noscroll">
-	<div data-options="region:'north'" style="height: 100px">top</div>
-	<div data-options="region:'south',split:true" style="height: 50px">button</div>
-	<div data-options="region:'east',split:true" title="East" style="width: 200px">
-		
-	
-	</div>
 	<div data-options="region:'west',split:true" title="工具栏" style="width: 150px">
 		<!-- <div id="westpanel"></div> 使用panel-->
 		<div class="easyui-accordion" style="width: auto; height: 100%;">
@@ -36,7 +30,7 @@ iframe {
 				</ul>
 			</div> -->
 			<div title="信息系统" style="overflow: auto; padding: 10px;">
-				<ul id="noticeTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				<ul id="messageTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 			<div title="个人中心" style="overflow: auto; padding: 10px;">
@@ -55,6 +49,10 @@ iframe {
 			</div>
 			<div title="公文管理" style="overflow: auto; padding: 10px;">
 				<ul id="documentTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				</ul>
+			</div>
+			<div title="在线会话" style="overflow: auto; padding: 10px;">
+				<ul id="websocketTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
 			</div>
 		

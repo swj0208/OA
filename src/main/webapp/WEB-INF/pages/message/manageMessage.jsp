@@ -27,19 +27,24 @@
 				width : 100,
 				align : 'center',
 				hidden : 'true'
-			}, {
-				field : 'did',
+			},{
+				field : 'fromuname',
+				title : '发送者',
+				width : 100,
+				align : 'center'
+			},{
+				field : 'department',
 				title : '部门编号',
 				width : 100,
 				align : 'center'
 			}, {
-				field : 'gid',
+				field : 'gname',
 				title : '小组',
 				width : 100,
 				align : 'center'
 			}, {
-				field : 'uid',
-				title : '员工',
+				field : 'touname',
+				title : '接收者',
 				width : 100,
 				align : 'center'
 			}, {
@@ -52,6 +57,11 @@
 				title : '权重',
 				width : 100,
 				align : 'center'
+			},{
+				field : 'fname',
+				title : '文件名',
+				width : 100,
+				align : 'center'
 			},
 			{
 				field : 'operate',
@@ -59,8 +69,10 @@
 				align : 'center',
 				width : 100,
 				formatter : function(val, row, index) {
-					var str = '<a href="javascript:void(0)" onclick="filedownload('+ index + ')">下载</a>';
-					return str;
+					if(row.fid!=null){
+						var str = '<a href="javascript:void(0)" onclick="filedownload('+ index + ')">下载</a>';
+						return str;
+					}
 				}
 			}] ]
 		})

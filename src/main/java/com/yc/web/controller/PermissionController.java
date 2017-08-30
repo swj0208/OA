@@ -1,6 +1,8 @@
 package com.yc.web.controller;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +34,6 @@ public class PermissionController {
 		}
 		return jsonModel;
 	}
-	
-	
-	
 	
 	
 	

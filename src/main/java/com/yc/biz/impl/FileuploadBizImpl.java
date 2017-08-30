@@ -27,7 +27,7 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		}
 	}
 
-	@Override
+	@Override//
 	public List<Fileupload> findFile(Fileupload fileupload) {
 		return baseDao.findAll(fileupload, "findFile");
 	}

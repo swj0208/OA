@@ -209,12 +209,19 @@ create table message(
 	mweight int,
 	fid int,
 	createtime  DATETIME,
+	fromuid int,
 	did int,
 	gid int,
 	uid int,
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+
+select mid,content,b.uname as fromuname,c.uname as touname,f.fname as fname,
+		d.department as department,e.gname as gname,createtime,mweight from message a
+		left join users b on a.fromuid = b.uid left join users c on a.uid = c.uid
+		left join department d on a.did = d.did left join groups e on a.gid = e.gid
+		left join file f on f.fid = a.fid
 
 select * from message;
 
@@ -279,6 +286,7 @@ create table file(
 	temp1 VARCHAR(200), 
 	temp2 VARCHAR(200)
 )
+drop table file;
 select * from file;
 
 select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) or 
@@ -286,7 +294,24 @@ select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) or
 
 
 
-
+select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,a.uname as uname from		
+	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
+	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+	or (todid =did  and togid=gid and ISNULL(touid)) 
+	or (todid = did and togid =gid  and touid=users.uid) where 
+	users.uid=3) a left join users u on a.uid=u.uid
+	
+	
+select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,b.uname as uname from file a left join users b on 
+a.uid = b.uid left join users c on (( a.todid=c.did  and  ISNULL(a.togid) and ISNULL(a.touid))
+	or (a.todid =c.did  and a.togid=c.gid and ISNULL(a.touid)) 
+	or (a.todid = c.did and a.togid =c.gid  and a.touid=c.uid)) where 
+	a.touid = 3 and a.fstatus = 1  and a.fname like '%j%'	
+	
+	
+	
 delete  from file where fid = 1;
 update file set downtimes = downtimes+1 where fid = 1
 drop table file;
@@ -295,7 +320,17 @@ alter table file
   add constraint fk_file_users
      foreign key(uid) references users(uid);
 
-     
+     select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+		a.downtimes as downtimes,a.uid as uid,u.uname as uname from
+     ((select  fid,fname,description,uptime,downtimes,file.uid as uid,uname,fstatus from  file 
+		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+		or (todid =did  and togid=gid and ISNULL(touid)) 
+		or (todid = did and togid =gid  and touid=users.uid) where 
+		users.uid=1) a left join users u on a.uid=u.uid )
+		where a.fstatus =1 
+     	and a.fname like '%1%'
+		
+		
      update document set dostatus = 0,dotouid = 1 where doid = 1
      
      

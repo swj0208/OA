@@ -116,7 +116,10 @@ public class IndexControllere {
 		request.getRequestDispatcher("/WEB-INF/pages/permission/managePermissions.jsp").forward(request, response);
 	}
 	
-	
+	@RequestMapping(value="/user/tofindGDDocument.action",method = RequestMethod.GET)
+	public String tofindGDDocument(){
+		return "document/gdDocument";
+	}
 	
 	
 }

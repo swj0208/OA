@@ -128,4 +128,34 @@ public class DocumentController {
 		return jsonModel;
 	}
 	
+	@RequestMapping(value="/user/finishDocument.action")
+	private JsonModel finishDocument(Document document) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		boolean r = documentBiz.finishDocument(document);
+		if(r){
+			jsonModel.setCode(1);
+		}else{
+			jsonModel.setCode(0);
+		}
+		return jsonModel;
+	}
+	
+	
+	//已归档的公文
+	@RequestMapping(value="/user/findGDDocument.action")
+	private JsonModel findGDDocument(Document document, HttpServletRequest request) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		int pages = Integer.parseInt(request.getParameter("page").toString());
+		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
+		int start = (pages-1)*pagesize;
+		document.setStart(start);
+		document.setPagesize(pagesize);
+		List<Document> list = documentBiz.FindGDDocument(document);
+		Integer count = documentBiz.findGDDocumentCount(document);
+		jsonModel.setRows(list);
+		jsonModel.setTotal(count);
+		return jsonModel;
+	}
+	
+	
 }

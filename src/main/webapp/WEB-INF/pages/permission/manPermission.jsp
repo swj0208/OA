@@ -8,7 +8,7 @@
 			pageList : [ 5, 10, 15, 20, 25, 30 ],//可选分页条数
 			fitColumns : false,//自适应列
 			fit : true,//自动补全
-			title : "文件管理",
+			title : "权限管理",
 			idField : "uid",//标识，会记录我们选中的一行的id，不一定是id，通常是主键
 			rownumbers : "true",//显示行号
 			nowrap : "true",//不换行显示

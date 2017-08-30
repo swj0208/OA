@@ -27,63 +27,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		useGeneratedKeys="true" keyProperty="fid">
 		insert into
 		file(fname,description,path,uid,uptime,downtimes,fweight,todid,togid,touid,fstatus)
-		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid},#{fstatus})
+		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid},1)
 	</insert>
 
 
 
 	<select id="findFile" parameterType="Fileupload" resultType="Fileupload">
-		select
-		fid,fname,description,path,file.uid,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid,fstatus
-		from file left join (select uid,uname from users) a on a.uid = file.uid where fstatus = 1
-		
-			<if test="timefrom!=null and timefrom!=''">
-				and uptime >#{timefrom}
-			</if>
-			<if test="timeto!=null and timeto!=''">
-				and #{timeto}>uptime
-			</if>
-			<if test="fname!=null and fname!=''">
-				and fname like '%${fname}%'
-			</if>
-		
+		select a.fid as fid ,a.fname as fname,a.description as
+		description,a.uptime as uptime,
+		a.downtimes as downtimes,a.uid as uid,b.uname as uname,a.fstatus as fstatus from
+		file a left join users b on
+		a.uid = b.uid left join users c on (( a.todid=c.did and ISNULL(a.togid) and
+		ISNULL(a.touid))
+		or (a.todid =c.did and a.togid=c.gid and ISNULL(a.touid))
+		or (a.todid = c.did and a.togid =c.gid and a.touid=c.uid)) where
+		a.touid = #{touid} and a.fstatus = 1
+		<if test="timefrom!=null">
+			and uptime>#{timefrom}
+		</if>
+		<if test="timeto!=null">
+			and #{timeto}>uptime
+		</if>
+		<if test="fname!=null">
+			and fname like '%${fname}%'
+		</if>
 		<include refid="orderSql" />
 		<include refid="pageSql" />
-		
 	</select>
 
 
 
-	<!-- 查找notice数量 -->
+	<!-- 查找file数量 -->
 	<select id="FileCount" resultType="int" parameterType="Fileupload">
-		select count(*) from file where fstatus = 1
-			<if test="timefrom!=null and timefrom!=''">
-				and uptime >#{timefrom}
-			</if>
-			<if test="timeto!=null and timeto!=''">
-				and #{timeto}>uptime
-			</if>
-			<if test="fname!=null and fname!=''">
-				and fname like '%${fname}%'
-			</if>
+		select count(*) from file
+		inner join users on ( todid=did and ISNULL(togid) and ISNULL(touid))
+		or
+		(todid =did and togid=gid and ISNULL(touid))
+		or (todid = did and togid =gid and touid=users.uid) where
+		users.uid=#{touid} and fstatus =1
+		<if test="timefrom!=null">
+			and uptime >#{timefrom}
+		</if>
+		<if test="timeto!=null">
+			and #{timeto}>uptime
+		</if>
+		<if test="fname!=null">
+			and fname like '%${fname}%'
+		</if>
 	</select>
 
 
-	<select id="findFilefordownload" parameterType="Fileupload" resultType="Fileupload">
-	select
-	fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
-	from file where fid = #{fid}
+	<select id="findFilefordownload" parameterType="Fileupload"
+		resultType="Fileupload">
+		select
+		fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
+		from file where fid = #{fid}
 	</select>
-	
+
 	<!-- 更新下载次数 -->
 	<update id="updatedownloadtimes" parameterType="Fileupload">
-		update file set downtimes = downtimes+1 where fid = #{fid}
+		update file set
+		downtimes = downtimes+1 where fid = #{fid}
 	</update>
-	
+
 
 	<!-- 删除 -->
 	<delete id="deleteFile" parameterType="Fileupload">
-		delete from file where fid=#{fid}
+		delete from file where
+		fid=#{fid}
 	</delete>
 
 

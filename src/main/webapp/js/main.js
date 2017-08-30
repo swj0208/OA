@@ -59,7 +59,7 @@ $(function() {
 	];
 
 	// 信息系统
-	var noticeTreeData = [ {
+	var messageTreeData = [ {
 		"text" : "信息管理",
 		"state" : "closed",
 		"children" : [
@@ -153,7 +153,14 @@ $(function() {
 
 				"<iframe width='100%' height='100%' frameborder='0' src='user/toManageDocument.action'/>"
 			}
-		} ]
+		}, {
+			"text" : "归档公文",
+			"attributes" : {
+				"url" :
+
+				"<iframe width='100%' height='100%' frameborder='0' src='user/tofindGDDocument.action'/>"
+			} 
+		}]
 	} ];
 
 	//在线会话
@@ -167,7 +174,7 @@ $(function() {
 	showTree("websocketTree", socketTreeData);
 	showTree("PoTree", PoTreeData);
 	showTree("approvalTree", approvalTree);
-	showTree("noticeTree", noticeTreeData);
+	showTree("messageTree", messageTreeData);
 	showTree("userTree", userTreeData);
 	showTree("fileTree", fileTreeData);
 	showTree("powerTree", powerTreeData);

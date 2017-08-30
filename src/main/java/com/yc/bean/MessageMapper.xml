@@ -26,14 +26,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 发信息 -->
 	<insert id="SendMessage" parameterType="Message" useGeneratedKeys="true"
 		keyProperty="mid">
-		insert into message(content,mweight,createtime,fid,did,gid,uid)
-		values(#{content},#{mweight},now(),#{fid},#{did},#{gid},#{uid})
+		insert into message(content,mweight,createtime,fid,fromuid,did,gid,uid)
+		values(#{content},#{mweight},now(),#{fid},#{fromuid},#{did},#{gid},#{uid})
 	</insert>
 
 	<!-- 按条件查找Message -->
-	<select id="FindMessageByCondition" parameterType="Message"
-		resultType="Message">
-		select mid,content,uid,fid,did,gid,createtime,mweight from message
+	<select id="FindMessageByCondition" parameterType="Message" resultType="Message">
+		select mid,content,b.uname as fromuname,c.uname as touname,f.fname as fname,f.fid as fid,
+		d.department as department,e.gname as gname,createtime,mweight from message a
+		left join users b on a.fromuid = b.uid left join users c on a.uid = c.uid
+		left join department d on a.did = d.did left join groups e on a.gid = e.gid
+		left join file f on f.fid = a.fid
 		<where>
 			<if test="did!=null and did!=''">
 				did = #{did}

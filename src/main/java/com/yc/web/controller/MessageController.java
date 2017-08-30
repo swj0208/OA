@@ -51,6 +51,7 @@ public class MessageController {
 			HttpServletRequest request,HttpServletResponse response,
 			HttpSession session) throws IllegalStateException, IOException, ServletException{
 		JsonModel jsonModel = new JsonModel();
+		Users users = (Users) session.getAttribute("users");
 		if(!file.isEmpty()){
 		//先上传文件
 			Fileupload fileupload = new Fileupload();
@@ -62,7 +63,7 @@ public class MessageController {
 			
 			fileupload.setPath(destFilePathName);
 			fileupload.setFname(oldFilename);
-			Users users = (Users) session.getAttribute("users");
+			
 			fileupload.setUid(users.getUid());
 	
 			File newFile = new File(destFilePathName);
@@ -71,6 +72,7 @@ public class MessageController {
 			fileupload = fileuploadBiz.addFile2(fileupload);
 			message.setFid(fileupload.getFid());
 		}
+		message.setFromuid(users.getUid());
 		boolean x = messageBiz.sendMessage(message);
 		request.getRequestDispatcher("/WEB-INF/pages/message/sendMessage.jsp").forward(request, response);
 	}

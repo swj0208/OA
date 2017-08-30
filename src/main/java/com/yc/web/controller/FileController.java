@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.user.UserSessionRegistry;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,11 +61,13 @@ public class FileController {
 	}
 
 	@RequestMapping("/user/showFile.action")
-	public JsonModel showFile(Fileupload fileupload, HttpServletRequest request) throws Exception {
+	public JsonModel showFile(Fileupload fileupload, HttpServletRequest request,HttpSession session) throws Exception {
 		JsonModel jsonModel = new JsonModel();
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages - 1) * pagesize;
+		Users users = (Users) session.getAttribute("users");
+		fileupload.setTouid(users.getUid());
 		fileupload.setStart(start);
 		fileupload.setPagesize(pagesize);
 		List<Fileupload> list = fileuploadBiz.findFile(fileupload);
@@ -107,10 +110,9 @@ public class FileController {
 
 	// 查找
 	@RequestMapping("/searchFile.action")
-	public JsonModel searchFile(Fileupload fileupload) throws Exception {
+	public JsonModel searchFile(Fileupload fileupload,HttpSession session) throws Exception {
 		JsonModel jm = new JsonModel();
 		DatetimeFormat df = new DatetimeFormat();
-
 		String timefrom = fileupload.getTimefrom();
 		if (timefrom != null && !"".equals(timefrom)) {
 			timefrom = df.datetimeformat(timefrom);
@@ -126,11 +128,8 @@ public class FileController {
 			jm.setCode(0);
 			return jm;
 		}
-
-		fileupload.setOrderby(null);
-		fileupload.setOrderway(null);
-		fileupload.setStart(null);
-
+		Users users = (Users) session.getAttribute("users");
+		fileupload.setTouid(users.getUid());
 		List<Fileupload> list = fileuploadBiz.findFile(fileupload);
 		Integer count = fileuploadBiz.findFileCount(fileupload);
 		jm.setRows(list);

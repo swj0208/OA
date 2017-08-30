@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 登录 -->
 	<select id="getUserByLogin" resultType="Users" parameterType="Users">
-		select users.uid,did,gid,perid from users 
+		select users.uid,did,gid,perid,users.uname from users 
 		left join permissionforuser on users.uid = permissionforuser.uid
 		where uname = #{uname} and upwd = #{upwd}
 	</select>
@@ -113,11 +113,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join department on users.did = department.did
 		left join groups on users.gid = groups.gid
 		where permission.pername !=""
-		<where>
 			<if test="pername!=null and pername!=''">
 				and permission.pername=#{pername}
 			</if>
-		</where>
 	</select>
 
 	<select id="findPermissionCount" resultType="int"
@@ -125,11 +123,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from users left join permissionforuser on users.uid = permissionforuser.uid
 		left join permission on permission.perid = permissionforuser.perid 
 		where permission.pername !=""
-		<where>
 			<if test="pername!=null and pername!=''">
 				and	permission.pername=#{pername}
 			</if>
-		</where>
 	</select>
 
 </mapper>

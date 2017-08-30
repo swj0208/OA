@@ -35,7 +35,7 @@ public interface BaseDao<T> {
 	 * @param sqlId
 	 * @param list
 	 */
-	void save(Class<T> clazz, String sqlId, List<T> list);
+	public void save(Class<T> clazz, String sqlId, List<T> list);
 
 	/**
 	 * 更新对象 <br />
@@ -57,6 +57,8 @@ public interface BaseDao<T> {
 	 * @param sqlId
 	 */
 	void update(Class<T> clazz, String sqlId);
+	
+	
 
 	/**
 	 * 批量更新指定的行 <br />

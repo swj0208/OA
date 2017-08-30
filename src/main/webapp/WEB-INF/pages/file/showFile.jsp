@@ -65,28 +65,18 @@ $(function() {
 						var str = '<a href="javascript:void(0)" onclick="filedownload('+ index + ')">下载</a>';
 						return str;
 					}
-				},
-				{
-					field : 'operate2',
-					title : '删除',
-					align : 'center',
-					width : 100,
-					formatter : function(val, row, index) {
-						var str = '<a href="javascript:void(0)" onclick="dodelete('+ index + ')">删除</a>';
-						return str;
-					}
 				}
 				] ]
 	});
 	
 });
 
-function filedownload(index){
-	$('#showfileTable').datagrid('selectRow',index);
-	var row = $('#showfileTable').datagrid('getSelected');
-	location.href="user/fileDownload.action?fid="+row.fid;
-	$('#showfileTable').datagrid("reload");
-}
+	function filedownload(index){
+		$('#showfileTable').datagrid('selectRow',index);
+		var row = $('#showfileTable').datagrid('getSelected');
+		location.href="user/fileDownload.action?fid="+row.fid;
+		$('#showfileTable').datagrid("reload");
+	}
 
 	
 	//删除文件
