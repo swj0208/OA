@@ -50,6 +50,8 @@ iframe {
 				</ul>
 				<ul id="meSendFileTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
+				<!-- <ul id="meSendDocumentTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
+				</ul> -->
 			</div>
 			<div title="文件共享" style="overflow: auto; padding: 10px;">
 				<ul id="fileTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">

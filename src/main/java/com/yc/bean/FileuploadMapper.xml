@@ -103,8 +103,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查找我发出的文件 -->
 	<select id="findMeSendFile" parameterType="Fileupload" resultType="Fileupload">
-	select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
-	a.downtimes as downtimes,a.uid as uid,u.uname as uname from file f left join department d on todid=did left join groups g on togid=g.gid 
+	select f.fid as fid ,f.fname as fname,f.description as description,f.uptime as uptime,
+	f.downtimes as downtimes,f.uid as uid,u.uname as uname from file f left join department d on todid=did left join groups g on togid=g.gid 
 	left join users u on u.uid=touid  where f.uid=#{uid}
 	</select>
 	

@@ -148,12 +148,29 @@ $(function() {
        	  "attributes" : {
        		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
        	  }
-
-         
 	} 
 		 ]
 	} ];
 	
+	/*//个人中心(我的公文)
+	var meSendFileTreeData = [ {
+		"text" : "我的公文",
+		"state" : "closed",
+		"children" : [ 
+		 {
+			"text" : "我发出的文件",
+			"attributes" : {
+				"url" : "<iframe width='100%' height='100%' src='user/toMeSendFile.action'/>"
+			}
+		 },
+         {
+       	  "text" : "我接收的文件",
+       	  "attributes" : {
+       		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
+       	  }
+	} 
+		 ]
+	} ];*/
 	//文件管理
 	var fileTreeData = [ {
 		"text" : "文件中心",
@@ -229,9 +246,7 @@ $(function() {
 		}, {
 			"text" : "查看公文",
 			"attributes" : {
-				"url" :
-
-				"<iframe width='100%' height='100%' frameborder='0' src='user/toManageDocument.action'/>"
+				"url" :	"<iframe width='100%' height='100%' frameborder='0' src='user/toManageDocument.action'/>"
 			}
 		} ]
 	} ];
