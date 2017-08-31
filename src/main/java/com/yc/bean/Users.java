@@ -25,8 +25,21 @@ public class Users  extends CommonBean implements Serializable {
 	private String department;
 	private String gname;
 	
+	private String repwd;
 	private Integer perid;
 	private String pername;
+	
+	
+	
+	
+
+	public String getRepwd() {
+		return repwd;
+	}
+
+	public void setRepwd(String repwd) {
+		this.repwd = repwd;
+	}
 	
 	public String getPername() {
 		return pername;

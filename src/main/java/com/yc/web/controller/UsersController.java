@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 import com.yc.biz.FileuploadBiz;
 import com.yc.biz.UsersBiz;
+import com.yc.utils.Encrypt;
 import com.yc.utils.FileuploadReady;
 import com.yc.web.model.JsonModel;
 
@@ -30,6 +32,7 @@ public class UsersController {
 	
 	@Resource(name = "fileuploadBizImpl")
 	private FileuploadBiz fileuploadBiz;
+	
 	
 	@RequestMapping("/users_login.action")
 	public JsonModel login(Users user, HttpServletRequest request, HttpSession session) {
@@ -60,17 +63,6 @@ public class UsersController {
 		return jsonModel;
 	}
 	//添加员工
-//	@RequestMapping("/user/users_add.action")
-//	public JsonModel addUser(Users users) {
-//		JsonModel jm=new JsonModel();
-//		boolean result=usersBiz.add(users);
-//		if(result){
-//			jm.setCode(1);
-//		} else{
-//			jm.setCode(0);
-//		}
-//		return jm;
-//	}
 	@RequestMapping("/user/users_add.action")
 	public JsonModel addUsers(Users users, HttpSession session,
 			@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
@@ -80,9 +72,7 @@ public class UsersController {
 		Map<String, String> map = fileuploadReady.upload(fileName, file, request);
 		String destFilePathName = map.get("destFilePathName");
 		String weburl=map.get("weburl");
-		
 		users.setPhoto(weburl);
-
 		File newFile = new File(destFilePathName);
 		// 通过CommonsMultipartFile的方法直接写文件（注意这个时候）
 		file.transferTo(newFile);
@@ -99,14 +89,47 @@ public class UsersController {
 	@RequestMapping("/updateUser.action")
 	public JsonModel updateUser(Users users) {
 		JsonModel jm=new JsonModel();
-		boolean result=usersBiz.updateUsers(users);
-		if(result){
-			jm.setCode(1);
-		} else{
+		if (users.getDid()!=null&&!users.getDid().equals("")&&
+				users.getGid()!=null&&!users.getGid().equals("")&&
+				users.getUstatus()!=null&&!users.getUstatus().equals("")) {
+			boolean result=usersBiz.updateUsers(users);
+			if(result){
+				jm.setCode(1);
+			} else{
+				jm.setCode(0);
+			}
+		}else{
 			jm.setCode(0);
+			jm.setMsg("数据不能为空！");
 		}
 		return jm;
 	}
+	
+	//修改个人信息
+	@RequestMapping("/updatePwd.action")
+	public JsonModel updatePwd(Users users,HttpServletRequest request) {
+			JsonModel jm=new JsonModel();
+			users.setUpwd(request.getParameter("pwd"));
+			if(!users.getUpwd().equals(users.getRepwd())){
+				jm.setCode(0);
+				jm.setMsg("两次密码不相等！");
+				return jm;
+			}
+			if (users.getUpwd()!=null&&!users.getUpwd().equals("")) {
+				users.setUpwd(Encrypt.md5AndSha(users.getUpwd()));
+				boolean result=usersBiz.updatePwd(users);
+				if(result){
+					jm.setCode(1);
+				} else{
+					jm.setCode(0);
+				}
+			}else{
+				jm.setCode(0);
+				jm.setMsg("新密码不能为空！");
+			}
+			request.setAttribute("jm", jm);
+			return jm;
+		}
 	
 	// 删除人员(员工离职)
 	@RequestMapping("/delUsers.action")
@@ -139,6 +162,18 @@ public class UsersController {
 			
 	
 	}
+	
+	//查询所有员工,加载到页面分页等
+		@RequestMapping("/user/myselfMessage.action")
+		public JsonModel myselfMessage(Users users,HttpSession session) throws Exception {
+				JsonModel jModel=new JsonModel();
+				users=(Users) session.getAttribute("users");
+				List<Users> list= usersBiz.getUsersByUid(users.getUid());
+				jModel.setRows(list);
+				return jModel;
+				//easyUI要求的格式
+				
+		}
 	
 	
 	@RequestMapping("/user/uname_list.action")

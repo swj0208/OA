@@ -1,5 +1,51 @@
 create database oa;
 drop database oa;
+--公告表:编号、标题 ,内容、公告类型、发布时间、发布人编号、发送给小组的编号、发送给用户的编号,是否查看
+create table notice(
+	nid int primary key auto_increment,
+	ntitle varchar(50),
+	ncontent varchar(2000),
+	ntype varchar(30),
+	publictime DATETIME,
+	uid int,
+	temp1 varchar(100),
+	temp2 varchar(100)
+)
+
+select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
+		a.mweight as mweight,a.content as content,a.fid as fid,us.uname as
+		touname,
+		d.department as department ,g.gname as gname,f.fname as fname 
+		 from
+		(select m.uid as uid ,m.fromuid as fromuid ,m.did as did ,m.gid as gid,
+		m.mweight as mweight,m.content as content,m.fid as fid from message m
+		inner join users u on ( m.did=u.did and ISNULL(m.gid) and
+		ISNULL(m.uid))
+		or (m.did =u.did and m.gid=u.gid and ISNULL(m.uid))
+		or (m.did = u.did and m.gid =u.gid and m.uid=u.uid) where
+		u.uid=18) a left join users us on a.uid=us.uid left join groups g on a.gid=
+		g.gid
+		left join department d on a.did=d.did left join file f on a.fid=f.fid 
+		 where 1=1
+
+
+
+insert into notice(ntitle,ncontent,ntype,publictime,uid)values('部门细','就业部表现不错','部门公告',now(),17)
+select *  from notice;
+
+select nid,ntitle,ncontent,ntype,publictime,notice.uid as uid,uname 
+from notice inner join users on notice.uid=users.uid where 1=1
+
+
+select * from message
+
+select * from notice inner join users where users.uid=notice.uid and nid=1
+
+insert into notice(ntitle,ncontent,ntype,publictime,uid)values('好消息','今晚全体放假','放假通知',now(),17)
+
+select u.uname,n.ntitle from notice n left join users u on n.uid=u.uid where n.uid=17
+select * from notice;
+drop table affiche;
 
 drop table plan
 --任务表： 任务编号、任务名、内容、开始时间、时间限制、完成时间、状态、
@@ -40,6 +86,10 @@ create table users(
 	temp2 VARCHAR(200)
 )
 
+select * from users;
+
+update users set upwd='6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2' where uname='b'
+
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
 	values('b','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'入职',1)
 insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address ,did ,ustatus ,gid )
@@ -56,7 +106,7 @@ insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address 
 		
 select * from users;
 
-delete  from users where 1=1;
+update users set gid=1 where uid=17;
 drop table users;
 
 drop table groups
@@ -67,6 +117,8 @@ create table department(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select * from department
+
 drop table department;
 insert into department(department,temp1,temp2) values("设计部",null,null);
 insert into department(department,temp1,temp2) values("研发部",null,null);
@@ -192,7 +244,14 @@ insert into permission (pername) values('公告管理');
 insert into permission (pername) values('员工管理');
 insert into permission (pername) values('总经理');
 
+select * from notice where nid=1
 
+
+--职员权限表：
+create table permissionforuser(
+	perid int,
+	uid int
+)
 
 select * from permissionforuser
 insert into permissionforuser(perid,uid) values(2,1);
@@ -216,6 +275,18 @@ create table message(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
+a.mweight as mweight,a.content as content,a.fid as fid,us.uname as uname,
+d.department as department ,g.gname as gname from		
+(select m.uid as uid ,m.fromuid as fromuid ,m.did as did ,m.gid as gid,
+m.mweight as mweight,m.content as content,m.fid as fid from  message m
+inner join  users u on    ( m.did=u.did  and  ISNULL(m.gid) and ISNULL(m.uid))
+or (m.did =u.did  and m.gid=u.gid and ISNULL(m.uid)) 
+or (m.did = u.did and m.gid =u.gid  and m.uid=u.uid) where 
+u.uid=18) a left join users us on a.uid=us.uid  left join groups g on a.gid= g.gid 
+left join department d on a.did=d.did where 1=1
+
+
 
 select mid,content,b.uname as fromuname,c.uname as touname,f.fname as fname,
 		d.department as department,e.gname as gname,createtime,mweight from message a
@@ -225,7 +296,10 @@ select mid,content,b.uname as fromuname,c.uname as touname,f.fname as fname,
 
 select * from message;
 
+
+
 drop table message;
+
 
 alter table notice 
   add constraint fk_notice_users
@@ -289,6 +363,28 @@ create table file(
 drop table file;
 select * from file;
 
+	select f.fid as fid ,f.fname as fname,f.description as description,f.uptime as uptime,
+	f.downtimes as downtimes,f.uid as uid,u.uname as uname from file f left join department d on todid=did left join groups g on togid=g.gid 
+	left join users u on u.uid=touid  where f.uid=17
+
+drop table file;
+
+
+
+
+select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
+(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
+inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+or (todid =did  and togid=gid and ISNULL(touid)) 
+or (todid = did and togid =gid  and touid=users.uid) where 
+users.uid=18) a left join users u on a.uid=u.uid where 1=1
+		
+		select count(*) from users  
+		inner join file  on file.touid=users.uid
+		and file.todid=users.did where touid=17 
+		
+
 select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) or 
 (todid = 1 and togid = 1 and ISNULL(touid)) or (todid = 1 and togid = 1 and touid = 1)
 
@@ -326,7 +422,7 @@ alter table file
 		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
 		or (todid =did  and togid=gid and ISNULL(touid)) 
 		or (todid = did and togid =gid  and touid=users.uid) where 
-		users.uid=1) a left join users u on a.uid=u.uid )
+		users.uid=17) a left join users u on a.uid=u.uid )
 		where a.fstatus =1 
      	and a.fname like '%1%'
 		
@@ -402,8 +498,7 @@ delete from users where uid = 4;
 select * from groups
 
 -----
-insert into power (powername,uid)
-	values('管理员',1)
+
 select * from department
 
 

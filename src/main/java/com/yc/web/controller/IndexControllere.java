@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yc.biz.DepartmentBiz;
 import com.yc.bean.Permission;
 import com.yc.bean.Users;
 import com.yc.biz.DocumentBiz;
@@ -39,6 +40,19 @@ public class IndexControllere {
 	public String index(){
 		return "login";
 	}
+	
+
+	
+	@RequestMapping(value="/toAddNotice.action",method = RequestMethod.GET)
+	public String toAddNotice(){
+		return "notice/addNotice";
+	}
+	
+	@RequestMapping(value="/toManageNotice.action",method = RequestMethod.GET)
+	public String toManageNotice(){
+		return "notice/manageNotice";
+	}
+	
 	
 	@RequestMapping(value="/toMain.action",method = RequestMethod.GET)
 	public String toMain(){
@@ -77,7 +91,7 @@ public class IndexControllere {
 	}
 	
 	@RequestMapping(value="/user/toManageMessage.action",method = RequestMethod.GET)
-	public String toManageNotice(){
+	public String toManageMessage(){
 		return "message/manageMessage";
 	}
 	
@@ -91,7 +105,26 @@ public class IndexControllere {
 	public String toShowFile(){
 		return "file/showFile";
 	}
+//	
+//	@RequestMapping(value="/user/toShowMeFile.action",method = RequestMethod.GET)
+//	public String toShowMeFile(){
+//		return "file/showMeFile";
+//	}
 	
+	@RequestMapping(value="/user/toMeSendFile.action",method = RequestMethod.GET)
+	public String toMeSendFile(){
+		return "file/meSendFile";
+	}
+	
+	@RequestMapping(value="/toMyselfMessage.action",method = RequestMethod.GET)
+	public String toMyselfMessage(){
+		return "myself/myselfMessage";
+	}
+	
+	@RequestMapping(value="/user/toWebsocket.action",method = RequestMethod.GET)
+	public String toWebsocket(){
+		return "websocket/websocket";
+	}
 	
 	@RequestMapping(value="/user/toEditorDocument.action",method = RequestMethod.GET)
 	public void toEditorDocument(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{

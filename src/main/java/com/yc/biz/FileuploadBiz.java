@@ -2,7 +2,6 @@ package com.yc.biz;
 
 import java.util.List;
 
-import org.apache.tomcat.jni.File;
 
 import com.yc.bean.Fileupload;
 
@@ -31,7 +30,17 @@ public interface FileuploadBiz {
 	
 	public Fileupload findFilefordownload(Fileupload	fileupload);
 	
+//	public List<Fileupload> sendMeFile(Fileupload	fileupload);
+//	
+//	public int sendMeFileCount(Fileupload fileupload);
+	
+	public List<Fileupload> meSendOutFile(Fileupload	fileupload);
+	
+	public int meSendOutFileCount(Fileupload fileupload);
+	
 	public void updateDownloadtimes(Fileupload fileupload);
+	
+	
 	
 	
 }

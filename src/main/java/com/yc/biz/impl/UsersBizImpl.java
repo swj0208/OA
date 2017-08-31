@@ -103,6 +103,24 @@ public class UsersBizImpl implements UsersBiz {
 
 
 	@Override
+	public boolean updatePwd(Users users) {
+		this .baseDao.update(users, "updatePwd");
+		return true;
+	}
+
+
+
+	@Override
+	public List<Users> getUsersByUid(Integer uid) {
+		Users u=new Users();
+		u.setUid(uid);
+		List<Users> list=this.baseDao.findAll(u, "findUsersByUid");
+		return list;
+	}
+
+
+
+	
 	public List<Users> findPermissionforUser(Users users) {
 		List<Users> list = baseDao.findAll(users, "findPermissionforuser");
 		return list;
@@ -122,6 +140,4 @@ public class UsersBizImpl implements UsersBiz {
 	public List<Users> findUserByDid(Users users) {
 		return baseDao.findAll(users, "findUserByDid");
 	}
-
-
 }

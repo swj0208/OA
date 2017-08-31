@@ -28,8 +28,8 @@
 				align : 'center',
 				hidden : 'true'
 			},{
-				field : 'fromuname',
-				title : '发送者',
+				field : 'fromuid',
+				title : '发送者编号',
 				width : 100,
 				align : 'center'
 			},{

@@ -58,6 +58,27 @@ $(function() {
 
 	];
 
+	// 公告管理
+	var noticeTreeData = [ {
+		"text" : "公告管理",
+		"state" : "closed",
+		"children" : [
+		              {
+		            	  "text" : "发布公告",
+		            	  "attributes" : {
+		            		  "url" : "<iframe width='100%' height='100%' src='toAddNotice.action'/>"
+		            	  }
+		              },
+		              {
+		            	  "text" : "所有公告",
+		            	  "attributes" : {
+		            		  "url" : "<iframe width='100%' height='100%' src='toManageNotice.action'/>"
+		            	  }
+		              }
+		              ]
+	} ];
+	
+	
 	// 信息系统
 	var messageTreeData = [ {
 		"text" : "信息管理",
@@ -77,16 +98,75 @@ $(function() {
 				} ]
 	} ];
 
+	
+	//个人中心(用户信息)
 	var userTreeData = [ {
 		"text" : "个人管理",
 		"state" : "closed",
-		"children" : [ {
-			"text" : "修改个人信息",
+		"children" : [ 
+		 {
+			"text" : "个人资料",
 			"attributes" : {
-				"url" : "<iframe width='100%' height='100%' frameborder='0' src='toUpdateSelf.action'/>"
+				"url" : "<iframe width='100%' height='100%' src='toMyselfMessage.action'/>"
 			}
-		} ]
+		 }
+		 ]
 	} ];
+	
+	//个人中心(我的消息)
+	var meSendMessageTreeData = [ {
+		"text" : "我的信息",
+		"state" : "closed",
+		"children" : [ 
+		 {
+			"text" : "发件箱",
+			"attributes" : {
+				"url" : "<iframe width='100%' height='100%' src='meOutMessage.action'/>"
+			}
+		 },
+		 {
+				"text" : "收件箱",
+				"attributes" : {
+					"url" : "<iframe width='100%' height='100%' src='meInMessage.action'/>"
+				}
+			 }
+		 ]
+	} ];
+	
+	//个人中心(我的文件)
+	var meSendFileTreeData = [ {
+		"text" : "我的文件",
+		"state" : "closed",
+		"children" : [ 
+		 {
+			"text" : "我发出的文件",
+			"attributes" : {
+				"url" : "<iframe width='100%' height='100%' src='user/toMeSendFile.action'/>"
+			}
+		 }
+		 ]
+	} ];
+	
+	/*//个人中心(我的公文)
+	var meSendFileTreeData = [ {
+		"text" : "我的公文",
+		"state" : "closed",
+		"children" : [ 
+		 {
+			"text" : "我发出的文件",
+			"attributes" : {
+				"url" : "<iframe width='100%' height='100%' src='user/toMeSendFile.action'/>"
+			}
+		 },
+         {
+       	  "text" : "我接收的文件",
+       	  "attributes" : {
+       		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
+       	  }
+	} 
+		 ]
+	} ];*/
+	//文件管理
 	var fileTreeData = [ {
 		"text" : "文件中心",
 		"state" : "closed",
@@ -103,8 +183,10 @@ $(function() {
 						"url" : "<iframe width='100%' height='100%' frameborder='0' src='user/toShowFile.action'/>"
 					}
 
-				} ]
+		              } ]
 	} ];
+	
+	//权限管理
 	var powerTreeData = [ {
 		"text" : "权限中心",
 		"state" : "closed",
@@ -116,6 +198,8 @@ $(function() {
 		            	  }
 		              } ]
 	} ];
+	
+	//人员管理
 	var userpowerTreeData = [ {
 		"text" : "人员管理",
 		"state" : "closed",
@@ -136,6 +220,8 @@ $(function() {
 
 		} ]
 	} ];
+	
+	//公文管理
 	var documentTreeData = [ {
 		"text" : "公文",
 		"state" : "closed",
@@ -149,9 +235,7 @@ $(function() {
 		}, {
 			"text" : "查看公文",
 			"attributes" : {
-				"url" :
-
-				"<iframe width='100%' height='100%' frameborder='0' src='user/toManageDocument.action'/>"
+				"url" :	"<iframe width='100%' height='100%' frameborder='0' src='user/toManageDocument.action'/>"
 			}
 		}, {
 			"text" : "归档公文",
@@ -175,7 +259,10 @@ $(function() {
 	showTree("PoTree", PoTreeData);
 	showTree("approvalTree", approvalTree);
 	showTree("messageTree", messageTreeData);
+	showTree("noticeTree", noticeTreeData);
 	showTree("userTree", userTreeData);
+	showTree("meSendMessageTree",meSendMessageTreeData);
+	showTree("meSendFileTree",meSendFileTreeData);
 	showTree("fileTree", fileTreeData);
 	showTree("powerTree", powerTreeData);
 	showTree("userpowerTree", userpowerTreeData);

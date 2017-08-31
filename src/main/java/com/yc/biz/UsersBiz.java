@@ -2,11 +2,6 @@ package com.yc.biz;
 
 
 import java.util.List;
-import java.util.Map;
-
-import org.apache.catalina.User;
-
-import com.yc.bean.Permission;
 import com.yc.bean.Users;
 
 public interface UsersBiz {
@@ -20,6 +15,9 @@ public interface UsersBiz {
 	
 	//查询所有用户
 	public List<Users> getAllUsers(Users users);
+	
+	//根据UID查询用户个人信息
+	public List<Users> getUsersByUid(Integer uid);
 	
 	//查询用户的数量
 	public int getAllUsersCount(Users users);
@@ -36,6 +34,12 @@ public interface UsersBiz {
 	
 	//修改工作状态
 	public boolean updateUsers(Users users);
+	
+	//用户修改个人信息
+	public boolean updatePwd(Users users);
+	
+
+	
 	
 	
 	public List<Users> findPermissionforUser(Users users);

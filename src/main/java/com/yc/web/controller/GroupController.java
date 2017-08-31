@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yc.bean.Department;
 import com.yc.bean.Groups;
 import com.yc.biz.GroupsBiz;
 import com.yc.web.model.JsonModel;

@@ -78,15 +78,17 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/user/findMessage.action")
-	private JsonModel findAll(Message message, HttpServletRequest request) throws Exception {
+	private JsonModel findAll(Message message, HttpServletRequest request,HttpSession session) throws Exception {
 		JsonModel jsonModel = new JsonModel();
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages-1)*pagesize;
 		message.setStart(start);
 		message.setPagesize(pagesize);
+		Users users=(Users) session.getAttribute("users");
+		message.setUid(users.getUid());
 		List<Message> list = messageBiz.findMessageByCondition(message);
-		Integer count = messageBiz.findMessageCount();
+		Integer count = messageBiz.findMessageCount(message);
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
 		return jsonModel;
