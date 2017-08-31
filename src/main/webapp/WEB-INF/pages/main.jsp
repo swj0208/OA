@@ -20,7 +20,7 @@ iframe {
 <body class="easyui-layout layout panel-noscroll">
 	<div data-options="region:'west',split:true" title="工具栏" style="width: 150px">
 		<!-- <div id="westpanel"></div> 使用panel-->
-		<div class="easyui-accordion" style="width: auto; height: 100%;">
+		<div class="easyui-accordion" style="width: auto;">
 			<div title="任务计划" style="overflow: auto; padding: 10px;">
 				<ul id="PoTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>

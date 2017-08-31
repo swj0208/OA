@@ -43,13 +43,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or (a.todid = c.did and a.togid =c.gid and a.touid=c.uid)) where
 		a.touid = #{touid} and a.fstatus = 1
 		<if test="timefrom!=null">
-			and uptime>#{timefrom}
+			and a.uptime>#{timefrom}
 		</if>
 		<if test="timeto!=null">
-			and #{timeto}>uptime
+			and #{timeto}>a.uptime
 		</if>
 		<if test="fname!=null">
-			and fname like '%${fname}%'
+			and a.fname like '%${fname}%'
 		</if>
 		<include refid="orderSql" />
 		<include refid="pageSql" />

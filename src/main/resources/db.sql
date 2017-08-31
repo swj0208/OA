@@ -295,7 +295,7 @@ select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) or
 
 
 select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
-	a.downtimes as downtimes,a.uid as uid,a.uname as uname from		
+	a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
 	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
 	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
 	or (todid =did  and togid=gid and ISNULL(touid)) 
@@ -308,7 +308,7 @@ select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as u
 a.uid = b.uid left join users c on (( a.todid=c.did  and  ISNULL(a.togid) and ISNULL(a.touid))
 	or (a.todid =c.did  and a.togid=c.gid and ISNULL(a.touid)) 
 	or (a.todid = c.did and a.togid =c.gid  and a.touid=c.uid)) where 
-	a.touid = 3 and a.fstatus = 1  and a.fname like '%j%'	
+	a.touid = 3 and a.fstatus = 1 	
 	
 	
 	
