@@ -2,8 +2,6 @@ package com.yc.biz;
 
 
 import java.util.List;
-
-import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 
 public interface UsersBiz {
@@ -26,7 +24,7 @@ public interface UsersBiz {
 	
 
 	//根据部门id,小组id查询用户
-	List<Users> getUserBygidanddid(int did, int gid);
+	public List<Users> getUserBygidanddid(int did, int gid);
 
 	//人员添加
 	public boolean add(Users users);
@@ -43,4 +41,13 @@ public interface UsersBiz {
 
 	
 	
+	
+	public List<Users> findPermissionforUser(Users users);
+	
+	
+	public int findPermissionCount(Users users);
+	
+	
+	
+	public List<Users> findUserByDid(Users users);
 }

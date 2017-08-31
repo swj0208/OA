@@ -1,10 +1,9 @@
 package com.yc.biz;
 
 import java.util.List;
-import java.util.Map;
+
 
 import com.yc.bean.Fileupload;
-import com.yc.web.model.JsonModel;
 
 public interface FileuploadBiz {
 
@@ -31,17 +30,13 @@ public interface FileuploadBiz {
 	
 	public Fileupload findFilefordownload(Fileupload	fileupload);
 	
-	public List<Fileupload> sendMeFile(Fileupload	fileupload);
-	
-	public int sendMeFileCount(Fileupload fileupload);
+//	public List<Fileupload> sendMeFile(Fileupload	fileupload);
+//	
+//	public int sendMeFileCount(Fileupload fileupload);
 	
 	public List<Fileupload> meSendOutFile(Fileupload	fileupload);
 	
 	public int meSendOutFileCount(Fileupload fileupload);
-	
-//	public JsonModel<Fileupload> searchHouse(Map<String, Object> map);
-	
-	//public JsonModel<Fileupload> searchMeSendFile(Map<String, Object> map);
 	
 	public void updateDownloadtimes(Fileupload fileupload);
 	

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jspsmart.upload.SmartUploadException;
+import com.yc.bean.Permission;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
@@ -120,4 +121,23 @@ public class UsersBizImpl implements UsersBiz {
 
 
 	
+	public List<Users> findPermissionforUser(Users users) {
+		List<Users> list = baseDao.findAll(users, "findPermissionforuser");
+		return list;
+	}
+
+
+
+	@Override
+	public int findPermissionCount(Users users) {
+		int count = (int) baseDao.findOne(users, "findPermissionCount");
+		return count;
+	}
+
+
+
+	@Override
+	public List<Users> findUserByDid(Users users) {
+		return baseDao.findAll(users, "findUserByDid");
+	}
 }

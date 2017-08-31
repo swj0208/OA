@@ -30,7 +30,7 @@ public class FileuploadBizImpl implements FileuploadBiz {
 		}
 	}
 
-	@Override
+	@Override//
 	public List<Fileupload> findFile(Fileupload fileupload) {
 		return baseDao.findAll(fileupload, "findFile");
 	}
@@ -45,17 +45,17 @@ public class FileuploadBizImpl implements FileuploadBiz {
 	public Fileupload findFilefordownload(Fileupload fileupload) {
 		return (Fileupload) baseDao.findOne(fileupload, "findFilefordownload");
 	}
-
-	@Override
-	public List<Fileupload> sendMeFile(Fileupload fileupload) {
-		return baseDao.findAll(fileupload, "sendMeFile");
-	}
-
-	@Override
-	public int sendMeFileCount(Fileupload fileupload) {
-		int count=(int) baseDao.findOne(fileupload, "sendMeFileCount");
-		return count;
-	}
+//
+//	@Override
+//	public List<Fileupload> sendMeFile(Fileupload fileupload) {
+//		return baseDao.findAll(fileupload, "sendMeFile");
+//	}
+//
+//	@Override
+//	public int sendMeFileCount(Fileupload fileupload) {
+//		int count=(int) baseDao.findOne(fileupload, "sendMeFileCount");
+//		return count;
+//	}
 
 //	@Override
 //	public JsonModel<Fileupload> searchHouse(Map<String, Object> map) {
@@ -109,6 +109,7 @@ public class FileuploadBizImpl implements FileuploadBiz {
 //		jsonModel.setPageSize(Integer.parseInt(map.get("pagesize").toString()));
 //		return jsonModel;
 //	}
+
 	
 
 } 

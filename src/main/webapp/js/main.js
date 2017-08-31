@@ -78,9 +78,10 @@ $(function() {
 		              ]
 	} ];
 	
-	//公告系统
-		var messageTreeData = [ {
-		"text" : "消息管理",
+	
+	// 信息系统
+	var messageTreeData = [ {
+		"text" : "信息管理",
 		"state" : "closed",
 		"children" : [
 				{
@@ -142,13 +143,7 @@ $(function() {
 			"attributes" : {
 				"url" : "<iframe width='100%' height='100%' src='user/toMeSendFile.action'/>"
 			}
-		 },
-         {
-       	  "text" : "我接收的文件",
-       	  "attributes" : {
-       		  "url" : "<iframe width='100%' height='100%' src='user/toShowMeFile.action'/>"
-       	  }
-	} 
+		 }
 		 ]
 	} ];
 	
@@ -196,18 +191,12 @@ $(function() {
 		"text" : "权限中心",
 		"state" : "closed",
 		"children" : [
-				{
-					"text" : "查看权限",
-					"attributes" : {
-						"url" : "<iframe width='100%' height='100%' frameborder='0' src='toShowPower.action'/>"
-					}
-				},
-				{
-					"text" : "修改权限",
-					"attributes" : {
-						"url" : "<iframe width='100%' height='100%' frameborder='0' src='toUpdatePower.action'/>"
-					}
-				} ]
+		              {
+		            	  "text" : "权限管理",
+		            	  "attributes" : {
+		            		  "url" : "<iframe width='100%' height='100%' src='user/toManagePermission.action'/>"
+		            	  }
+		              } ]
 	} ];
 	
 	//人员管理
@@ -248,7 +237,14 @@ $(function() {
 			"attributes" : {
 				"url" :	"<iframe width='100%' height='100%' frameborder='0' src='user/toManageDocument.action'/>"
 			}
-		} ]
+		}, {
+			"text" : "归档公文",
+			"attributes" : {
+				"url" :
+
+				"<iframe width='100%' height='100%' frameborder='0' src='user/tofindGDDocument.action'/>"
+			} 
+		}]
 	} ];
 
 	//在线会话

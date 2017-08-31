@@ -18,12 +18,6 @@ iframe {
 </style>
 
 <body class="easyui-layout layout panel-noscroll">
-	<div data-options="region:'north'" style="height: 100px">top</div>
-	<div data-options="region:'south',split:true" style="height: 50px">button</div>
-	<div data-options="region:'east',split:true" title="East" style="width: 200px">
-		
-	
-	</div>
 	<div data-options="region:'west',split:true" title="工具栏" style="width: 150px">
 		<!-- <div id="westpanel"></div> 使用panel-->
 		<div class="easyui-accordion" style="width: auto; height: 100%;">

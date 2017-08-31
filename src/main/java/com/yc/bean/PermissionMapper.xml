@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.bean.PermissionMapper">
+
+
+	<!-- 排序的拼接 -->
+	<sql id="orderSql">
+		<if test="orderby!=null and orderby!=''">
+			order by #{orderby}
+			<if test="orderway!=null and orderway!=''">
+				#{orderway}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 分页条件的拼接 -->
+	<sql id="pageSql">
+		<if test="start!=null">
+			limit #{start},#{pagesize}
+		</if>
+	</sql>
+	
+	<select id="findPermission" resultType="Permission">
+		select perid,pername from permission
+	</select>
+
+
+	
+	<insert id="addPermission" parameterType="Permission">
+		insert into permissionforuser(perid,uid) values(#{perid},#{uid})
+	</insert>
+	
+	<select id="findPermissionByuid" resultType="Permission"
+		parameterType="Permission">
+		select perid,uid from permissionforuser where uid = #{uid}
+	</select>
+	
+
+	
+</mapper>

@@ -2,6 +2,7 @@ package com.yc.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -183,6 +184,29 @@ public class UsersController {
 		JsonModel jm =new JsonModel();
 		jm.setRows(list);     //jm.setObj(list);
 		return jm;
+	}
+	
+	
+	@RequestMapping(value="/user/findPermissionforuser.action")
+	private JsonModel findPermissionforuser(Users users,HttpServletRequest request) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		int pages=0;
+		int pagesize =0;
+		if(request.getParameter("page").toString()!=null){
+			pages = Integer.parseInt(request.getParameter("page").toString());
+		}
+		if(request.getParameter("rows").toString()!=null){
+			pagesize = Integer.parseInt(request.getParameter("rows").toString());
+		}
+		int start = (pages-1)*pagesize;
+		users.setStart(start);
+		users.setPagesize(pagesize);
+		List<Users> list = usersBiz.findPermissionforUser(users);
+		Integer count = usersBiz.findPermissionCount(users);
+		jsonModel.setPageSize(pagesize);
+		jsonModel.setRows(list);
+		jsonModel.setTotal(count);
+		return jsonModel;
 	}
 }
 

@@ -27,57 +27,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		useGeneratedKeys="true" keyProperty="fid">
 		insert into
 		file(fname,description,path,uid,uptime,downtimes,fweight,todid,togid,touid,fstatus)
-		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid},#{fstatus})
+		values(#{fname},#{description},#{path},#{uid},now(),0,#{fweight},#{todid},#{togid},#{touid},1)
 	</insert>
 
 
 
 	<select id="findFile" parameterType="Fileupload" resultType="Fileupload">
-		select
-		fid,fname,description,path,file.uid,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid,fstatus
-		from file left join (select uid,uname from users) a on a.uid = file.uid where fstatus = 1
-		
-			<if test="timefrom!=null and timefrom!=''">
-				and uptime >#{timefrom}
-			</if>
-			<if test="timeto!=null and timeto!=''">
-				and #{timeto}>uptime
-			</if>
-			<if test="fname!=null and fname!=''">
-				and fname like '%${fname}%'
-			</if>
-		
+		select a.fstatus as fstatus ,a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
+	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname ,fstatus from  file 
+	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+	or (todid =did  and togid=gid and ISNULL(touid)) 
+	or (todid = did and togid =gid  and touid=users.uid) where 
+	users.uid=#{touid}) a left join users u on a.uid=u.uid where a.fstatus=1
+		<if test="timefrom!=null">
+			and uptime>#{timefrom}
+		</if>
+		<if test="timeto!=null">
+			and #{timeto}>uptime
+		</if>
+		<if test="fname!=null">
+			and fname like '%${fname}%'
+		</if>
 		<include refid="orderSql" />
 		<include refid="pageSql" />
-		
 	</select>
 
 
 
 	<!-- 查找文件数量 -->
+	<!-- 查找file数量 -->
 	<select id="FileCount" resultType="int" parameterType="Fileupload">
 		select count(*) from file
-		<where>
-			<if test="timefrom!=null and timefrom!=''">
-				and uptime >#{timefrom}
-			</if>
-			<if test="timeto!=null and timeto!=''">
-				and #{timeto}>uptime
-			</if>
-			<if test="fname!=null and fname!=''">
-				and fname like '%${fname}%'
-			</if>
-		</where>
+		inner join users on ( todid=did and ISNULL(togid) and ISNULL(touid))
+		or
+		(todid =did and togid=gid and ISNULL(touid))
+		or (todid = did and togid =gid and touid=users.uid) where
+		users.uid=#{touid} and fstatus =1
+		<if test="timefrom!=null">
+			and uptime >#{timefrom}
+		</if>
+		<if test="timeto!=null">
+			and #{timeto}>uptime
+		</if>
+		<if test="fname!=null">
+			and fname like '%${fname}%'
+		</if>
 	</select>
 
 
-	<select id="findFilefordownload" parameterType="Fileupload" resultType="Fileupload">
-	select
-	fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
-	from file where fid = #{fid}
+	<select id="findFilefordownload" parameterType="Fileupload"
+		resultType="Fileupload">
+		select
+		fid,fname,description,path,uid,uptime,downtimes,fweight,touid,togid,todid
+		from file where fid = #{fid}
 	</select>
 	
-	<!--  查找发给自己的文件或本部门的文件 -->
+	<!--  查找发给自己的文件或本部门的文件 
 	<select id="sendMeFile" parameterType="Fileupload" resultType="Fileupload">
 	select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
 	a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
@@ -89,9 +95,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<include refid="orderSql" />
 		<include refid="pageSql" />
-	</select>
+	</select>-->
 	
-	<!--  查找发给自己的文件或本部门的文件-->
+	<!--  查找发给自己的文件或本部门的文件
 	<select id="sendMeFileCount" parameterType="Fileupload" resultType="int">
 			select  count(*) from  file 
 		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
@@ -99,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or (todid = did and togid =gid  and touid=users.uid) where
 		users.uid=#{touid}
 		 
-	</select> 
+	</select> -->
 	
 	<!-- 查找我发出的文件 -->
 	<select id="findMeSendFile" parameterType="Fileupload" resultType="Fileupload">
@@ -116,12 +122,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 更新下载次数 -->
 	<update id="updatedownloadtimes" parameterType="Fileupload">
-		update file set downtimes = downtimes+1 where fid = #{fid}
+		update file set
+		downtimes = downtimes+1 where fid = #{fid}
 	</update>
+
 
 	<!-- 删除 -->
 	<delete id="deleteFile" parameterType="Fileupload">
-		delete from file where fid=#{fid}
+		delete from file where
+		fid=#{fid}
 	</delete>
 
 

@@ -12,6 +12,24 @@ create table notice(
 	temp2 varchar(100)
 )
 
+select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
+		a.mweight as mweight,a.content as content,a.fid as fid,us.uname as
+		touname,
+		d.department as department ,g.gname as gname,f.fname as fname 
+		 from
+		(select m.uid as uid ,m.fromuid as fromuid ,m.did as did ,m.gid as gid,
+		m.mweight as mweight,m.content as content,m.fid as fid from message m
+		inner join users u on ( m.did=u.did and ISNULL(m.gid) and
+		ISNULL(m.uid))
+		or (m.did =u.did and m.gid=u.gid and ISNULL(m.uid))
+		or (m.did = u.did and m.gid =u.gid and m.uid=u.uid) where
+		u.uid=18) a left join users us on a.uid=us.uid left join groups g on a.gid=
+		g.gid
+		left join department d on a.did=d.did left join file f on a.fid=f.fid 
+		 where 1=1
+
+
+
 insert into notice(ntitle,ncontent,ntype,publictime,uid)values('部门细','就业部表现不错','部门公告',now(),17)
 select *  from notice;
 
@@ -19,7 +37,7 @@ select nid,ntitle,ncontent,ntype,publictime,notice.uid as uid,uname
 from notice inner join users on notice.uid=users.uid where 1=1
 
 
-
+select * from message
 
 select * from notice inner join users where users.uid=notice.uid and nid=1
 
@@ -82,7 +100,6 @@ insert into users(uname,upwd,sex,photo,entrytime,tel,email,qq,birthday ,address 
 	values('e','6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2','男',null,now(),'13579246811','12345678@ls.com','12345679','1987-11-12','湖南',1,'入职',2)
 
 	
-	
 	select
 		fid,fname,description,path,a.uname as uname,uptime,downtimes,fweight,touid,togid,todid
 		from file left join (select uid,uname from users) a on a.uid = file.uid
@@ -131,6 +148,59 @@ alter table groups
 alter table groups drop foreign key fk_groups_plan
 
 drop table permission;
+
+
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+
+		
+		select
+		doid,dotitle,docontent,dofromuid,dotouid,douid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,c.uname as douname,file.fname as fname,permissionforuser.perid
+		from document left join
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid 
+		left join users c  on document.douid = c.uid 
+		left join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid
+		
+		
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+		
+		
+		select a.perid as perid,a.pername as pername,
+		c.uname as uname,d.gname as gname,e.department as department 
+		from  permission a 
+		left join permissionforuser b on b.perid = a.perid left join
+		users c on b.uid = c.uid left join groups d on d.gid = c.gid
+		left join  department e  on e.did = c.did
+		
+		select count(*) from users left join permissionforuser on users.uid = permissionforuser.uid
+		left join permission on permission.perid = permissionforuser.perid 
+		where permission.pername!=null
+		
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+		where permission.pername !=""
 --权限表：编号、权限名、用户编号
 create table permission(
 	perid int primary key auto_increment,
@@ -138,6 +208,31 @@ create table permission(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select * from permission
+--职员权限表：
+create table permissionforuser(
+	perid int,
+	uid int
+)
+drop table permissionforuser;
+select * from permissionforuser
+delete from permissionforuser p where uid = 6 on p.perid=c.perid
+
+
+select p.perid as perid,pername,uid,uname  from permission p left join 
+(select users.uid as uid,uname,perid  from users left join permissionforuser on users.uid=permissionforuser.uid where users.uid=3)  u
+on p.perid=u.perid
+
+		select
+		doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,file.fname as fname,permissionforuser.perid
+		from document left join
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid left
+		join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid
+
+
 select * from permission;
 select * from users;
 select * from department;
@@ -157,6 +252,7 @@ create table permissionforuser(
 	perid int,
 	uid int
 )
+
 select * from permissionforuser
 insert into permissionforuser(perid,uid) values(2,1);
 insert into permissionforuser(perid,uid) values(1,3);
@@ -172,12 +268,31 @@ create table message(
 	mweight int,
 	fid int,
 	createtime  DATETIME,
+	fromuid int,
 	did int,
 	gid int,
 	uid int,
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
+a.mweight as mweight,a.content as content,a.fid as fid,us.uname as uname,
+d.department as department ,g.gname as gname from		
+(select m.uid as uid ,m.fromuid as fromuid ,m.did as did ,m.gid as gid,
+m.mweight as mweight,m.content as content,m.fid as fid from  message m
+inner join  users u on    ( m.did=u.did  and  ISNULL(m.gid) and ISNULL(m.uid))
+or (m.did =u.did  and m.gid=u.gid and ISNULL(m.uid)) 
+or (m.did = u.did and m.gid =u.gid  and m.uid=u.uid) where 
+u.uid=18) a left join users us on a.uid=us.uid  left join groups g on a.gid= g.gid 
+left join department d on a.did=d.did where 1=1
+
+
+
+select mid,content,b.uname as fromuname,c.uname as touname,f.fname as fname,
+		d.department as department,e.gname as gname,createtime,mweight from message a
+		left join users b on a.fromuid = b.uid left join users c on a.uid = c.uid
+		left join department d on a.did = d.did left join groups e on a.gid = e.gid
+		left join file f on f.fid = a.fid
 
 select * from message;
 
@@ -193,6 +308,7 @@ alter table notice drop foreign key fk_notice_users
 
 
 
+--公文表：公文编号、标题、发送人id、接收人id、实行人id、公文时间、公文内容、附件、返回评语、
 
 drop table file
 
@@ -204,6 +320,7 @@ create table document(
 	docontent VARCHAR(10000),
 	dofromuid int,
 	dotouid int,
+	douid int,
 	dotime DATETIME,
 	dofid int,
 	dostatus VARCHAR(50),
@@ -214,15 +331,17 @@ create table document(
 drop table document;
 select * from document;
 
-select distinct a.uname from
-(select uname,uid from users where did=(select did from users where uid = 1) ) a
-left join permissionforuser on a.uid = permissionforuser.uid  
-where permissionforuser.uid  = (select uid from permissionforuser where perid = 2);
+		select
+		doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname
+		as funame,b.uname as tuname,file.fname as fname,permissionforuser.perid as perid
+		from document left join
+		users a on document.dofromuid = a.uid
+		left join users b  on document.dotouid = b.uid left
+		join file on document.dofid = file.fid
+		left join permissionforuser on permissionforuser.uid = document.dotouid	
 
 
-select doid,dotitle,docontent,dofromuid,dotouid,dotime,dofid,dostatus,docomment,a.uname as funame,b.uname as tuname
-		from document left join (select uid,uname from users) a on document.dofromuid = a.uid 
-		left join (select uid,uname from users) b on document.dotouid = b.uid 
+
 
 --共享文件表：编号、文件名、文件描述、路径、上传用户的id、上传时间、下载次数、文件权重
 create table file(
@@ -241,6 +360,7 @@ create table file(
 	temp1 VARCHAR(200), 
 	temp2 VARCHAR(200)
 )
+drop table file;
 select * from file;
 
 	select f.fid as fid ,f.fname as fname,f.description as description,f.uptime as uptime,
@@ -258,13 +378,37 @@ a.downtimes as downtimes,a.uid as uid,u.uname as uname from
 inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
 or (todid =did  and togid=gid and ISNULL(touid)) 
 or (todid = did and togid =gid  and touid=users.uid) where 
-users.uid=17) a left join users u on a.uid=u.uid where 1=1
+users.uid=18) a left join users u on a.uid=u.uid where 1=1
 		
 		select count(*) from users  
 		inner join file  on file.touid=users.uid
 		and file.todid=users.did where touid=17 
 		
 
+select * from file where (todid = 1 and ISNULL(togid) and ISNULL(touid)) or 
+(todid = 1 and togid = 1 and ISNULL(touid)) or (todid = 1 and togid = 1 and touid = 1)
+
+
+
+select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,a.uname as uname from		
+	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
+	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+	or (todid =did  and togid=gid and ISNULL(touid)) 
+	or (todid = did and togid =gid  and touid=users.uid) where 
+	users.uid=3) a left join users u on a.uid=u.uid
+	
+	
+select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+	a.downtimes as downtimes,a.uid as uid,b.uname as uname from file a left join users b on 
+a.uid = b.uid left join users c on (( a.todid=c.did  and  ISNULL(a.togid) and ISNULL(a.touid))
+	or (a.todid =c.did  and a.togid=c.gid and ISNULL(a.touid)) 
+	or (a.todid = c.did and a.togid =c.gid  and a.touid=c.uid)) where 
+	a.touid = 3 and a.fstatus = 1  and a.fname like '%j%'	
+	
+	
+	
+delete  from file where fid = 1;
 update file set downtimes = downtimes+1 where fid = 1
 drop table file;
 
@@ -272,7 +416,17 @@ alter table file
   add constraint fk_file_users
      foreign key(uid) references users(uid);
 
-     
+     select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
+		a.downtimes as downtimes,a.uid as uid,u.uname as uname from
+     ((select  fid,fname,description,uptime,downtimes,file.uid as uid,uname,fstatus from  file 
+		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+		or (todid =did  and togid=gid and ISNULL(touid)) 
+		or (todid = did and togid =gid  and touid=users.uid) where 
+		users.uid=17) a left join users u on a.uid=u.uid )
+		where a.fstatus =1 
+     	and a.fname like '%1%'
+		
+		
      update document set dostatus = 0,dotouid = 1 where doid = 1
      
      

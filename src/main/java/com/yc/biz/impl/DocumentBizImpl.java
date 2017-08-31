@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.yc.bean.Document;
 import com.yc.bean.Users;
 import com.yc.biz.DocumentBiz;
@@ -68,6 +67,23 @@ public class DocumentBizImpl implements DocumentBiz {
 		baseDao.update(document, "archiveDocument");
 		return true;
 	}
+
+	@Override
+	public boolean finishDocument(Document document) {
+		baseDao.update(document, "finishDocument");
+		return true;
+	}
+
+	@Override
+	public List<Document> FindGDDocument(Document document) {
+		return baseDao.findAll(document, "FindGDDocument");
+	}
+
+	@Override
+	public int findGDDocumentCount(Document document) throws Exception {
+		return (int) baseDao.findOne(document, "findGDDocumentCount");
+	}
+
 
 
 }
