@@ -105,11 +105,11 @@ public class IndexControllere {
 	public String toShowFile(){
 		return "file/showFile";
 	}
-//	
-//	@RequestMapping(value="/user/toShowMeFile.action",method = RequestMethod.GET)
-//	public String toShowMeFile(){
-//		return "file/showMeFile";
-//	}
+	
+	@RequestMapping(value="/user/toShowMeSendMessage.action",method = RequestMethod.GET)
+	public String toShowMeMessage(){
+		return "message/meSendMessage";
+	}
 	
 	@RequestMapping(value="/user/toMeSendFile.action",method = RequestMethod.GET)
 	public String toMeSendFile(){

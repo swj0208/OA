@@ -27,4 +27,20 @@ public interface MessageBiz {
 	 * @throws Exception
 	 */
 	public int findMessageCount(Message message) throws Exception;
+	
+	/**
+	 * 我发布的消息
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Message> meSendMessage(Message message) throws Exception;
+	
+	/**
+	 * 我发布消息的数量
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	public int meSendMessageCount(Message message) throws Exception;
 }

@@ -29,6 +29,8 @@ select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
 		 where 1=1
 
 
+	 
+		 
 
 insert into notice(ntitle,ncontent,ntype,publictime,uid)values('部门细','就业部表现不错','部门公告',now(),17)
 select *  from notice;
@@ -216,11 +218,13 @@ create table permissionforuser(
 )
 drop table permissionforuser;
 select * from permissionforuser
-delete from permissionforuser p where uid = 6 on p.perid=c.perid
+insert into permissionforuser(perid,uid) values(1,19)
+delete from permissionforuser 
 
 
-select p.perid as perid,pername,uid,uname  from permission p left join 
-(select users.uid as uid,uname,perid  from users left join permissionforuser on users.uid=permissionforuser.uid where users.uid=3)  u
+select p.perid as perid,pername,uid,uname  from permission p inner join 
+(select users.uid as uid,uname,perid  from users left join permissionforuser on 
+users.uid=permissionforuser.uid where users.uid=17)  u
 on p.perid=u.perid
 
 		select
@@ -275,6 +279,16 @@ create table message(
 	temp1 VARCHAR(200),
 	temp2 VARCHAR(200)
 )
+
+select * from message;
+
+		select m.mid as mid ,m.content as content,m.mweight as mweight,
+m.createtime as createtime,m.fromuid as fromuid,u.uname as uname ,
+d.department as department,g.gname as gname,f.fname as fname
+from message m left join department d on m.did=d.did left join groups g 
+on m.gid=g.gid left join users u on u.uid=m.uid left join file f on m.fid=f.fid where m.fromuid=17
+
+
 select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
 a.mweight as mweight,a.content as content,a.fid as fid,us.uname as uname,
 d.department as department ,g.gname as gname from		

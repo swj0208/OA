@@ -119,17 +119,11 @@ $(function() {
 		"state" : "closed",
 		"children" : [ 
 		 {
-			"text" : "发件箱",
+			"text" : "我发出的信息",
 			"attributes" : {
-				"url" : "<iframe width='100%' height='100%' src='meOutMessage.action'/>"
+				"url" : "<iframe width='100%' height='100%' src='user/toShowMeSendMessage.action'/>"
 			}
-		 },
-		 {
-				"text" : "收件箱",
-				"attributes" : {
-					"url" : "<iframe width='100%' height='100%' src='meInMessage.action'/>"
-				}
-			 }
+		 }
 		 ]
 	} ];
 	

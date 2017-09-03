@@ -41,4 +41,16 @@ public class MessageBizImpl implements MessageBiz {
 		return count;
 	}
 
+	@Override
+	public List<Message> meSendMessage(Message message) throws Exception {
+		return  baseDao.findAll(message, "meSendMessage");
+		
+	}
+
+	@Override
+	public int meSendMessageCount(Message message) throws Exception {
+		int count = (int) baseDao.findOne(message, "meSendMessageCount");
+		return count;
+	}
+
 }
