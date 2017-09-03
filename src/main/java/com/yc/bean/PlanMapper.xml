@@ -95,11 +95,6 @@
 		values(#{pname},#{content},now(),#{timelimit},#{gid},'进行中')
 	</insert>
 	
-	<!-- 查找计划的具体内容 -->
-	<select id="findPlanContent" parameterType="java.util.Map" resultType="Plan">
-		select pid,content from plan where pid=#{pid}
-	</select>
-	
 	<!-- 删除计划 -->
 	<delete id="delPlan" parameterType="java.util.Map">
 		delete from plan where pid=#{pid}
@@ -124,4 +119,20 @@
 		where pid=#{pid}
 	</update>
 
+	<!-- 查找计划的具体内容 -->
+	<select id="findPlanContent" resultMap="PlanContentResult" parameterType="java.util.Map">
+		select content,uname,gname from plan left join (
+			select gname,uname,groups.gid as gid from users left join groups 
+				on users.gid=groups.gid where groups.gid=#{gid}
+		) as a
+		on plan.gid=a.gid where pid=#{pid} and a.gid=#{gid}
+	</select>
+	
+	<resultMap type="Plan" id="PlanContentResult">
+		<result property="gname" column="gname"/>
+		<result property="content" column="content"/>
+		<collection property="userlist" ofType="Users">
+			<result property="uname" column="uname"/>
+		</collection>
+	</resultMap>
 </mapper>

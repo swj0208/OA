@@ -18,6 +18,18 @@ create table plan(
 drop table plan;
 select * from plan;
 
+drop table achieve;
+--执行表：编号、内容、计划编号、执行人、完成时间、备注
+create table achieve(
+	aid int primary key auto_increment,
+	acontent VARCHAR(200),
+	pid int,
+	uid int,
+	completetime DATETIME,
+	remark varchar(200)
+)
+
+
 select * from users u left join department d on u.did=d.did left join groups g on g.gid=u.gid  where 1=1
 drop table users
 --用户表:编号、姓名、密码、性别、照片路径、入职时间、电话、email、QQ、生日、住址、部门、状态、小组编号
@@ -309,5 +321,13 @@ insert into plan(pname,content,timestart,timelimit,gid,pstatus)
 		values('测试14','具体内容',now(),DATE_ADD(now(),INTERVAL 5 DAY),1,'进行中')
 		
 delete from plan where pid=19
+
+
+insert into achieve(acontent,pid,uid,completetime) values('这是第一个步骤',1,1,now());
+insert into achieve(acontent,pid,uid) values('这是第二个步骤',1,1);
+insert into achieve(acontent,pid,uid) values('这是第三个步骤',1,1);
+insert into achieve(acontent,pid,uid) values('这是第四个步骤',1,2);
+insert into achieve(acontent,pid,uid) values('这是第五个步骤',1,3);
+insert into achieve(acontent,pid,uid) values('审核',1,4);
 
 		

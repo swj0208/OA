@@ -60,4 +60,10 @@ public class PlanBizImpl implements PlanBiz {
 		return true;
 	}
 
+	@Override
+	public List<Plan> findPlanContent(Map<String, Integer> map) {
+		List<Plan> list=this.baseDao.findAll(Plan.class, "findPlanContent", map);
+		return list;
+	}
+
 }
