@@ -143,6 +143,7 @@ public class BaseDaoMybatisImpl<T> extends SqlSessionDaoSupport implements BaseD
 	public double getFunc(Class<T> clazz, String sqlId, Map<String, Object> parameterMap) {
 		return new Double( super.getSqlSession().selectOne(MAPPERPATH+clazz.getSimpleName()+ "Mapper." + sqlId ,parameterMap).toString());
 	}
+
 	
 	
 

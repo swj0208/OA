@@ -7,13 +7,22 @@
 
 <hr />
 <form id="editorDocument" action="user/editorDocument.action" method="post" enctype="multipart/form-data">
-	接收主管：
+	审批主管：
 	<select class="text" name="dotouid" id="dotouid">
 		<option></option>
 		<c:forEach items="${leader }" var="d">
 			<option value="${d.uid }">${d.uname}</option>
 		</c:forEach>
 	</select>
+	<br/>
+	建议实行人：
+	<select class="text" name="douid" id="douid">
+		<option></option>
+		<c:forEach items="${doUser }" var="d">
+			<option value="${d.uid }">${d.uname}</option>
+		</c:forEach>
+	</select>
+	
 	<br /> 
 	主题：
 	<input type="text" name="dotitle" id="dotitle"/>

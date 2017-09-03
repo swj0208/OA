@@ -26,5 +26,5 @@ public interface MessageBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public int findMessageCount() throws Exception;
+	public int findMessageCount(Message message) throws Exception;
 }

@@ -14,6 +14,63 @@ public class Message extends CommonBean implements Serializable {
 	private Integer did;
 	private Integer gid;
 	private Integer uid;
+	private Integer fromuid;
+	
+	private String fromuname;
+	private String touname;
+	private String fname;
+	private String gname;
+	private String department;
+	
+	
+
+	public String getFromuname() {
+		return fromuname;
+	}
+
+	public void setFromuname(String fromuname) {
+		this.fromuname = fromuname;
+	}
+
+	public String getTouname() {
+		return touname;
+	}
+
+	public void setTouname(String touname) {
+		this.touname = touname;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getGname() {
+		return gname;
+	}
+
+	public void setGname(String gname) {
+		this.gname = gname;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Integer getFromuid() {
+		return fromuid;
+	}
+
+	public void setFromuid(Integer fromuid) {
+		this.fromuid = fromuid;
+	}
 
 	public Integer getMid() {
 		return mid;
@@ -82,7 +139,9 @@ public class Message extends CommonBean implements Serializable {
 	@Override
 	public String toString() {
 		return "Message [mid=" + mid + ", content=" + content + ", mweight=" + mweight + ", createtime=" + createtime
-				+ ", fid=" + fid + ", did=" + did + ", gid=" + gid + ", uid=" + uid + "]";
+				+ ", fid=" + fid + ", did=" + did + ", gid=" + gid + ", uid=" + uid + ", fromuid=" + fromuid
+				+ ", fromuname=" + fromuname + ", touname=" + touname + ", fname=" + fname + ", gname=" + gname
+				+ ", department=" + department + "]";
 	}
 
 }

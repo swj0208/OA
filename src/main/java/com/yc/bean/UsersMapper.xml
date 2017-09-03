@@ -4,13 +4,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yc.bean.UsersMapper">
 
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
-	</cache>
 
-	<!-- 根据用户名和密码查询用户 -->
+	<!-- 登录 -->
 	<select id="getUserByLogin" resultType="Users" parameterType="Users">
-		select * from users where uname = #{uname} and upwd = #{upwd}
+		select users.uid,did,gid,perid,users.uname from users 
+		left join permissionforuser on users.uid = permissionforuser.uid
+		where uname = #{uname} and upwd = #{upwd}
 	</select>
+	<resultMap id="UserPermission" type="Users">
+		<id property="uid" column="uid" />
+		<result property="did" column="did" />
+		<result property="gid" column="gid" />
+		<collection property="permissions" ofType="Permission">
+			<id property="perid" column="perid" />
+			<result property="pername" column="pername" />
+		</collection>
+	</resultMap>
+	
+	
+	
 	<!-- 添加用户 -->
 	<insert id="saveUser" parameterType="Users" useGeneratedKeys="true"
 		keyProperty="uid">
@@ -46,6 +58,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
+	
+	<!-- 查询所有的用户 -->
+	<select id="findUsersByUid" resultType="Users"
+		parameterType="Users">
+		select * from users u left join department d on u.did=d.did inner join
+		groups g on g.gid=u.gid where uid=#{uid}
+		<include refid="orderSql" />
+		<include refid="pageSql" />
+	</select>
 
 
 
@@ -76,12 +97,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		gid=#{gid},did=#{did},ustatus=#{ustatus} where uid=#{uid}
 	</update>
 	
+	
+	<update id="updatePwd" parameterType="Users">
+		update users set
+		upwd=#{upwd} where uid=#{uid}
+	</update>
+	
+	
+	
+
 	<!-- 根据user里面的did查找自己部门的主管 -->
 	<select id="findLeaderBydid" parameterType="Users" resultType="Users">
 		select * from users right join
-		(select uid from permissionforuser where perid =
+		(select uid from permissionforuser where
+		perid =
 		(select perid from permission where pername='审批公文')) a
-		on users.uid = a.uid where did = #{did}
+		on
+		users.uid = a.uid where did = #{did}
 	</select>
 	
+	<select id="findUserByDid" parameterType="Users" resultType="Users">
+		select uid,uname  from users where did = #{did}
+	</select>
+
+	<!-- 查用户权限 -->
+	<select id="findPermissionforuser" resultType="Users"  parameterType="Users">
+		select users.uid as
+		uid,department.department as department,groups.gname as gname,users.uname as uname,
+		permission.pername as pername,permission.perid as perid from users
+		left join permissionforuser on permissionforuser.uid = users.uid left
+		join permission on
+		permissionforuser.perid = permission.perid 
+		left join department on users.did = department.did
+		left join groups on users.gid = groups.gid
+		where permission.pername !=""
+			<if test="pername!=null and pername!=''">
+				and permission.pername=#{pername}
+			</if>
+	</select>
+
+	<select id="findPermissionCount" resultType="int"
+		parameterType="Users">
+		select count(*) from users left join permissionforuser on users.uid = permissionforuser.uid
+		left join permission on permission.perid = permissionforuser.perid 
+		where permission.pername !=""
+			<if test="pername!=null and pername!=''">
+				and	permission.pername=#{pername}
+			</if>
+	</select>
+
 </mapper>

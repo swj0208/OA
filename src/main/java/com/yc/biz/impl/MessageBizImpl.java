@@ -36,8 +36,8 @@ public class MessageBizImpl implements MessageBiz {
 	}
 
 	@Override
-	public int findMessageCount() throws Exception {
-		int count = (int) baseDao.findOne(Message.class, "MessageCount");
+	public int findMessageCount(Message message) throws Exception {
+		int count = (int) baseDao.findOne(message, "MessageCount");
 		return count;
 	}
 

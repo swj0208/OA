@@ -2,7 +2,7 @@
 <%@ include file="../header.jsp"%>
 <script type="text/javascript">
 	$(function() {
-		$('#manNoticeTable').edatagrid({
+		$('#manMessageTable').edatagrid({
 			url : 'user/findMessage.action', //查询时加载的URL
 			pagination : true,//显示分页
 			pageSize : 10, //默认分页的条数
@@ -27,19 +27,24 @@
 				width : 100,
 				align : 'center',
 				hidden : 'true'
-			}, {
-				field : 'did',
+			},{
+				field : 'fromuid',
+				title : '发送者编号',
+				width : 100,
+				align : 'center'
+			},{
+				field : 'department',
 				title : '部门编号',
 				width : 100,
 				align : 'center'
 			}, {
-				field : 'gid',
+				field : 'gname',
 				title : '小组',
 				width : 100,
 				align : 'center'
 			}, {
-				field : 'uid',
-				title : '员工',
+				field : 'touname',
+				title : '接收者',
 				width : 100,
 				align : 'center'
 			}, {
@@ -52,13 +57,36 @@
 				title : '权重',
 				width : 100,
 				align : 'center'
+			},{
+				field : 'fname',
+				title : '文件名',
+				width : 100,
+				align : 'center'
+			},
+			{
+				field : 'operate',
+				title : '操作',
+				align : 'center',
+				width : 100,
+				formatter : function(val, row, index) {
+					if(row.fid!=null){
+						var str = '<a href="javascript:void(0)" onclick="filedownload('+ index + ')">下载</a>';
+						return str;
+					}
+				}
 			}] ]
 		})
 	});
+	
+	function filedownload(index){
+		$('#manMessageTable').datagrid('selectRow',index);
+		var row = $('#manMessageTable').datagrid('getSelected');
+		location.href="user/fileDownload.action?fid="+row.fid;
+	}
 </script>
 <title>新闻维护</title>
 </head>
 <body>
-	<table id="manNoticeTable"></table>
+	<table id="manMessageTable"></table>
 </body>
 </html>

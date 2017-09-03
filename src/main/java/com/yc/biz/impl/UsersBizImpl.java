@@ -1,7 +1,6 @@
 package com.yc.biz.impl;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -9,23 +8,17 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.Gson;
-import com.jspsmart.upload.Request;
 import com.jspsmart.upload.SmartUploadException;
-import com.yc.bean.Plan;
+import com.yc.bean.Permission;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
 import com.yc.utils.Encrypt;
-import com.yc.utils.FileUpload;
 
 @Service
 @Transactional
@@ -108,4 +101,43 @@ public class UsersBizImpl implements UsersBiz {
 	}
 
 
+
+	@Override
+	public boolean updatePwd(Users users) {
+		this .baseDao.update(users, "updatePwd");
+		return true;
+	}
+
+
+
+	@Override
+	public List<Users> getUsersByUid(Integer uid) {
+		Users u=new Users();
+		u.setUid(uid);
+		List<Users> list=this.baseDao.findAll(u, "findUsersByUid");
+		return list;
+	}
+
+
+
+	
+	public List<Users> findPermissionforUser(Users users) {
+		List<Users> list = baseDao.findAll(users, "findPermissionforuser");
+		return list;
+	}
+
+
+
+	@Override
+	public int findPermissionCount(Users users) {
+		int count = (int) baseDao.findOne(users, "findPermissionCount");
+		return count;
+	}
+
+
+
+	@Override
+	public List<Users> findUserByDid(Users users) {
+		return baseDao.findAll(users, "findUserByDid");
+	}
 }
