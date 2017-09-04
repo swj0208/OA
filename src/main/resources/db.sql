@@ -47,7 +47,6 @@ insert into notice(ntitle,ncontent,ntype,publictime,uid)values('好消息','今�
 
 select u.uname,n.ntitle from notice n left join users u on n.uid=u.uid where n.uid=17
 select * from notice;
-drop table affiche;
 
 drop table plan
 --任务表： 任务编号、任务名、内容、开始时间、时间限制、完成时间、状态、

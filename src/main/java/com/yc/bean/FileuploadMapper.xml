@@ -83,35 +83,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from file where fid = #{fid}
 	</select>
 	
-	<!--  查找发给自己的文件或本部门的文件 
-	<select id="sendMeFile" parameterType="Fileupload" resultType="Fileupload">
-	select a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
-	a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
-	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname from  file 
-	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
-	or (todid =did  and togid=gid and ISNULL(touid)) 
-	or (todid = did and togid =gid  and touid=users.uid) where 
-	users.uid=#{touid}) a left join users u on a.uid=u.uid where 1=1
-		
-		<include refid="orderSql" />
-		<include refid="pageSql" />
-	</select>-->
-	
-	<!--  查找发给自己的文件或本部门的文件
-	<select id="sendMeFileCount" parameterType="Fileupload" resultType="int">
-			select  count(*) from  file 
-		inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
-		or (todid =did  and togid=gid and ISNULL(touid)) 
-		or (todid = did and togid =gid  and touid=users.uid) where
-		users.uid=#{touid}
-		 
-	</select> -->
-	
 	<!-- 查找我发出的文件 -->
 	<select id="findMeSendFile" parameterType="Fileupload" resultType="Fileupload">
 	select f.fid as fid ,f.fname as fname,f.description as description,f.uptime as uptime,
 	f.downtimes as downtimes,f.uid as uid,u.uname as uname from file f left join department d on todid=did left join groups g on togid=g.gid 
-	left join users u on u.uid=touid  where f.uid=#{uid}
+	left join users u on u.uid=f.uid  where f.uid=#{uid}
 	</select>
 	
 	<!-- 查找我发出的文件数量(用于分页) -->
