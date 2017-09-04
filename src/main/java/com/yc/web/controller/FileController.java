@@ -67,9 +67,13 @@ public class FileController {
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages - 1) * pagesize;
 		Users users = (Users) session.getAttribute("users");
+		String orderby = request.getParameter("sort").toString();
+		String orderway = request.getParameter("order").toString();
 		fileupload.setTouid(users.getUid());
 		fileupload.setStart(start);
 		fileupload.setPagesize(pagesize);
+		fileupload.setOrderby(orderby);
+		fileupload.setOrderway(orderway);
 		List<Fileupload> list = fileuploadBiz.findFile(fileupload);
 		Integer count = fileuploadBiz.findFileCount(fileupload);
 		jsonModel.setRows(list);

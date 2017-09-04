@@ -9,9 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<sql id="orderSql">
 		<if test="orderby!=null and orderby!=''">
-			order by #{orderby}
+			order by ${orderby}
 			<if test="orderway!=null and orderway!=''">
-				#{orderway}
+				${orderway}
 			</if>
 		</if>
 	</sql>
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and uid=#{uid}
 			</if>
 		</where>
-		<include refid="orderSql"/>
+		order by publictime desc
 		<include refid="pageSql"/>
 	</select>
 	

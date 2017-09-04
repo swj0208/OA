@@ -9,9 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<sql id="orderSql">
 		<if test="orderby!=null and orderby!=''">
-			order by #{orderby}
+			order by ${orderby}
 			<if test="orderway!=null and orderway!=''">
-				#{orderway}
+				${orderway}
 			</if>
 		</if>
 	</sql>
@@ -41,13 +41,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	or (todid =did  and togid=gid and ISNULL(touid)) 
 	or (todid = did and togid =gid  and touid=users.uid) where 
 	users.uid=#{touid}) a left join users u on a.uid=u.uid where a.fstatus=1
-		<if test="timefrom!=null">
+		<if test="timefrom!=null and timefrom!=''">
 			and a.uptime>#{timefrom}
 		</if>
-		<if test="timeto!=null">
+		<if test="timeto!=null and timeto!=''">
 			and #{timeto}>a.uptime
 		</if>
-		<if test="fname!=null">
+		<if test="fname!=null and fname!=''">
 			and a.fname like '%${fname}%'
 		</if>
 		<include refid="orderSql" />

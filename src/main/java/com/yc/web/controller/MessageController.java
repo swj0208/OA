@@ -87,6 +87,8 @@ public class MessageController {
 		String orderway = request.getParameter("order").toString();
 		message.setStart(start);
 		message.setPagesize(pagesize);
+		message.setOrderby(orderby);
+		message.setOrderway(orderway);
 		Users users=(Users) session.getAttribute("users");
 		message.setUid(users.getUid());
 		List<Message> list = messageBiz.findMessageByCondition(message);

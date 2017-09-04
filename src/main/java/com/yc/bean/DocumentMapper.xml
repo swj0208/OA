@@ -8,10 +8,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</cache>
 
 	<sql id="orderSql">
-		<if test="orderby!=null and orderby!=''">
-			order by #{orderby}
-			<if test="orderway!=null and orderway!=''">
-				#{orderway}
+		<if test="orderby!=null">
+			order by ${orderby}
+			<if test="orderway!=null">
+				${orderway}
 			</if>
 		</if>
 	</sql>

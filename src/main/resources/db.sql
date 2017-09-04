@@ -12,21 +12,8 @@ create table notice(
 	temp2 varchar(100)
 )
 
-select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
-		a.mweight as mweight,a.content as content,a.fid as fid,us.uname as
-		touname,
-		d.department as department ,g.gname as gname,f.fname as fname 
-		 from
-		(select m.uid as uid ,m.fromuid as fromuid ,m.did as did ,m.gid as gid,
-		m.mweight as mweight,m.content as content,m.fid as fid from message m
-		inner join users u on ( m.did=u.did and ISNULL(m.gid) and
-		ISNULL(m.uid))
-		or (m.did =u.did and m.gid=u.gid and ISNULL(m.uid))
-		or (m.did = u.did and m.gid =u.gid and m.uid=u.uid) where
-		u.uid=18) a left join users us on a.uid=us.uid left join groups g on a.gid=
-		g.gid
-		left join department d on a.did=d.did left join file f on a.fid=f.fid 
-		 where 1=1
+
+
 
 
 

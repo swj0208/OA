@@ -9,9 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<sql id="orderSql">
 		<if test="orderby!=null and orderby!=''">
-			order by #{orderby}
+			order by ${orderby}
 			<if test="orderway!=null and orderway!=''">
-				#{orderway}
+				${orderway}
 			</if>
 		</if>
 	</sql>
@@ -33,15 +33,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 按条件查找Message -->
-	<select id="FindMessageByCondition" parameterType="Message"
-		resultType="Message">
+	<select id="FindMessageByCondition" parameterType="Message" resultType="Message">
 		select a.mid as mid,a.uid as uid ,a.fromuid as fromuid,a.fromuname as fromuname ,a.did as did ,a.gid as gid,
 		a.mweight as mweight,a.fid as fid,us.uname as
 		touname,
-		d.department as department ,g.gname as gname,f.fname as fname 
+		d.department as department ,g.gname as gname,f.fname as fname ,a.createtime as createtime
 		 from
 		(select m.mid as mid,m.uid as uid ,m.fromuid as fromuid,e.uname as fromuname ,m.did as did ,m.gid as gid,
-		m.mweight as mweight,m.fid as fid from message m
+		m.mweight as mweight,m.fid as fid,m.createtime as createtime from message m
 		left join users e on e.uid = m.fromuid
 		inner join users u on (ISNULL(m.did) and ISNULL(m.gid) and ISNULL(m.uid)) 
 		or ( m.did=u.did and ISNULL(m.gid) and ISNULL(m.uid))
