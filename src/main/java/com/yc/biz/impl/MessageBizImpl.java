@@ -45,5 +45,16 @@ public class MessageBizImpl implements MessageBiz {
 	public List<Message> findContentBymid(Message message) {
 		return  baseDao.findAll(message, "findContentBymid");
 	}
+	
+	public List<Message> meSendMessage(Message message) throws Exception {
+		return  baseDao.findAll(message, "meSendMessage");
+		
+	}
+
+	@Override
+	public int meSendMessageCount(Message message) throws Exception {
+		int count = (int) baseDao.findOne(message, "meSendMessageCount");
+		return count;
+	}
 
 }

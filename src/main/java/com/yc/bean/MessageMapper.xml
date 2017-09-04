@@ -53,6 +53,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="pageSql" />
 	</select>
 
+	<select id="meSendMessage" parameterType="Message" resultType="Message">
+		select m.mid as mid ,m.content as content,m.mweight as mweight,
+		m.createtime as createtime,m.fromuid as fromuid,u.uname as touname ,
+		d.department as department,g.gname as gname,f.fname as fname,f.fid as fid
+		from message m left join department d on m.did=d.did left join groups g
+		on m.gid=g.gid left join users u on u.uid=m.uid left join file f on
+		m.fid=f.fid where m.fromuid=#{fromuid}
+		<include refid="orderSql" />
+		<include refid="pageSql" />
+	</select>
+		
+		<select id="meSendMessageCount" resultType="int">
+	select count(*) from  message  where 
+	fromuid=#{uid}
+	</select>
+
 	<!-- 查找Message数量 -->
 	<select id="MessageCount" resultType="int">
 	select count(*) from  message m

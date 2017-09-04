@@ -80,23 +80,7 @@ public class FileController {
 		jsonModel.setTotal(count);
 		return jsonModel;
 	}
-	
-//	@RequestMapping("/user/sendMeFile.action")
-//	public JsonModel sendMeFile(Fileupload fileupload,HttpServletRequest request,HttpSession session) throws Exception{
-//		JsonModel jsonModel = new JsonModel();
-//		int pages = Integer.parseInt(request.getParameter("page").toString());
-//		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
-//		int start = (pages-1)*pagesize;
-//		fileupload.setStart(start);
-//		fileupload.setPagesize(pagesize);
-//		Users users=(Users) session.getAttribute("users");
-//		fileupload.setTouid(users.getUid());
-//		List<Fileupload> list = fileuploadBiz.sendMeFile(fileupload);
-//		Integer count = fileuploadBiz.sendMeFileCount(fileupload);
-//		jsonModel.setRows(list);
-//		jsonModel.setTotal(count);
-//		return jsonModel;
-//	}
+
 	
 	@RequestMapping("/user/meSendOutFile.action")
 	public JsonModel meSendOutFile(Fileupload fileupload,HttpServletRequest request,HttpSession session) throws Exception{

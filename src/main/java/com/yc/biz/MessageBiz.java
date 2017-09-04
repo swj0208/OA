@@ -33,4 +33,19 @@ public interface MessageBiz {
 	 * 根据mid查找信息详情
 	 */
 	public List<Message> findContentBymid(Message message);
+	/**
+	 * 我发布的消息
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Message> meSendMessage(Message message) throws Exception;
+	
+	/**
+	 * 我发布消息的数量
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	public int meSendMessageCount(Message message) throws Exception;
 }

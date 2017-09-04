@@ -54,8 +54,10 @@ iframe {
 			<div title="权限管理" style="overflow: auto; padding: 10px;">
 				<ul id="powerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
+				<c:if test="${users.perid==3 }">
 				<ul id="userpowerTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">
 				</ul>
+				</c:if>
 			</div>
 			<div title="公文管理" style="overflow: auto; padding: 10px;">
 				<ul id="documentTree" class="easyui-tree" data-options="animate:true,state:closed,fit:true">

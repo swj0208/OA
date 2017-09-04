@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jspsmart.upload.SmartUploadException;
-import com.yc.bean.Permission;
 import com.yc.bean.Users;
 import com.yc.biz.UsersBiz;
 import com.yc.dao.BaseDao;
@@ -39,7 +38,8 @@ public class UsersBizImpl implements UsersBiz {
 		Users u =  (Users) this.baseDao.findOne(users, "getUserByLogin");
 		return u;
 	}
-
+	
+	
 	
 
 	/**

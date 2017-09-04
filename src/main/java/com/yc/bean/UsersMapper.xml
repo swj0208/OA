@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="pageSql" />
 	</select>
 	
-	<!-- 查询所有的用户 -->
+	<!-- 根据id查询的用户 -->
 	<select id="findUsersByUid" resultType="Users"
 		parameterType="Users">
 		select * from users u left join department d on u.did=d.did inner join
