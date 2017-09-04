@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.bean.AchieveMapper">
+	<!-- 加入带日志的ehcache缓存 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"></cache>
+	
+	<!-- 查找任务步骤 -->
+	<select id="findAchieve" parameterType="java.util.Map" resultType="Achieve">
+		select aid,acontent,pid,uname,completetime,remark from achieve
+			left join users on achieve.uid=users.uid where pid=#{pid}
+	</select>
+
+	<!-- 完成任务步骤 -->
+	<update id="completeAchieve" parameterType="Achieve">
+		update achieve set completetime=now()
+		<if test="uid!=null and uid!=''">
+			,uid=#{uid} 
+		</if>
+		where aid=#{aid} 
+	</update>
+	
+	<!-- 添加备注 -->
+	<update id="addAchieveRemark" parameterType="Achieve">
+		update achieve set remark=#{remark} where aid=#{aid}
+	</update>
+	
+	<!-- 新增步骤 -->
+	<insert id="addAchieve" parameterType="java.util.List" useGeneratedKeys="true"
+		keyProperty="aid">
+		insert into achieve(acontent,pid,uid) values
+		<foreach collection="list" index="index" item="item"
+			separator=",">
+			(#{item.acontent},#{item.pid},#{item.uid})
+		</foreach> 
+	</insert>
+
+</mapper>

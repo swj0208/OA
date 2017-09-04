@@ -158,11 +158,11 @@ public class FileController {
 		if (timeto != null && !"".equals(timeto)) {
 			timeto = df.datetimeformat(timeto);
 			fileupload.setTimeto(timeto);
-		}
-		if (timefrom.compareTo(timeto) > 0) {
-			jm.setMsg("请输入正确的日期格式！");
-			jm.setCode(0);
-			return jm;
+			if (timefrom.compareTo(timeto) > 0) {
+				jm.setMsg("请输入正确的日期格式！");
+				jm.setCode(0);
+				return jm;
+			}
 		}
 		Users users = (Users) session.getAttribute("users");
 		fileupload.setTouid(users.getUid());

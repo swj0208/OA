@@ -2,6 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
+<style type="text/css">
+#content_div{
+	width: 100%;
+	overflow-y: scroll;
+	height: 200px;
+}
+</style>
 
 <script type="text/javascript">
 	$(function() {
@@ -9,8 +16,9 @@
 	});
 
 	function initData(params) {
+		var _gid=${users.gid};
 		$('#tt').datagrid({
-			url : 'findAllPlan.action?pages=1&&pstatus=2',
+			url : 'findAllPlan.action?pages=1&&pstatus=2&&gid='+_gid,
 			fit:true,
 			title : '待办事宜',
 			iconCls : 'icon-save',
@@ -111,6 +119,10 @@
 		               noSelect();
 		               return;  
 		            } 
+		            if(rows.pstatus=="已完成"){
+		            	$.messager.alert("提示！", "该计划已完成，不要重复操作！");
+		            	return;
+		            }
 		        	 $.messager.confirm('计划完成', '你确定这个工作计划完成了吗?', function(r){
 		                 if (r){
 		                	 $.ajax({
@@ -131,8 +143,45 @@
 		             });
             	}
             }
+		    ,'-',
+		    {
+		        text:'添加任务步骤',
+		        iconCls:'icon-add',
+		        handler:function(){
+		        	var rows = $('#tt').datagrid('getSelected');
+		            if (null == rows || rows.length == 0) {  
+		               noSelect();
+		               return;  
+		            }
+		            if(rows.pstatus=="已完成"){
+		            	$.messager.alert("提示！", "该计划已完成，不能对其进行添加任务步骤！");
+		            	return;
+		            }
+		        	$('#addAchieve_dlg').show();
+		        	$('#addAchieve_dlg').dialog({
+		        		 iconCls: 'icon-add',
+		                 buttons: [{
+		                     text:'关闭',
+		                     iconCls:'icon-cancel',
+		                     handler:function(){
+		                    	$('#addAchieveForm').form('clear');
+		                    	$("#achieveTbody").empty();
+		                        $('#addAchieve_dlg').dialog('close');
+		                     }
+		                 },{
+		                	 iconCls: 'icon-clear',
+		                     text:'清空数据',
+		                     handler:function(){
+		                    	 $('#addAchieveForm').form('clear');
+		                     }
+		                 }]
+		        	});
+		        	$('#addAchieveForm').form('load', rows);
+		        	$('#form1').form('load', rows);
+		        }
+		    },'-',
 		    
-		    ,'-',{
+		    {
 		    	//这里是查找按钮的具体操作
 		        text:'查找',
 		        iconCls:'icon-search',
@@ -196,7 +245,15 @@
 				align:'center',
 				sortable:'true'
 				
-			} ] ],
+			}, 
+			{
+				field : 'xiangqing',
+				title : '点击查看任务详情',
+				align:'center',
+				formatter: operation
+			} 
+			
+			] ],
 			
 			//数据的样式
 			 rowStyler: function(index,row){
@@ -216,22 +273,81 @@
              }, 
                 view: detailview,
                 detailFormatter: function(index, row) {
-                    return '<div id="ddv-' + index + '" style="padding:5px;"></div>';
+                	return '<div style="padding:2px"><table id="ddv-' + index + '"></table></div>';
                 },
                  onExpandRow: function(index, row) {
-                	 $('#ddv-'+index).datagrid({  
+                	$('#ddv-'+index).datagrid({  
+                         url:'findAchieve.action?pid='+row.pid,  
+                         	
                          fitColumns:true,  
                          singleSelect:true,  
-                         rownumbers:false,  
+                         rownumbers:true,  
                          loadMsg:'',  
                          height:'auto',
-                         nowrap: false,
+                         toolbar:[{
+                        	text: '任务完成', 
+             		    	iconCls: 'icon-ok', 
+             		    	handler: function () {
+             		    		var rows = $('#ddv-'+index).datagrid('getSelected');  
+             		            if (null == rows || rows.length == 0) {  
+             		               noSelect();
+             		               return;  
+             		            }
+								if(rows.completetime!=null&&rows.completetime!=""){
+									$.messager.alert("提示！", "该任务已完成，不要重复操作！");
+									return;
+								}
+             		            var uid=${users.uid};
+             		        	 $.messager.confirm('任务完成', '你确定这个任务完成了吗?', function(r){
+             		                 if (r){
+             		                	 $.ajax({
+             		 		    			type : "POST",
+             		 		    			data:"aid="+rows.aid+"&uid="+uid,
+             		 		    			url : "completeAchieve.action",
+             		 		    			dataType : "JSON",
+             		 		    			success : function(data) {
+             		 		    				if (data.code == 1) {
+             		 		    					$.messager.alert("提示！", "任务完成成功！");
+             		 		                        $('#tt').datagrid("reload");
+             		 		    				} else {
+             		 		    					$.messager.alert("提示！", "任务完成失败！");
+             		 		    				}
+             		 		    			}
+             		 		    		});
+             		                 }
+             		             });
+                         	} 
+                         },
+                         {
+             		        text:'添加备注',
+             		        iconCls:'icon-add',
+             		        handler:function(){
+             		        	var rows = $('#ddv-'+index).datagrid('getSelected');  
+             		            if (null == rows || rows.length == 0) {  
+             		               noSelect();
+             		               return;  
+             		            }
+								if(rows.remark!=null&&rows.remark!=""){
+									$.messager.alert("提示！", "该任务已有备注，不要重复操作！");
+									return;
+								}
+             		        	$('#remark_dlg').show();
+             		        	$('#remark_dlg').dialog({
+
+             		        	});
+             		        	$('#addAchieveRemarkForm').form('load', rows);
+             		        	
+             		        }
+             		     }
+                         ], 
                          columns:[[  
-                             {field:'pid',title:'编号'},  
-                             {field:'content',title:'内容' }
-                              
-                         ]], 
-                         
+							{field:'ck',checkbox:true},
+                             {field:'aid',title:'执行编号',align:'center'},  
+                             {field:'acontent',title:'执行内容',align:'center'},  
+                             {field:'uname',title:'执行人',align:'center'},  
+                             {field:'completetime',title:'完成时间',align:'center'},
+                             {field:'remark',title:'备注',align:'center'}
+                         ]],  
                          onResize:function(){  
                              $('#tt').datagrid('fixDetailRowHeight',index);  
                          },  
@@ -239,18 +355,10 @@
                              setTimeout(function(){  
                                  $('#tt').datagrid('fixDetailRowHeight',index);  
                              },0);  
-                         } 
-                	 }); 
-                	 $('#tt').datagrid('selectRow',index);
-                	 var obj=$('#tt').datagrid('getSelected');
-                	 var data={
-                			 'rows':[{
-                				 pid:obj.pid,
-                				 content:obj.content
-                			 }]
-                		 }
-                	$('#ddv-'+index).datagrid('loadData',data); //加载选中行数据
-                    $('#tt').datagrid('fixDetailRowHeight', index);
+                         }  
+                     });
+                  	 $('#tt').datagrid('selectRow',index);
+                     $('#tt').datagrid('fixDetailRowHeight',index); 
                 } 
 		});
 	}
@@ -319,6 +427,43 @@
 			}
 		});
 	}
+	
+	//点击查看详情
+	function operation(value, row, index){
+		var content=row.content;
+		return "<a href='javascript:void(0)' onclick='showPlanContent("+row.pid+","+row.gid+")'>详情</a>";
+	}
+	
+	function showPlanContent(pid,gid){
+		$.ajax({
+			type : "POST",
+			url : "findPlanContent.action?pid="+pid+"&gid="+gid,
+			dataType : "JSON",
+			success : function(data) {
+				$('#content_dlg').show();
+				$('#content_dlg').dialog({
+				});
+				
+				//具体内容
+				$('#content_div').empty();
+				var str1=data.rows[0].content;
+				$('#content_div').append(str1);
+				
+				//小组信息
+				$('#group_div').empty();
+				var users=data.rows[0].userlist;
+				var str2='<b>组名：</b>'+data.rows[0].gname+'<br>';
+				 str2+='<b>成员：</b>';
+				for(var i=0;i<users.length;i++){
+					str2+=users[i].uname+'、';
+				}
+				str2=str2.substring(0,str2.length-1)
+				$('#group_div').append(str2);
+				
+			}
+		});
+	}
+	
 </script>
 
 <table id="tt" ></table>
@@ -326,6 +471,9 @@
 <%@ include file="planadd.jsp"%>
 <%@ include file="planupdate.jsp"%>
 <%@ include file="plansearch.jsp"%>
+<%@ include file="plancontent.jsp"%>
+<%@ include file="achieveremark.jsp"%>
+<%@ include file="achieveadd.jsp"%>
 
 
 </body>
