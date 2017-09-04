@@ -2,6 +2,9 @@ package com.yc.biz;
 
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.yc.bean.Users;
 
 public interface UsersBiz {
@@ -37,9 +40,6 @@ public interface UsersBiz {
 	
 	//用户修改个人信息
 	public boolean updatePwd(Users users);
-	
-
-	
 	
 	
 	public List<Users> findPermissionforUser(Users users);

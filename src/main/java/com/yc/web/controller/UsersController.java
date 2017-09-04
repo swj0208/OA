@@ -2,7 +2,6 @@ package com.yc.web.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.yc.bean.Fileupload;
 import com.yc.bean.Users;
 import com.yc.biz.FileuploadBiz;
 import com.yc.biz.UsersBiz;
@@ -29,11 +27,12 @@ public class UsersController {
 
 	@Resource(name="usersBizImpl")
 	private UsersBiz usersBiz;
-	
+
 	@Resource(name = "fileuploadBizImpl")
 	private FileuploadBiz fileuploadBiz;
-	
-	
+
+
+
 	@RequestMapping("/users_login.action")
 	public JsonModel login(Users user, HttpServletRequest request, HttpSession session) {
 		JsonModel jsonModel = new JsonModel();
@@ -53,6 +52,7 @@ public class UsersController {
 					jsonModel.setCode(0);
 					jsonModel.setMsg("用户名或密码错误");
 				}
+
 			}catch(Exception e){
 				e.printStackTrace();
 				jsonModel.setCode(0);
@@ -62,6 +62,36 @@ public class UsersController {
 		session.setAttribute("users", user);
 		return jsonModel;
 	}
+
+	//	@RequestMapping("/users_login.action")
+	//	public JsonModel login(Users user, HttpServletRequest request, HttpSession session) {
+	//		JsonModel jsonModel = new JsonModel();
+	//		String zccode = request.getParameter("zccode");
+	//		String rand = session.getAttribute("rand").toString();
+	//		if (!rand.equals(zccode)) {
+	//			jsonModel.setCode(0);
+	//			jsonModel.setMsg("验证码错误");
+	//		} else {
+	//			try{
+	//				user = usersBiz.login(user);
+	//				if (user != null) {
+	//					jsonModel.setCode(1);
+	//					user.setUpwd(null);   // 设为空后,密码就不会传到界面
+	//					jsonModel.setObj(user);
+	//				} else {
+	//					jsonModel.setCode(0);
+	//					jsonModel.setMsg("用户名或密码错误");
+	//				}
+	//			}catch(Exception e){
+	//				e.printStackTrace();
+	//				jsonModel.setCode(0);
+	//				jsonModel.setMsg(e.getMessage());
+	//			}
+	//		}
+	//		session.setAttribute("users", user);
+	//		return jsonModel;
+	//	}
+
 	//添加员工
 	@RequestMapping("/user/users_add.action")
 	public JsonModel addUsers(Users users, HttpSession session,
@@ -84,7 +114,7 @@ public class UsersController {
 		}
 		return jsonModel;
 	}
-	
+
 	//修改员工资料
 	@RequestMapping("/updateUser.action")
 	public JsonModel updateUser(Users users) {
@@ -104,33 +134,33 @@ public class UsersController {
 		}
 		return jm;
 	}
-	
+
 	//修改个人信息
 	@RequestMapping("/updatePwd.action")
 	public JsonModel updatePwd(Users users,HttpServletRequest request) {
-			JsonModel jm=new JsonModel();
-			users.setUpwd(request.getParameter("pwd"));
-			if(!users.getUpwd().equals(users.getRepwd())){
-				jm.setCode(0);
-				jm.setMsg("两次密码不相等！");
-				return jm;
-			}
-			if (users.getUpwd()!=null&&!users.getUpwd().equals("")) {
-				users.setUpwd(Encrypt.md5AndSha(users.getUpwd()));
-				boolean result=usersBiz.updatePwd(users);
-				if(result){
-					jm.setCode(1);
-				} else{
-					jm.setCode(0);
-				}
-			}else{
-				jm.setCode(0);
-				jm.setMsg("新密码不能为空！");
-			}
-			request.setAttribute("jm", jm);
+		JsonModel jm=new JsonModel();
+		users.setUpwd(request.getParameter("pwd"));
+		if(!users.getUpwd().equals(users.getRepwd())){
+			jm.setCode(0);
+			jm.setMsg("两次密码不相等！");
 			return jm;
 		}
-	
+		if (users.getUpwd()!=null&&!users.getUpwd().equals("")) {
+			users.setUpwd(Encrypt.md5AndSha(users.getUpwd()));
+			boolean result=usersBiz.updatePwd(users);
+			if(result){
+				jm.setCode(1);
+			} else{
+				jm.setCode(0);
+			}
+		}else{
+			jm.setCode(0);
+			jm.setMsg("新密码不能为空！");
+		}
+		request.setAttribute("jm", jm);
+		return jm;
+	}
+
 	// 删除人员(员工离职)
 	@RequestMapping("/delUsers.action")
 	public JsonModel delUsers(Integer uid) throws Exception {
@@ -143,39 +173,39 @@ public class UsersController {
 		}
 		return jm;
 	}
-	
+
 	//查询所有员工,加载到页面分页等
 	@RequestMapping("/user/manUser.action")
 	public JsonModel manUser(Users users,HttpServletRequest request) throws Exception {
-			JsonModel jModel=new JsonModel();
-			int pages=Integer.parseInt(request.getParameter("page").toString());
-			int pagesize=Integer.parseInt(request.getParameter("rows").toString());
-			int start=(pages-1)*pagesize;
-			users.setStart(start);
-			users.setPagesize(pagesize);
-			List<Users> list=usersBiz.getAllUsers(users);
-			Integer count =usersBiz.getAllUsersCount(users);
-			jModel.setRows(list);
-			jModel.setTotal(count);
-			return jModel;
-			//easyUI要求的格式
-			
-	
+		JsonModel jModel=new JsonModel();
+		int pages=Integer.parseInt(request.getParameter("page").toString());
+		int pagesize=Integer.parseInt(request.getParameter("rows").toString());
+		int start=(pages-1)*pagesize;
+		users.setStart(start);
+		users.setPagesize(pagesize);
+		List<Users> list=usersBiz.getAllUsers(users);
+		Integer count =usersBiz.getAllUsersCount(users);
+		jModel.setRows(list);
+		jModel.setTotal(count);
+		return jModel;
+		//easyUI要求的格式
+
+
 	}
-	
+
 	//查询所有员工,加载到页面分页等
-		@RequestMapping("/user/myselfMessage.action")
-		public JsonModel myselfMessage(Users users,HttpSession session) throws Exception {
-				JsonModel jModel=new JsonModel();
-				users=(Users) session.getAttribute("users");
-				List<Users> list= usersBiz.getUsersByUid(users.getUid());
-				jModel.setRows(list);
-				return jModel;
-				//easyUI要求的格式
-				
-		}
-	
-	
+	@RequestMapping("/user/myselfMessage.action")
+	public JsonModel myselfMessage(Users users,HttpSession session) throws Exception {
+		JsonModel jModel=new JsonModel();
+		users=(Users) session.getAttribute("users");
+		List<Users> list= usersBiz.getUsersByUid(users.getUid());
+		jModel.setRows(list);
+		return jModel;
+		//easyUI要求的格式
+
+	}
+
+
 	@RequestMapping("/user/uname_list.action")
 	public JsonModel uname_list(HttpServletRequest request){
 		int did = Integer.parseInt( request.getParameter("did") );
@@ -185,8 +215,8 @@ public class UsersController {
 		jm.setRows(list);     //jm.setObj(list);
 		return jm;
 	}
-	
-	
+
+
 	@RequestMapping(value="/user/findPermissionforuser.action")
 	private JsonModel findPermissionforuser(Users users,HttpServletRequest request) throws Exception {
 		JsonModel jsonModel = new JsonModel();
