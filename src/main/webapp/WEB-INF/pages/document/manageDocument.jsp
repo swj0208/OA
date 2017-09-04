@@ -17,7 +17,7 @@
 			idField : "doid",//标识，会记录我们选中的一行的id，不一定是id，通常是主键
 			rownumbers : "true",//显示行号
 			nowrap : "true",//不换行显示
-			sortName : "doid",//排序的列 这个参数会传到7后台的servlet上，所以要有后台对应的接受
+			sortName : "dotime",//排序的列 这个参数会传到7后台的servlet上，所以要有后台对应的接受
 			sortOrder : "desc",//排序方式
 			singleSelect : true,
 
@@ -79,14 +79,28 @@
 						field : 'operate',
 						title : '下载',
 						align : 'center',
-						width : 100,
+						width : 50,
 						formatter : function(val, row, index) {
-							var str = '<a href="javascript:void(0)" onclick="filedownload('
-									+ index + ')">下载</a>';
-							return str;
+							if(row.dofid!=null){
+								var str = '<a href="javascript:void(0)" onclick="filedownload('
+										+ index + ')">下载</a>';
+								return str;
+							}
 						}
 					},
-					
+					{
+						field : 'show',
+						title : '公文内容',
+						align : 'center',
+						width : 70,
+						formatter : function(val, row, index) {
+							if(b==row.dotouid||b==row.dofromuid){
+								var str = '<a href="javascript:void(0)" onclick="showDocument('
+										+ index + ')">显示详情</a>';
+								return str;
+							}
+						}
+					},
 					{
 					
 						field : 'operate2',
@@ -122,9 +136,9 @@
 						field : 'operate4',
 						title : '归档',
 						align : 'center',
-						width : 100,
+						width : 50,
 						formatter : function(val, row, index) {
-							if(b==row.dofromuid){
+							if(b==row.dofromuid&&row.dostatus=='已完成'){
 								var str = '<a href="javascript:void(0)" onclick="gdDocument('
 										+ index
 										+ ')">归档</a>';
@@ -139,7 +153,7 @@
 						align : 'center',
 						width : 100,
 						formatter : function(val, row, index) {
-							if(b==row.douid){
+							if(b==row.douid&&row.dostatus=='任务合格'){
 								var str = '<a href="javascript:void(0)" onclick="finishDocument('
 										+ index
 										+ ')">已完成</a>/<a href="javascript:void(0)" onclick="badDocument('
@@ -148,6 +162,19 @@
 							}
 						}
 					
+					},
+					{
+						field : 'showComment',
+						title : '建议',
+						align : 'center',
+						width : 80,
+						formatter : function(val, row, index) {
+							if(row.dostatus=='不合格'&&b==row.dofromuid){
+								var str = '<a href="javascript:void(0)" onclick="showComment('
+										+ index + ')">显示详情</a>';
+								return str;
+							}
+						}
 					} ] ]
 		});
 
@@ -260,11 +287,65 @@
 			}
 		});
 	}
+	
+	function showDocument(index){
+		$('#showDocumentTable').datagrid('selectRow', index);
+		var row = $('#showDocumentTable').datagrid('getSelected');
+		$.ajax({
+			type : "POST",
+			url : "user/findContentBydoid.action?doid="+row.doid,
+			dataType : "JSON",
+			success : function(data) {
+				$('#content_dlg').show();
+				$('#content_dlg').dialog({
+				});
+				//具体内容
+				$('#content_div').empty();
+				var str1=data.rows[0].docontent;
+				$('#content_div').append(str1);
+			}
+		});
+
+	}
+	
+	function showComment(index){
+		$('#showDocumentTable').datagrid('selectRow', index);
+		var row = $('#showDocumentTable').datagrid('getSelected');
+		$.ajax({
+			type : "POST",
+			url : "user/findCommentBydoid.action?doid="+row.doid,
+			dataType : "JSON",
+			success : function(data) {
+				$('#comment_dlg').show();
+				$('#comment_dlg').dialog({
+				});
+				//具体内容
+				$('#comment_div').empty();
+				var str1=data.rows[0].docomment;
+				$('#comment_div').append(str1);
+			}
+		});
+
+	}
 </script>
 <title></title>
 </head>
 <body>
 	<table id="showDocumentTable"></table>
+	<div id="content_dlg" title="公文详情" style="display: none; padding: 10px; width: 500px;">
+		<b>公文具体内容：</b>
+		<div id="content_div">
+		
+		</div>
+
+	</div>
+	<div id="comment_dlg" title="建议详情" style="display: none; padding: 10px; width: 500px;">
+		<b>建议具体内容：</b>
+		<div id="comment_div">
+		
+		</div>
+
+	</div>
 	<%@ include file="docomment.jsp"%>
 </body>
 </html>

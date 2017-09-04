@@ -36,7 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.fstatus as fstatus ,a.fid as fid ,a.fname as fname,a.description as description,a.uptime as uptime,
 	a.downtimes as downtimes,a.uid as uid,u.uname as uname from		
 	(select  fid,fname,description,uptime,downtimes,file.uid as uid,uname ,fstatus from  file 
-	inner join  users on    ( todid=did  and  ISNULL(togid) and ISNULL(touid))
+	inner join  users on (ISNULL(todid) and ISNULL(togid) and ISNULL(touid)) or
+	  ( todid=did  and  ISNULL(togid) and ISNULL(touid))
 	or (todid =did  and togid=gid and ISNULL(touid)) 
 	or (todid = did and togid =gid  and touid=users.uid) where 
 	users.uid=#{touid}) a left join users u on a.uid=u.uid where a.fstatus=1

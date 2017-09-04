@@ -27,4 +27,10 @@ public interface MessageBiz {
 	 * @throws Exception
 	 */
 	public int findMessageCount(Message message) throws Exception;
+	
+	
+	/**
+	 * 根据mid查找信息详情
+	 */
+	public List<Message> findContentBymid(Message message);
 }

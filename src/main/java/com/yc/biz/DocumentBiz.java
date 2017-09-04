@@ -73,4 +73,15 @@ public interface DocumentBiz {
 	 * 已归档公文的数量
 	 */
 	public int findGDDocumentCount(Document document) throws Exception;
+	
+	
+	/**
+	 * 根据doid查公文内容
+	 */
+	public List<Document> findContentBydoid(Document document);
+	
+	/**
+	 * 根据doid查不合格内容
+	 */
+	public List<Document> findCommentBydoid(Document document);
 }

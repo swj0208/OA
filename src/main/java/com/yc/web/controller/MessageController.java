@@ -83,6 +83,8 @@ public class MessageController {
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages-1)*pagesize;
+		String orderby = request.getParameter("sort").toString();
+		String orderway = request.getParameter("order").toString();
 		message.setStart(start);
 		message.setPagesize(pagesize);
 		Users users=(Users) session.getAttribute("users");
@@ -91,6 +93,15 @@ public class MessageController {
 		Integer count = messageBiz.findMessageCount(message);
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
+		return jsonModel;
+	}
+	
+	
+	@RequestMapping(value="/user/findContentBymid.action")
+	private JsonModel findContentBymid(Message message, HttpServletRequest request,HttpSession session) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		List<Message> list = messageBiz.findContentBymid(message);
+		jsonModel.setRows(list);
 		return jsonModel;
 	}
 	

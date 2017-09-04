@@ -71,12 +71,17 @@ public class DocumentController {
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages-1)*pagesize;
+		String orderby = request.getParameter("sort").toString();
+		String orderway = request.getParameter("order").toString();
 		document.setStart(start);
 		document.setPagesize(pagesize);
+		document.setOrderby(orderby);
+		document.setOrderway(orderway);
 		List<Object> list = documentBiz.findDocumentByCondition(document);
 		Integer count = documentBiz.findDocumentCount();
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
+		
 		return jsonModel;
 	}
 	
@@ -154,6 +159,23 @@ public class DocumentController {
 		Integer count = documentBiz.findGDDocumentCount(document);
 		jsonModel.setRows(list);
 		jsonModel.setTotal(count);
+		return jsonModel;
+	}
+	
+	@RequestMapping(value="/user/findContentBydoid.action")
+	private JsonModel findContentBydoid(Document document, HttpServletRequest request) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		List<Document> list = documentBiz.findContentBydoid(document);
+		jsonModel.setRows(list);
+		return jsonModel;
+	}
+	
+	
+	@RequestMapping(value="/user/findCommentBydoid.action")
+	private JsonModel findCommentBydoid(Document document, HttpServletRequest request) throws Exception {
+		JsonModel jsonModel = new JsonModel();
+		List<Document> list = documentBiz.findCommentBydoid(document);
+		jsonModel.setRows(list);
 		return jsonModel;
 	}
 	

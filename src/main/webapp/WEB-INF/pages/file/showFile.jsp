@@ -16,7 +16,7 @@ $(function() {
 		idField : "fid",//标识，会记录我们选中的一行的id，不一定是id，通常是主键
 		rownumbers : "true",//显示行号
 		nowrap : "true",//不换行显示
-		sortName : "fid",//排序的列 这个参数会传到7后台的servlet上，所以要有后台对应的接受
+		sortName : "uptime",
 		sortOrder : "desc",//排序方式
 		singleSelect : true,
 

@@ -39,7 +39,7 @@ public class NoticeController {
 	@RequestMapping(value="/user/findAllNotice.action")
 	private JsonModel findAll(Notice notice, HttpSession session) throws Exception {
 		JsonModel jsonModel = new JsonModel();
-		notice.setOrderby("nid");
+		notice.setOrderby("publictime");
 		notice.setOrderway("desc");
 		int start=(notice.getPages()-1)*notice.getPagesize();
 		notice.setStart(start);

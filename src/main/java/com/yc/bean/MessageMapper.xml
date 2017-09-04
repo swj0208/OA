@@ -35,21 +35,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 按条件查找Message -->
 	<select id="FindMessageByCondition" parameterType="Message"
 		resultType="Message">
-		select a.uid as uid ,a.fromuid as fromuid ,a.did as did ,a.gid as gid,
-		a.mweight as mweight,a.content as content,a.fid as fid,us.uname as
+		select a.mid as mid,a.uid as uid ,a.fromuid as fromuid,a.fromuname as fromuname ,a.did as did ,a.gid as gid,
+		a.mweight as mweight,a.fid as fid,us.uname as
 		touname,
 		d.department as department ,g.gname as gname,f.fname as fname 
 		 from
-		(select m.uid as uid ,m.fromuid as fromuid ,m.did as did ,m.gid as gid,
-		m.mweight as mweight,m.content as content,m.fid as fid from message m
-		inner join users u on ( m.did=u.did and ISNULL(m.gid) and
-		ISNULL(m.uid))
+		(select m.mid as mid,m.uid as uid ,m.fromuid as fromuid,e.uname as fromuname ,m.did as did ,m.gid as gid,
+		m.mweight as mweight,m.fid as fid from message m
+		left join users e on e.uid = m.fromuid
+		inner join users u on (ISNULL(m.did) and ISNULL(m.gid) and ISNULL(m.uid)) 
+		or ( m.did=u.did and ISNULL(m.gid) and ISNULL(m.uid))
 		or (m.did =u.did and m.gid=u.gid and ISNULL(m.uid))
 		or (m.did = u.did and m.gid =u.gid and m.uid=u.uid) where
 		u.uid=#{uid}) a left join users us on a.uid=us.uid left join groups g on a.gid=
 		g.gid
 		left join department d on a.did=d.did left join file f on a.fid=f.fid 
-		 where 1=1
 		<include refid="orderSql" />
 		<include refid="pageSql" />
 	</select>
@@ -62,6 +62,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	or (m.did = u.did and m.gid =u.gid  and m.uid=u.uid) where 
 	u.uid=#{uid}
 	</select>
-
+	
+	<!-- 根据mid查找详情 -->
+	<select id="findContentBymid" resultType="Message" parameterType="Message">
+		select content from message where mid = #{mid}
+	</select>
 
 </mapper>

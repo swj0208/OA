@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="FindDocumentByCondition" parameterType="Document"
 		resultType="Document">
 		select
-		doid,dotitle,docontent,dofromuid,dotouid,douid,dotime,dofid,dostatus,docomment,a.uname
+		doid,dotitle,docontent,dofromuid,dotouid,douid,dotime,dofid,dostatus,a.uname
 		as funame,b.uname as tuname,c.uname as douname,file.fname as fname,permissionforuser.perid
 		from document left join
 		users a on document.dofromuid = a.uid
@@ -118,6 +118,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from
 		Document where dostatus ='已归档'
 	</select>
-
+	
+	<!-- 更据doid查公文内容 -->
+	<select id="findContentBydoid" resultType="Document" parameterType="Document">
+		select docontent from document where doid=#{doid}
+	</select>
+	
+	<!-- 更据doid查不合格内容 -->
+	<select id="findCommentBydoid" resultType="Document" parameterType="Document">
+		select docomment from document where doid=#{doid}
+	</select>
 
 </mapper>

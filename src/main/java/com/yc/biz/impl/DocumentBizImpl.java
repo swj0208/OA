@@ -84,6 +84,16 @@ public class DocumentBizImpl implements DocumentBiz {
 		return (int) baseDao.findOne(document, "findGDDocumentCount");
 	}
 
+	@Override
+	public List<Document> findContentBydoid(Document document) {
+		return baseDao.findAll(document, "findContentBydoid");
+	}
+	
+	@Override
+	public List<Document> findCommentBydoid(Document document) {
+		return baseDao.findAll(document, "findCommentBydoid");
+	}
+
 
 
 }

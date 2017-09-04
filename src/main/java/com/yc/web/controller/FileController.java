@@ -100,8 +100,10 @@ public class FileController {
 		int pages = Integer.parseInt(request.getParameter("page").toString());
 		int pagesize = Integer.parseInt(request.getParameter("rows").toString());
 		int start = (pages-1)*pagesize;
+		
 		fileupload.setStart(start);
 		fileupload.setPagesize(pagesize);
+		
 		Users users=(Users) session.getAttribute("users");
 		fileupload.setUid(users.getUid());
 		List<Fileupload> list = fileuploadBiz.meSendOutFile(fileupload);
