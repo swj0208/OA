@@ -3,7 +3,9 @@ package com.yc.web.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -180,5 +182,17 @@ public class PlanController {
 		jm.setTotal(count);
 		return jm;
 	}
+	
+	@RequestMapping("/findPlanContent.action")
+	public JsonModel findPlanContent(Integer pid,Integer gid){
+		JsonModel jm=new JsonModel();
+		Map<String, Integer> map=new HashMap<String,Integer>();
+		map.put("pid", pid);
+		map.put("gid", gid);
+		List<Plan> list =this.planBiz.findPlanContent(map);
+		jm.setRows(list);
+		return jm;
+	}
+	
 
 }

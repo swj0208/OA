@@ -24,4 +24,7 @@ public interface PlanBiz {
 
 	// 修改计划
 	public boolean updatePlan(Plan plan);
+	
+	//查找具体计划内容
+	public List<Plan> findPlanContent(Map<String, Integer> map);
 }
