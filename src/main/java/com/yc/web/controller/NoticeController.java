@@ -41,8 +41,8 @@ public class NoticeController {
 		JsonModel jsonModel = new JsonModel();
 		notice.setOrderby("publictime");
 		notice.setOrderway("desc");
-		int start=(notice.getPages()-1)*notice.getPagesize();
-		notice.setStart(start);
+		//int start=(notice.getPages()-1)*notice.getPagesize();
+		//notice.setStart(start);
 		JsonModel jm=this.noticeBiz.getNotice(notice);
 		session.setAttribute("notice", jm);
 		return jm;

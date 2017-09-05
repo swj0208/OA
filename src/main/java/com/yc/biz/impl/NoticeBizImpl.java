@@ -46,12 +46,12 @@ public class NoticeBizImpl implements NoticeBiz {
 	public JsonModel getNotice(Notice notice) throws Exception {
 		JsonModel jm=new JsonModel();
 		jm.setCode(1);
-		jm.setPages(notice.getPages());
-		jm.setPageSize(notice.getPagesize());
+		//jm.setPages(notice.getPages());
+		//jm.setPageSize(notice.getPagesize());
 		List<Notice> list=findAllNotice(notice);
-		int count=findNoticeCount(notice);
+		//int count=findNoticeCount(notice);
 		jm.setRows(list);
-		jm.setTotal(count);
+		//jm.setTotal(count);
 		return jm;
 		
 	}
